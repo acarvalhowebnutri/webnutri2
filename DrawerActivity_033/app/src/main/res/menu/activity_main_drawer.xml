@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="Home" />
+        <item
+            android:id="@+id/perfil"
+            android:icon="@drawable/ic_account_circle_black_24dp"
+            android:title="Perfil" />
+        <item
+            android:id="@+id/metas"
+            android:icon="@drawable/ic_pie_chart_black_24dp"
+            android:title="Metas" />
+        <item
+            android:id="@+id/historico"
+            android:icon="@drawable/ic_date_range_black_24dp"
+            android:title="Historico" />
+        <item
+            android:id="@+id/configuracoes"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="Configuracoes" />
+
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Send" />
+        </menu>
+    </item>
+
+</menu>
