@@ -36,7 +36,7 @@ public class AlimentoConsumido implements Serializable {
     }
 
     public void setData(String data) {
-        this.data = data;
+        this.data = new Date(data);
     }
 
 

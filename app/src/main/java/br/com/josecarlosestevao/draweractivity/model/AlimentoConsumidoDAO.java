@@ -38,7 +38,7 @@ public class AlimentoConsumidoDAO {
     public void adiciona(AlimentoConsumido alimento) {
         ContentValues values = new ContentValues();
         values.put("alimento", alimento.getAlimento());
-        values.put("data", alimento.getData());
+        values.put("data", alimento.getData().toString());
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         //String n = alimentoConsumido.getAlimento();
 
@@ -54,7 +54,7 @@ public class AlimentoConsumidoDAO {
         ContentValues values = new ContentValues();
         values.put("alimento", alimento.getAlimento());
         //values.put("data","11-05-2015 05:00:00");
-        values.put("data", alimento.getData());
+        values.put("data", alimento.getData().toString());
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         long id = db.insert("alimento", null, values);
@@ -179,7 +179,7 @@ public class AlimentoConsumidoDAO {
 
                 new Date(cursor.getLong(cursor.getColumnIndex(
                         DatabaseHelper.AlimentoConsumido.DATA))
-                );
+                ));
 
 
         return alimentoConsumido;
@@ -284,6 +284,6 @@ public class AlimentoConsumidoDAO {
 
     }
 
-*/
-}
+
+}*/
 

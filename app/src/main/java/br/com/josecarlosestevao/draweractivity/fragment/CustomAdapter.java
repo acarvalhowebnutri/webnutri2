@@ -74,10 +74,10 @@ public class CustomAdapter extends BaseAdapter {
 
 
         nameTxt.setText(planets.get(position).getAlimento());
-        dataTxt.setText(planets.get(position).getData());
+        dataTxt.setText(planets.get(position).getData().toString());
 
         final String name = planets.get(position).getAlimento();
-        final String data = planets.get(position).getData();
+        final String data = planets.get(position).getData().toString();
        // alimentoConsumido.setAlimento(planets.get(position).getAlimento());
         //alimentoConsumido.setData(planets.get(position).getData());
        // final String data = "teste";
