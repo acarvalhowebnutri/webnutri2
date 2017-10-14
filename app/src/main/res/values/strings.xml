@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">WebNutriFatecIpiranga</string>
-
+    <string name="app_name">AppNutriV1</string>
+    <string name="erro_autenticacao">erro autenticação</string>
+    <string name="home">home</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -11,4 +12,36 @@
 
     <string name="search_label">Search</string>
     <string name="search_hint">Search Names</string>
+
+    <!--login-->
+    <string name="facebook">entrar com facebook</string>
+    <string name="usuario">usuario</string>
+    <string name="senha">senha</string>
+    <string name="paciente">paciente</string>
+    <string name="nutricionista">nutricionista</string>
+    <string name="manter_conectado">manter conectado</string>
+    <string name="appFacebook_id">1378268598911029</string>
+    <string name="login_canceled_facebooklogin">login cancelado</string>
+    <string name="remover">remover</string>
+    <string name="editar">editar</string>
+    <string name="opcoes">opcoes</string>
+    <string name="nome_facebook">nome-vazio</string>
+    <string name="please_wait_facebooklogin">aguarde..carregando facebook</string>
+    <string name="cadastrar">Cadastro</string>
+    <string name="confirmacao_exclusao_viagem">excluir viagem</string>
+    <string name="sim">sim</string>
+    <string name="nao">nao</string>
+    <string name="novo_gasto">novo gasto</string>
+    <string name="gastos_realizados">gastos realizados</string>
+
+
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="Metas">Metas</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="primeira">primeira</string>
+    <string name="segundo">segundo</string>
+    <string name="terceira">terceira</string>
 </resources>

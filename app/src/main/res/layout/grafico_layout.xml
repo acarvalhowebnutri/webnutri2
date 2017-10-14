@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
+    <TextView
+        android:id="@+id/txtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtcomusers"
+        android:text="nome "
+        android:layout_alignBaseline="@+id/totalcomusersnumber"
+        />
+
+    <TextView
+        android:id="@+id/carboidrato"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="Carboidrato"
+        />
+    <ProgressBar
+        android:id="@+id/myprogressbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:layout_alignParentTop="true"
+        android:max="100"
+        style="?android:attr/progressBarStyleHorizontal"
+        />
+    <TextView
+        android:id="@+id/proteina"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="Proteina"
+        />
+
+    <TextView
+        android:id="@+id/txtp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        />
+
+    <ProgressBar
+        android:id="@+id/myprogressbar01"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:layout_alignParentTop="true"
+        android:max="100"
+        style="?android:attr/progressBarStyleHorizontal"
+        />
+
+  <!--  <TextView
+        android:id="@+id/txtcomusers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/myprogressbar"
+        android:text="Committed users"
+        />
+    <EditText
+        android:id="@+id/comusersnumber"
+        android:inputType="number"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/myprogressbar"
+        android:layout_toRightOf="@+id/txtcomusers"
+        android:layout_alignLeft="@+id/totalcomusersnumber"
+        android:gravity="center"
+        />
+    <TextView
+        android:id="@+id/txttotalcomusers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtcomusers"
+        android:text="total Committed users"
+        android:layout_alignBaseline="@+id/totalcomusersnumber"
+        />
+    <EditText
+        android:id="@+id/totalcomusersnumber"
+        android:inputType="number"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/comusersnumber"
+        android:layout_toRightOf="@+id/txttotalcomusers"
+        android:gravity="center"
+        />
+    <Button
+        android:id="@+id/btncalc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/totalcomusersnumber"
+        android:padding="5dp"
+        android:layout_centerHorizontal="true"
+        android:text="calculate"
+        android:onClick="Calculate"
+        />-->
+</LinearLayout>

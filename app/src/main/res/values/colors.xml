@@ -4,5 +4,7 @@
     <color name="colorPrimaryDark">#bad6bc</color>
     <color name="colorAccent">#b2e79e</color>
     <color name="colorBrightAccent">#b2e79e</color>
+    <color name="colorbackground">#eaede9</color>
+    <color name="colorletras">#2c6130</color>
     <color name="nav_header_main">#ccf1bf</color>
 </resources>
