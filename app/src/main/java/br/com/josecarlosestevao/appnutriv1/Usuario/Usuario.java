@@ -1,9 +1,12 @@
 package br.com.josecarlosestevao.appnutriv1.Usuario;
 
+import java.io.Serializable;
+
 /**
  * Created by Dell on 10/02/2017.
  */
-public class Usuario {
+public class Usuario implements Serializable {
+    public static final long serialVersionUID = 1l;
 
     private Long id;
     private String nome;

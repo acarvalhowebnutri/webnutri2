@@ -71,6 +71,24 @@ public class UsuarioDAO {
         return senha;
     }
 
+    public String verificarJaExiste(String nome) {
+
+        dbHelper.openDatabase();
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor cursor = db.query(Constantes.TB_USUARIO, null, " nome=?", new String[]{nome}, null, null, null);
+        if (cursor.getCount() < 1) // UserName Not Exist
+        {
+            cursor.close();
+            return "NOT EXIST";
+        }
+        cursor.moveToFirst();
+        String n = cursor.getString(cursor.getColumnIndex("nome"));
+        cursor.close();
+        dbHelper.close();
+        return n;
+    }
+
     public Usuario ler(String userName) {
         dbHelper.openDatabase();
 

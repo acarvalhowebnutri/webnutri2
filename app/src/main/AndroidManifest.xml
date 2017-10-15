@@ -20,7 +20,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activiy.LoginActivity">
+        <activity android:name=".Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,6 +46,10 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/appFacebook_id" />
 
+        <activity
+            android:name=".Nutricionista.NutricionistaDrawerActivity"
+            android:label="@string/title_activity_nutricionista_drawer"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

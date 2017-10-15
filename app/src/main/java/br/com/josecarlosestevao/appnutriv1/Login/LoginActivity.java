@@ -1,4 +1,4 @@
-package br.com.josecarlosestevao.appnutriv1.Activiy;
+package br.com.josecarlosestevao.appnutriv1.Login;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,10 +19,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import br.com.josecarlosestevao.appnutriv1.Activiy.CadastrarUsuarioActivity;
+import br.com.josecarlosestevao.appnutriv1.Activiy.MainActivity;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
+import br.com.josecarlosestevao.appnutriv1.Nutricionista.NutricionistaDrawerActivity;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.SQLite.DatabaseHelper;
-import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 import br.com.josecarlosestevao.appnutriv1.Usuario.UsuarioDAO;
 
 public class LoginActivity extends Activity {
@@ -55,15 +57,15 @@ public class LoginActivity extends Activity {
             mDBHelper.getReadableDatabase();
             //Copy db
             if(copyDatabase(this)) {
-                Toast.makeText(this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Copy database succes", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "Copy data error", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Copy data error", Toast.LENGTH_SHORT).show();
                 return;
             }
         }
 
         try {
-            inserirUsuario();
+inserirUsuarioTeste();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -130,6 +132,50 @@ public class LoginActivity extends Activity {
             }
         });
 
+        entrarNutricionistaBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                UsuarioDAO dao = new UsuarioDAO(getApplicationContext());
+                String nome = nomeEditText.getText().toString();
+                String senha = senhaEditText.getText().toString();
+                String senhaValidacao = dao.pesquisarUsuario(nome);
+                if (nome.equals("")) {
+                    Toast.makeText(getApplicationContext(), "Preencha o campo usuario", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                // Valida campo senha
+                if (senha.equals("")) {
+                    Toast.makeText(getApplicationContext(), "Campo senha ou confirmação de senha em branco", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+
+                if (senha.equals(senhaValidacao)) {
+
+                    session.createLoginSession(nome);
+
+
+                    Intent i = new Intent(getApplicationContext(), NutricionistaDrawerActivity.class);
+
+                    startActivity(i);
+                    finish();
+                    Toast.makeText(LoginActivity.this, "login feito com sucesso", Toast.LENGTH_LONG).show();
+
+
+                } else {
+                    String mensagemErro =
+                            getString(R.string.erro_autenticacao);
+
+                    Toast toast = Toast.makeText(LoginActivity.this, mensagemErro, Toast.LENGTH_SHORT);
+                    toast.show();
+                    Toast.makeText(LoginActivity.this, "Nome de usuário ou senha não corresponde", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
 
         criarContaTextView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -155,16 +201,19 @@ public class LoginActivity extends Activity {
 
     }
 
-    private void inserirUsuario() throws IOException {
+    private void inserirUsuarioTeste() throws IOException {
 
 
-        Usuario usuario = new Usuario ();
+      /*  Usuario usuario = new Usuario ();
         usuario.setNome("a");
         usuario.setSenha("a");
         UsuarioDAO dao = new UsuarioDAO(getApplication());
-        dao.adicionausuario(usuario);
+
+            dao.adicionausuario(usuario);
+        Toast.makeText(getApplicationContext(), "cadastrado usuario de teste", Toast.LENGTH_LONG).show();
 
 
+*/
     }
 
     @Override

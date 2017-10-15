@@ -12,8 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import br.com.josecarlosestevao.appnutriv1.R;
-import br.com.josecarlosestevao.appnutriv1.Alimento.Consumo;
-import br.com.josecarlosestevao.appnutriv1.Alimento.ConsumoDAO;
+import br.com.josecarlosestevao.appnutriv1.Consumo.Consumo;
+import br.com.josecarlosestevao.appnutriv1.Consumo.ConsumoDAO;
 
 public class CadastrarAlimentoActivity extends AppCompatActivity {
 

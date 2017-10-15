@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 
 import java.util.HashMap;
 
-import br.com.josecarlosestevao.appnutriv1.Activiy.LoginActivity;
+import br.com.josecarlosestevao.appnutriv1.Login.LoginActivity;
 
 /**
  * Created by Dell on 11/04/2017.

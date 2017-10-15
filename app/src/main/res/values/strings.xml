@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AppNutriV1</string>
+    <string name="app_name">WebNutri</string>
     <string name="erro_autenticacao">erro autenticação</string>
     <string name="home">home</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -36,7 +36,7 @@
 
 
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Paciente</string>
     <string name="Metas">Metas</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -44,4 +44,5 @@
     <string name="primeira">primeira</string>
     <string name="segundo">segundo</string>
     <string name="terceira">terceira</string>
+    <string name="title_activity_nutricionista_drawer">Nutricionista</string>
 </resources>

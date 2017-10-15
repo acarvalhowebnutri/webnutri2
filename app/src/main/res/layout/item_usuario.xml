@@ -6,17 +6,19 @@
 
     <TextView
         android:id="@+id/txtNome"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:textSize="22sp" />
+        android:text="Name"
+        android:textColor="#4bb6d6"
+        android:textSize="20dp" />
+
 
     <TextView
         android:id="@+id/txtsenha"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:textSize="22sp" />
-
+        android:text="100 $"
+        android:textColor="#b30000"
+        android:textSize="18dp" />
 
 </LinearLayout>

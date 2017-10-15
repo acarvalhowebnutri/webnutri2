@@ -1,4 +1,4 @@
-package br.com.josecarlosestevao.appnutriv1.Alimento;
+package br.com.josecarlosestevao.appnutriv1.Consumo;
 
 import java.io.Serializable;
 

@@ -9,7 +9,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.josecarlosestevao.appnutriv1.R;
-import br.com.josecarlosestevao.appnutriv1.Alimento.Consumo;
+import br.com.josecarlosestevao.appnutriv1.Consumo.Consumo;
 
 /**
  * Created by Dell on 09/12/2016.

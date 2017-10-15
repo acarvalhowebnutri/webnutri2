@@ -1,4 +1,4 @@
-package br.com.josecarlosestevao.appnutriv1.Alimento;
+package br.com.josecarlosestevao.appnutriv1.Consumo;
 
 import android.content.ContentValues;
 import android.content.Context;

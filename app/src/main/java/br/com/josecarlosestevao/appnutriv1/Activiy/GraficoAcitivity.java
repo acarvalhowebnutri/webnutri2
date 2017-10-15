@@ -13,7 +13,7 @@ import java.util.HashMap;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
-import br.com.josecarlosestevao.appnutriv1.Alimento.ConsumoDAO;
+import br.com.josecarlosestevao.appnutriv1.Consumo.ConsumoDAO;
 import br.com.josecarlosestevao.appnutriv1.Usuario.UsuarioDAO;
 
 /**

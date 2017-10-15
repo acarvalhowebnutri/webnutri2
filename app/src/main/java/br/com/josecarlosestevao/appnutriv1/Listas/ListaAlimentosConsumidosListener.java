@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import br.com.josecarlosestevao.appnutriv1.Activiy.CadastrarAlimentoActivity;
-import br.com.josecarlosestevao.appnutriv1.Alimento.Consumo;
+import br.com.josecarlosestevao.appnutriv1.Consumo.Consumo;
 
 /**
  * Created by Dell on 07/01/2017.

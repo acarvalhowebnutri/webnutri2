@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import br.com.josecarlosestevao.appnutriv1.Alimento.Consumo;
-import br.com.josecarlosestevao.appnutriv1.Alimento.ConsumoDAO;
+import br.com.josecarlosestevao.appnutriv1.Consumo.Consumo;
+import br.com.josecarlosestevao.appnutriv1.Consumo.ConsumoDAO;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
 import br.com.josecarlosestevao.appnutriv1.R;
 
