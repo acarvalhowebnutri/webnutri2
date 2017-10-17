@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WebNutri</string>
+    <string name="app_name">Web Nutri</string>
     <string name="erro_autenticacao">erro autenticação</string>
     <string name="home">home</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>

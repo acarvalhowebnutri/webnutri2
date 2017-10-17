@@ -10,9 +10,8 @@
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="23" />
-
-    <android:uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -33,7 +32,7 @@
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activiy.CadastrarUsuarioActivity"
+            android:name=".Activiy.CadastrarMedidasActivity"
             android:label="@string/cadastrar" />
         <activity
             android:name=".Activiy.GraficoAcitivity"
@@ -49,7 +48,9 @@
         <activity
             android:name=".Nutricionista.NutricionistaDrawerActivity"
             android:label="@string/title_activity_nutricionista_drawer"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activiy.CadastroLoginActivity" />
+        <activity android:name=".Activiy.CadastroNutricionistraActivity"></activity>
     </application>
 
 </manifest>

@@ -80,7 +80,7 @@ public class PerfilFragment extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(getApplicationContext(), CadastrarUsuarioActivity.class);
+                Intent i = new Intent(getApplicationContext(), CadastrarMedidasActivity.class);
                 startActivity(i);
 
 
