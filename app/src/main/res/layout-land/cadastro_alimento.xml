@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/alimento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+
+        android:layout_alignParentTop="true"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/txtData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/alimento"
+        android:layout_marginStart="41dp"
+        android:onClick="selecionarData"
+
+        android:text="selecione"
+        android:textColor="#000000"
+        android:textSize="22sp" />
+
+
+    <Button
+        android:id="@+id/btnGravar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="73dp"
+        android:onClick="GravarBanco"
+        android:text="Cadastrar"
+        android:layout_below="@+id/txtData"
+        android:layout_alignEnd="@+id/txtData" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/btnGravar">
+
+    <DatePicker
+        android:id="@+id/data_consumo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:calendarViewShown="false"/>
+</LinearLayout>
+
+
+</RelativeLayout>
