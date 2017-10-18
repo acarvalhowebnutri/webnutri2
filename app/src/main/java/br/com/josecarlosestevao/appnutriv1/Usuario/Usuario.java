@@ -17,6 +17,15 @@ public class Usuario implements Serializable {
     private String sexo;
     private String altura;
     private String email;
+    private String crn;
+
+    public String getCrn() {
+        return crn;
+    }
+
+    public void setCrn(String crn) {
+        this.crn = crn;
+    }
 
     public String getEmail() {
         return email;

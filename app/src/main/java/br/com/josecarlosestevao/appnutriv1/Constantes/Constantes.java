@@ -9,7 +9,7 @@ public class Constantes {
     public static final String NAME = "alimento";
     public static final String DATE = "data";
     public static final String CARB = "alimento";
-
+    public static final String NOME = "nome";
     //DB
     public static final String DB_NAME = "WebNutriApp";
     public static final String TB_ALIMENTO = "alimento";

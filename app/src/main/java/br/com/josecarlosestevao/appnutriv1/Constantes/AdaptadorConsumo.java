@@ -23,7 +23,7 @@ import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
 import br.com.josecarlosestevao.appnutriv1.SQLite.DatabaseHelper;
 
 
-public class AdaptadorPersonalizado extends BaseAdapter {
+public class AdaptadorConsumo extends BaseAdapter {
 
     private static final int MENU_APAGAR = Menu.FIRST;
     Context c;
@@ -40,7 +40,7 @@ public class AdaptadorPersonalizado extends BaseAdapter {
     private TextView dataGasto;
 
 
-    public AdaptadorPersonalizado(Context c, ArrayList<Consumo> planets) {
+    public AdaptadorConsumo(Context c, ArrayList<Consumo> planets) {
         this.c = c;
         this.planets = planets;
     }

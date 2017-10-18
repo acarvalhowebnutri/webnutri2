@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.com.josecarlosestevao.appnutriv1.Activiy.CadastroNutricionistraActivity">
+
+
+    <EditText
+        android:id="@+id/crnEditText"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:password="true"
+        android:layout_below="@+id/textView2"
+        android:layout_toRightOf="@+id/linearLayout5"
+        android:layout_toEndOf="@+id/linearLayout5" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CRN"
+        android:layout_below="@+id/emailEditText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="11dp" />
+
+    <Button
+        android:id="@+id/criarContaBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Finalizar Cadastro"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/linearLayout"
+        android:layout_alignStart="@+id/linearLayout"
+        tools:layout_editor_absoluteY="127dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+</android.support.constraint.ConstraintLayout>

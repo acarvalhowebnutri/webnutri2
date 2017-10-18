@@ -52,7 +52,17 @@ public class UsuarioDAO {
         //Toast.makeText(context, "Reminder Is Successfully Saved", Toast.LENGTH_LONG).show();
 
     }
+    public void atualizaNutricionista(String userName, String crn) {
+        // Define the updated row content.
+        ContentValues updatedValues = new ContentValues();
+        // Assign values for each row.
+        updatedValues.put("USERNAME", userName);
+        updatedValues.put("crn", crn);
 
+
+        String where = "USERNAME = ?";
+        db.update(Constantes.TB_USUARIO, updatedValues, where, new String[]{userName});
+    }
     public String pesquisarUsuario(String nome) {
 
         dbHelper.openDatabase();
@@ -134,6 +144,22 @@ public class UsuarioDAO {
             }
         }
         return isEmailIdValid;
+    }
+
+    public Cursor recuperar(String searchTerm) {
+        String[] columns = {Constantes.ROW_ID, Constantes.NOME};
+        Cursor c = null;
+        dbHelper.openDatabase();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        if (searchTerm != null && searchTerm.length() > 0) {
+            String sql = "SELECT * FROM " + Constantes.TB_NUTRICIONISTA + " WHERE " + Constantes.NOME + " LIKE '%" + searchTerm + "%'";
+            c = db.rawQuery(sql, null);
+            return c;
+
+        }
+
+        c = db.query(Constantes.TB_NUTRICIONISTA, columns, null, null, null, null, null, null);
+        return c;
     }
 
     public void close()

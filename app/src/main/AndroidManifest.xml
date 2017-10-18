@@ -40,7 +40,9 @@
         <activity
             android:name=".Activiy.PerfilFragment"
             android:label="Perfil" />
-
+        <activity
+            android:name=".Activiy.PesquisaNutricionistaCadastrados"
+            android:label="@string/PesquisaNutricionista" />
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/appFacebook_id" />
