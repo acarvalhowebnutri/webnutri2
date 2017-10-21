@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <!-- <SearchView
          android:layout_width="wrap_content"
@@ -16,19 +17,28 @@
             android:textColor="#000000"
             android:textSize="22sp"
 
-            android:text="selecione"/>
+            android:text="selecione um nutricionista"/>
 
     <android.support.v7.widget.SearchView
-        android:id="@+id/search"
+        android:id="@+id/searchnutri"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:queryHint="Search.."></android.support.v7.widget.SearchView>
 
     <ListView
         android:id="@+id/listfrag"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="288dp"
         android:cacheColorHint="#00000000"
         android:listSelector="@android:color/transparent"
-        android:transcriptMode="alwaysScroll" />
+        android:transcriptMode="alwaysScroll"
+        android:layout_weight="0.43" />
+
+    <Button
+        android:id="@+id/btnVoltarPerfil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#5dda49"
+
+        android:text="Button" />
 </LinearLayout>

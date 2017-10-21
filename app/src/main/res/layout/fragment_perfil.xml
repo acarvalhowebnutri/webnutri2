@@ -1,131 +1,239 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".TelaPerfilActivity">
+    tools:context=".Activiy.PerfilActivityOld"
+    tools:layout_editor_absoluteY="81dp"
+    tools:layout_editor_absoluteX="0dp">
 
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="418dp"
+        android:layout_height="3dp"
+        android:layout_weight="0.15"
+        android:background="#2c6130"
+        tools:layout_conversion_absoluteHeight="7dp"
+        tools:layout_conversion_absoluteWidth="330dp"
+        android:layout_alignParentTop="true" />
 
     <ImageView
         android:id="@+id/foto_objeto"
-        android:layout_width="86.0dip"
-        android:layout_height="86.0dip"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:layout_width="126dp"
+        android:layout_height="80dp"
         android:padding="0dip"
-        android:src="@android:drawable/ic_menu_camera" />
+        android:src="@android:drawable/ic_menu_camera"
+        tools:layout_editor_absoluteY="27dp"
+        tools:layout_conversion_absoluteX="0dp"
+        tools:layout_conversion_absoluteY="0dp"
+        tools:layout_conversion_absoluteWidth="126dp"
+        tools:layout_conversion_absoluteHeight="80dp"
+        tools:layout_editor_absoluteX="143dp"
+        android:layout_marginTop="19dp"
+        android:layout_below="@+id/view2"
+        android:layout_centerHorizontal="true" />
+
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/foto_objeto"
+        android:id="@+id/relativeLayout"
+        android:layout_width="373dp"
+        android:layout_height="143dp"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="341dp"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/relativeLayout2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:id="@+id/linearLayout7"
-    android:layout_alignParentTop="true"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="false"
-    android:layout_marginTop="23dp"
-    android:layout_alignParentEnd="false"
-    android:layout_above="@+id/btnAlterar">
 
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="84dp"
+            android:layout_height="17dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+            android:text="Nutricionista :"
+            tools:layout_conversion_absoluteHeight="17dp"
+            tools:layout_conversion_absoluteWidth="84dp"
+            tools:layout_conversion_absoluteX="0dp"
+            tools:layout_conversion_absoluteY="0dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textViewExibeNome"
-        android:text="nome : "
-        android:layout_weight="0.22" />
+        <TextView
+            android:id="@+id/nomeNUtriTextView"
+            android:layout_width="120dp"
+            android:layout_height="18dp"
+            android:layout_alignTop="@+id/textView15"
+            android:layout_marginLeft="17dp"
+            android:layout_marginStart="17dp"
+            android:layout_toLeftOf="@+id/btnAlterarNutri"
+            android:layout_toRightOf="@+id/textView15"
+            android:layout_toStartOf="@+id/btnAlterarNutri"
+            android:text="New Text"
+            tools:layout_conversion_absoluteHeight="18dp"
+            tools:layout_conversion_absoluteWidth="120dp"
+            tools:layout_conversion_absoluteX="0dp"
+            tools:layout_conversion_absoluteY="0dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView6"
-        android:text="peso : "
-        android:layout_weight="0.37" />
-
-    <TextView
-            android:id="@+id/textView6"
+        <Button
+            android:id="@+id/btnAlterarNutri"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/textView5"
-            android:text="idade : "
-        android:layout_weight="0.38" />
+            android:layout_marginEnd="31dp"
+            android:layout_marginRight="31dp"
+            android:text="Alterar"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="191dp"
+            tools:layout_conversion_absoluteX="0dp"
+            tools:layout_conversion_absoluteY="0dp"
+            tools:layout_editor_absoluteX="138dp"
+            tools:layout_editor_absoluteY="370dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView5"
-        android:text="sexo :"
-        android:layout_weight="0.29" />
+    <RelativeLayout
+        android:layout_width="375dp"
+        android:layout_height="176dp"
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView5"
-        android:text="Altura :" />
-</LinearLayout>
+        android:id="@+id/relativeLayout2"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/foto_objeto"
+        android:layout_alignLeft="@+id/relativeLayout"
+        android:layout_alignStart="@+id/relativeLayout">
+
+
+        <Button
+            android:id="@+id/btnAlterar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alterar"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="88dp"
+            tools:layout_conversion_absoluteX="0dp"
+            tools:layout_conversion_absoluteY="0dp"
+            tools:layout_editor_absoluteX="257dp"
+            tools:layout_editor_absoluteY="236dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="106dp"
+            android:layout_marginEnd="106dp"
+            android:layout_marginBottom="12dp" />
 
         <LinearLayout
+            android:id="@+id/linearLayout7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            tools:layout_conversion_absoluteHeight="82dp"
+            tools:layout_conversion_absoluteWidth="44dp"
+            tools:layout_conversion_absoluteX="0dp"
+            tools:layout_conversion_absoluteY="0dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp">
 
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/textViewExibeNome"
+                android:layout_weight="0.22"
+                android:text="nome : " />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/textView6"
+                android:layout_weight="0.37"
+                android:text="peso : " />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/textView5"
+                android:layout_weight="0.38"
+                android:text="idade : " />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/textView5"
+                android:layout_weight="0.29"
+                android:text="sexo :" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/textView5"
+                android:text="Altura :" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/linearLayout2"
-            android:weightSum="1"
-            android:layout_alignTop="@+id/linearLayout7"
-            android:layout_toRightOf="@+id/linearLayout7"
-            android:layout_toEndOf="@+id/linearLayout7"
-            android:layout_alignBottom="@+id/linearLayout7">
-
-            <TextView
-                android:id="@+id/textViewExibeNome"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:text="New Text"
-                android:layout_weight="0.20" />
-
-            <TextView
-                android:id="@+id/textViewExibePeso"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/textViewExibeIdade"
-                android:layout_alignTop="@+id/textView7"
-                android:text="New Text"
-                android:layout_weight="0.26" />
-
-            <TextView
-            android:id="@+id/textViewExibeIdade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:text="New Text"
-                android:layout_weight="0.30" />
+            android:orientation="vertical"
+            android:weightSum="1"
+            tools:layout_conversion_absoluteHeight="82dp"
+            tools:layout_conversion_absoluteWidth="172dp"
+            tools:layout_conversion_absoluteX="0dp"
+            tools:layout_conversion_absoluteY="0dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/linearLayout7"
+            android:layout_toEndOf="@+id/linearLayout7">
+
+            <TextView
+                android:id="@+id/textViewExibeNome"
+                android:layout_width="172dp"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="0.19"
+                android:text="New Text" />
+
+            <TextView
+                android:id="@+id/textViewExibePeso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textViewExibeIdade"
+                android:layout_alignTop="@+id/textView7"
+                android:layout_weight="0.25"
+                android:text="New Text" />
+
+            <TextView
+                android:id="@+id/textViewExibeIdade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="0.30"
+                android:text="New Text" />
 
             <TextView
                 android:id="@+id/sexoEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="New Text"
-                android:layout_weight="0.23" />
+                android:layout_weight="0.23"
+                android:text="New Text" />
 
             <TextView
                 android:id="@+id/alturaEditText"
@@ -133,28 +241,24 @@
                 android:layout_height="wrap_content"
                 android:text="New Text" />
         </LinearLayout>
-        <Button
-            android:id="@+id/btnAlterar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Alterar"
-            android:layout_marginRight="46dp"
-            android:layout_marginEnd="46dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="124dp" />
 
         <LinearLayout
+            android:id="@+id/linearLayout8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/linearLayout8"
-            android:weightSum="1"
-            android:layout_alignTop="@+id/linearLayout2"
-            android:layout_toRightOf="@+id/linearLayout2"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:layout_toEndOf="@+id/linearLayout2"
-            android:layout_alignBottom="@+id/linearLayout2">
+            android:layout_toRightOf="@+id/linearLayout2"
+            android:orientation="vertical"
+            android:weightSum="1"
+            tools:layout_conversion_absoluteHeight="66dp"
+            tools:layout_conversion_absoluteWidth="30dp"
+            tools:layout_conversion_absoluteX="0dp"
+            tools:layout_conversion_absoluteY="0dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp">
 
             <TextView
                 android:id="@+id/textView11"
@@ -169,8 +273,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/textView13"
-                android:text="kg"
-                android:layout_weight="0.24" />
+                android:layout_weight="0.24"
+                android:text="kg" />
 
             <TextView
                 android:id="@+id/textView13"
@@ -178,8 +282,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/textView11"
-                android:text="anos"
-                android:layout_weight="0.30" />
+                android:layout_weight="0.30"
+                android:text="anos" />
 
             <TextView
                 android:id="@+id/textView14"
@@ -187,8 +291,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/textView11" />
+
         </LinearLayout>
 
 
     </RelativeLayout>
+
 </RelativeLayout>

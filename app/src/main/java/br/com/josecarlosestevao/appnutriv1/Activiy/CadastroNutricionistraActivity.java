@@ -49,10 +49,13 @@ public class CadastroNutricionistraActivity extends AppCompatActivity {
 
 
 
+
         criarContaBtn.setOnClickListener(new View.OnClickListener() {
                                              @Override
                                              public void onClick(View v) {
 
+                                                 String crn = crnEditText.getText().toString();
+                                                 userU.setCrn(crn);
                                                  NutricionistaDao dao = new NutricionistaDao(getApplicationContext());
                                                  dao.adicionarNutricionista(userU);
                                                  Toast.makeText(getApplicationContext(), "Conta criada com sucesso", Toast.LENGTH_LONG).show();

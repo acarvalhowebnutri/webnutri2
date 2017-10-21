@@ -10,29 +10,30 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 
-import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
 import br.com.josecarlosestevao.appnutriv1.Constantes.ConversorImagem;
+import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
+import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 import br.com.josecarlosestevao.appnutriv1.Usuario.UsuarioDAO;
-import br.com.josecarlosestevao.appnutriv1.R;
 
-
-public class PerfilFragment extends AppCompatActivity {
+public class PerfilActivity extends AppCompatActivity {
 
     UsuarioDAO loginAdapter;
-    TextView ednome, edsenha, edpeso, edidade, edsexo;
-    Button salvar, deletar;
+    TextView ednome, edsenha, edpeso, edidade, edsexo, nomeNUtriTextView;
+    Button salvar, deletar, alterarNutri;
     SessionManager session;
     Usuario usuario;
     private ImageView campoFotoObjeto;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_perfil);
+        setContentView(R.layout.activity_perfil);
+
 
         loginAdapter = new UsuarioDAO(this);
-    //    loginAdapter = loginAdapter.open();
+        //    loginAdapter = loginAdapter.open();
 
 
         session = new SessionManager(getApplicationContext());
@@ -46,14 +47,16 @@ public class PerfilFragment extends AppCompatActivity {
         String name = user.get(SessionManager.KEY_NAME);
 
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         Bundle params = intent.getExtras();
 
         ednome = (TextView) findViewById(R.id.textViewExibeNome);
         edpeso = (TextView) findViewById(R.id.textViewExibePeso);
         edidade = (TextView) findViewById(R.id.textViewExibeIdade);
+        nomeNUtriTextView = (TextView) findViewById(R.id.nomeNUtriTextView);
         edsexo = (TextView) findViewById(R.id.sexoEditText);
         salvar = (Button) findViewById(R.id.btnAlterar);
+        alterarNutri = (Button) findViewById(R.id.btnAlterarNutri);
         campoFotoObjeto = (ImageView) findViewById(R.id.foto_objeto);
 
 
@@ -65,6 +68,7 @@ public class PerfilFragment extends AppCompatActivity {
             edpeso.setText(usuario.getPeso());
             edsexo.setText(usuario.getSexo());
             edidade.setText(usuario.getDataNasc());
+            nomeNUtriTextView.setText(usuario.getCrn());
 
             if (usuario.getFoto() != null)
 
@@ -104,7 +108,14 @@ public class PerfilFragment extends AppCompatActivity {
             }
         });
 
+        alterarNutri.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent in = new Intent(getApplication(), PesquisaNutricionistaCadastrados.class);
+                startActivity(in);
+            }
+        });
+
     }
-
-
 }

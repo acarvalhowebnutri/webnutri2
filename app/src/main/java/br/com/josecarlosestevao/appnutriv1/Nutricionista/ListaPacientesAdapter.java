@@ -34,7 +34,7 @@ public class ListaPacientesAdapter extends ArrayAdapter<Usuario> {
         TextView nome = (TextView) view.findViewById(R.id.txtNome);
         nome.setText(pac.getNome().toString());
 
-        TextView senha = (TextView) view.findViewById(R.id.txtsenha);
+        TextView senha = (TextView) view.findViewById(R.id.txtemail);
         senha.setText(pac.getSenha().toString());
 
      //   TextView data = (TextView) view.findViewById(R.id.txtvalor);

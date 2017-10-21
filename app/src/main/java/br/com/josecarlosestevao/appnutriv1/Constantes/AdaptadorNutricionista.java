@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -85,14 +86,22 @@ public class AdaptadorNutricionista extends BaseAdapter {
         u.setNome(pessoa);
 
         TextView nameTxt = (TextView) convertView.findViewById(R.id.txtNome);
+        TextView emailTxt = (TextView) convertView.findViewById(R.id.txtemail);
+        TextView crnTxt = (TextView) convertView.findViewById(R.id.txtcrn);
 
 
-        nameTxt.setText(planets.get(position).getNome());
+        final String nomenut = planets.get(position).getNome();
+        final String email = planets.get(position).getEmail();
+        final String crnnut = planets.get(position).getCrn();
+
+
+        nameTxt.setText(nomenut);
+        emailTxt.setText(email);
+        crnTxt.setText(crnnut);
         //dataTxt.setText(planets.get(position).getCarboidrato());
         //dataTxt.setText(planets.get(position).getData());
 
-        final String nomenut = planets.get(position).getNome();
-        final String crnnut = planets.get(position).getCrn();
+
         //  final String protein = planets.get(position).getProteina();
 
         long date = System.currentTimeMillis();
@@ -112,9 +121,14 @@ public class AdaptadorNutricionista extends BaseAdapter {
 
 
                 UsuarioDAO db = new UsuarioDAO(c);
-                db.atualizaNutricionista(nomenut, crnnut);
+                db.atualizaNutricionista(pessoa, crnnut);
+                Toast.makeText(c, "Nutricionista adicionado", Toast.LENGTH_LONG).show();
+
 
                 //db.registrarGasto(consumo);
+
+
+
 
             }
 

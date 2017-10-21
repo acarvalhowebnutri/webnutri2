@@ -38,11 +38,12 @@
             android:name=".Activiy.GraficoAcitivity"
             android:label="@string/Metas" />
         <activity
-            android:name=".Activiy.PerfilFragment"
+            android:name=".Activiy.PerfilActivityOld"
             android:label="Perfil" />
         <activity
             android:name=".Activiy.PesquisaNutricionistaCadastrados"
             android:label="@string/PesquisaNutricionista" />
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/appFacebook_id" />
@@ -52,7 +53,8 @@
             android:label="@string/title_activity_nutricionista_drawer"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activiy.CadastroLoginActivity" />
-        <activity android:name=".Activiy.CadastroNutricionistraActivity"></activity>
+        <activity android:name=".Activiy.CadastroNutricionistraActivity" />
+        <activity android:name=".Activiy.PerfilActivity"></activity>
     </application>
 
 </manifest>

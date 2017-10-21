@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity
                 public void onClick(View v) {
 
                     //   Intent idados = getIntent();
-                    Intent alterar = new Intent(MainActivity.this, PerfilFragment.class);
+                    Intent alterar = new Intent(MainActivity.this, PerfilActivityOld.class);
                     startActivity(alterar);
 
 
@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity
  /*               Intent i = new Intent(this, ListaAlimentosConsumidosActivity.class);
                 startActivity(i);
 */
-            Intent alterar = new Intent(MainActivity.this, PerfilFragment.class);
+            Intent alterar = new Intent(MainActivity.this, PerfilActivity.class);
             startActivity(alterar);
 
 

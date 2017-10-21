@@ -15,7 +15,9 @@
         android:password="true"
         android:layout_below="@+id/textView2"
         android:layout_toRightOf="@+id/linearLayout5"
-        android:layout_toEndOf="@+id/linearLayout5" />
+        android:layout_toEndOf="@+id/linearLayout5"
+        tools:layout_editor_absoluteY="25dp"
+        tools:layout_editor_absoluteX="0dp" />
 
     <TextView
         android:id="@+id/textView4"

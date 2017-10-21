@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 
-import br.com.josecarlosestevao.appnutriv1.Activiy.PerfilFragment;
+import br.com.josecarlosestevao.appnutriv1.Activiy.PerfilActivityOld;
 import br.com.josecarlosestevao.appnutriv1.Activiy.PesquisaAlimentoFragment;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
 import br.com.josecarlosestevao.appnutriv1.R;
@@ -122,7 +122,7 @@ public class NutricionistaDrawerActivity extends AppCompatActivity
                 public void onClick(View v) {
 
                     //   Intent idados = getIntent();
-                    Intent alterar = new Intent(NutricionistaDrawerActivity.this, PerfilFragment.class);
+                    Intent alterar = new Intent(NutricionistaDrawerActivity.this, PerfilActivityOld.class);
                     startActivity(alterar);
 
 

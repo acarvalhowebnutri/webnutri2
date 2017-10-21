@@ -14,11 +14,20 @@
 
 
     <TextView
-        android:id="@+id/txtsenha"
+        android:id="@+id/txtemail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="100 $"
         android:textColor="#b30000"
         android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/txtcrn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="100 $"
+        android:textColor="#3cb300"
+        android:textSize="18dp" />
+
 
 </LinearLayout>

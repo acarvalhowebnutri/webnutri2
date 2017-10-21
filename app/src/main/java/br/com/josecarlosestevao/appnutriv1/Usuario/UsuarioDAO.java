@@ -54,14 +54,19 @@ public class UsuarioDAO {
     }
     public void atualizaNutricionista(String userName, String crn) {
         // Define the updated row content.
+
         ContentValues updatedValues = new ContentValues();
         // Assign values for each row.
-        updatedValues.put("USERNAME", userName);
+        //updatedValues.put("nome", userName);
         updatedValues.put("crn", crn);
 
+        dbHelper.openDatabase();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        String where = "USERNAME = ?";
+        String where = "nome = ?";
         db.update(Constantes.TB_USUARIO, updatedValues, where, new String[]{userName});
+        dbHelper.close();
+        db.close();
     }
     public String pesquisarUsuario(String nome) {
 
@@ -118,7 +123,7 @@ public class UsuarioDAO {
         user.setDataNasc(cursor.getString(3));
 
         user.setFoto(cursor.getBlob(7));
-        // user.setSenha(cursor.getString(2));
+        user.setCrn(cursor.getString(9));
 
 
         cursor.close();
@@ -146,7 +151,7 @@ public class UsuarioDAO {
         return isEmailIdValid;
     }
 
-    public Cursor recuperar(String searchTerm) {
+    public Cursor recuperarNutri(String searchTerm) {
         String[] columns = {Constantes.ROW_ID, Constantes.NOME};
         Cursor c = null;
         dbHelper.openDatabase();
