@@ -16,10 +16,10 @@ import java.util.HashMap;
 
 import br.com.josecarlosestevao.appnutriv1.Activiy.PesquisaAlimentoFragment;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
+import br.com.josecarlosestevao.appnutriv1.Nutricionista.NutricionistaDao;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.SQLite.DatabaseHelper;
 import br.com.josecarlosestevao.appnutriv1.Usuario.Nutricionista;
-import br.com.josecarlosestevao.appnutriv1.Usuario.NutricionistaDao;
 import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 import br.com.josecarlosestevao.appnutriv1.Usuario.UsuarioDAO;
 
@@ -69,7 +69,7 @@ public class AdaptadorNutricionista extends BaseAdapter {
             inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.item_usuario, parent, false);
+            convertView = inflater.inflate(R.layout.item_nutricionista, parent, false);
         }
 
 

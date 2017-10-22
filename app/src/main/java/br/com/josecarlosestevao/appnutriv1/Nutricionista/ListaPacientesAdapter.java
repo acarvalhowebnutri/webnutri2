@@ -19,6 +19,7 @@ public class ListaPacientesAdapter extends ArrayAdapter<Usuario> {
     private final List<Usuario> pacientes;
     private final Activity activity;
 
+
     public ListaPacientesAdapter(Activity activity, int textViewResourceld,
                                  List<Usuario> pacientes) {
         super(activity, textViewResourceld, pacientes);
@@ -27,21 +28,27 @@ public class ListaPacientesAdapter extends ArrayAdapter<Usuario> {
     }
 
     public View getView(int position, View convetView, ViewGroup paret) {
-        Usuario pac = pacientes.get(position);
+
+
+        Usuario user = pacientes.get(position);
 
         View view = activity.getLayoutInflater().inflate(R.layout.item_usuario, null);
 
+        String nomepaciente = user.getNome().toString();
+
         TextView nome = (TextView) view.findViewById(R.id.txtNome);
-        nome.setText(pac.getNome().toString());
+        nome.setText(nomepaciente);
 
-        TextView senha = (TextView) view.findViewById(R.id.txtemail);
-        senha.setText(pac.getSenha().toString());
-
-     //   TextView data = (TextView) view.findViewById(R.id.txtvalor);
-       // data.setText(consumo.getCarboidrato().toString());
+        String emailpaciente = user.getEmail().toString();
+        TextView email = (TextView) view.findViewById(R.id.txtemail);
+        email.setText("e-mail: " + emailpaciente);
 
 
-      //  setText(dia + "/" + (mes + 1) + "/" + ano);
+        //   TextView data = (TextView) view.findViewById(R.id.txtvalor);
+        // data.setText(consumo.getCarboidrato().toString());
+
+
+        //  setText(dia + "/" + (mes + 1) + "/" + ano);
         //     final int pos=position;
         return view;
     }

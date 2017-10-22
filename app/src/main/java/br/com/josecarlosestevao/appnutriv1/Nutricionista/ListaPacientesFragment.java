@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import br.com.josecarlosestevao.appnutriv1.Consumo.Consumo;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
@@ -29,9 +28,9 @@ public class ListaPacientesFragment extends Fragment {
 
 
     private static final int MENU_APAGAR = Menu.FIRST;
+    SessionManager session;
     private ListView listapacientes;
 
-    SessionManager session;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_lista_pacientes, null);
@@ -74,9 +73,13 @@ public class ListaPacientesFragment extends Fragment {
         session.checkLogin();
         HashMap<String, String> user = session.getUserDetails();
 
+        NutricionistaDao dao = new NutricionistaDao(getContext());
+        String nome = user.get(SessionManager.KEY_NAME);
 
-        NutricionistaDAO dao = new NutricionistaDAO(getContext());
-        final List<Usuario> pacientes = dao.listaTodosPacientes();
+        String crn = dao.pesquisarCRN(nome);
+
+
+        final List<Usuario> pacientes = dao.listaPacientesCRN(crn);
 
 
 
@@ -84,14 +87,14 @@ public class ListaPacientesFragment extends Fragment {
 
         listapacientes.setAdapter(adapter);
 
-        ArrayList<Consumo> alimento = new ArrayList<>();
+        ArrayList<Usuario> alimento = new ArrayList<>();
 
         listapacientes.setOnItemClickListener(new ListaPacientesListener(this));
 
     }
 
     private void remove(Usuario usuario) {
-        NutricionistaDAO dao = new NutricionistaDAO(getContext());
+        NutricionistaDAOold dao = new NutricionistaDAOold(getContext());
         dao.remove(usuario);
         montaLisView();
     }

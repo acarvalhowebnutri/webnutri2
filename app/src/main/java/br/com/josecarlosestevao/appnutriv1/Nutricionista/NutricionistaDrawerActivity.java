@@ -25,7 +25,6 @@ import br.com.josecarlosestevao.appnutriv1.Activiy.PesquisaAlimentoFragment;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.Usuario.Nutricionista;
-import br.com.josecarlosestevao.appnutriv1.Usuario.NutricionistaDao;
 
 public class NutricionistaDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

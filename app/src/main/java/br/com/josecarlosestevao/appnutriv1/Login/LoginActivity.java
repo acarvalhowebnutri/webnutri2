@@ -19,28 +19,26 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import br.com.josecarlosestevao.appnutriv1.Activiy.MainActivity;
 import br.com.josecarlosestevao.appnutriv1.Activiy.CadastroLoginActivity;
+import br.com.josecarlosestevao.appnutriv1.Activiy.MainActivity;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
+import br.com.josecarlosestevao.appnutriv1.Nutricionista.NutricionistaDao;
 import br.com.josecarlosestevao.appnutriv1.Nutricionista.NutricionistaDrawerActivity;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.SQLite.DatabaseHelper;
-import br.com.josecarlosestevao.appnutriv1.Usuario.NutricionistaDao;
 import br.com.josecarlosestevao.appnutriv1.Usuario.UsuarioDAO;
 
 public class LoginActivity extends Activity {
 
+    public static final String Nome = "Nome";
+    private static final String MANTER_CONECTADO = "manter_conectado";
+    Cursor cursor;
+    SessionManager session;
     private UsuarioDAO usuarioDAO;
     private Button entrarPacienteBtn, entrarNutricionistaBtn;
     private EditText nomeEditText, senhaEditText;
     private TextView criarContaTextView, esqueceuContaTextView;
     private CheckBox manterConectado;
-
-    private static final String MANTER_CONECTADO = "manter_conectado";
-   public static final String Nome = "Nome";
-    Cursor cursor;
-
-    SessionManager session;
     private DatabaseHelper mDBHelper;
 
     @Override

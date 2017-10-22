@@ -57,7 +57,8 @@ public class Constantes {
     public static final String KEY_DATA = "data";
     public static final String KEY_PESO = "peso";
     public static final String KEY_SEXO = "sexo";
-    public static final String KEY_CRN = "CRN";
+    public static final String KEY_CRN = "crn";
+    public static final String KEY_EMAIL = "email";
 
     // property help us to keep data
     public int alimento_ID;
