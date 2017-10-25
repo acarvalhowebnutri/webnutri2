@@ -14,24 +14,25 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import br.com.josecarlosestevao.appnutriv1.R;
-import br.com.josecarlosestevao.appnutriv1.Consumo.Consumo;
-import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
-import br.com.josecarlosestevao.appnutriv1.Consumo.ConsumoDAO;
 import br.com.josecarlosestevao.appnutriv1.Activiy.PesquisaAlimentoFragment;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
+import br.com.josecarlosestevao.appnutriv1.Nutricionista.NutricionistaDao;
+import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.SQLite.DatabaseHelper;
+import br.com.josecarlosestevao.appnutriv1.Usuario.Nutricionista;
+import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
+import br.com.josecarlosestevao.appnutriv1.Usuario.UsuarioDAO;
 
 
-public class AdaptadorPersonalizado extends BaseAdapter {
+public class AdaptadorNutricionista extends BaseAdapter {
 
     private static final int MENU_APAGAR = Menu.FIRST;
     Context c;
-    ArrayList<Consumo> planets;
+    ArrayList<Nutricionista> planets;
     LayoutInflater inflater;
-    Consumo consumo = new Consumo();
+    Usuario consumo = new Usuario();
 
-    ConsumoDAO dao = new ConsumoDAO(c);
+    NutricionistaDao dao = new NutricionistaDao(c);
     PesquisaAlimentoFragment save;
     SessionManager session;
     SQLiteDatabase db;
@@ -40,7 +41,7 @@ public class AdaptadorPersonalizado extends BaseAdapter {
     private TextView dataGasto;
 
 
-    public AdaptadorPersonalizado(Context c, ArrayList<Consumo> planets) {
+    public AdaptadorNutricionista(Context c, ArrayList<Nutricionista> planets) {
         this.c = c;
         this.planets = planets;
     }
@@ -51,7 +52,7 @@ public class AdaptadorPersonalizado extends BaseAdapter {
     }
 
     @Override
-    public Consumo getItem(int position) {
+    public Nutricionista getItem(int position) {
         return planets.get(position);
     }
 
@@ -68,7 +69,7 @@ public class AdaptadorPersonalizado extends BaseAdapter {
             inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.item_alimento, parent, false);
+            convertView = inflater.inflate(R.layout.item_nutricionista, parent, false);
         }
 
 
@@ -85,22 +86,29 @@ public class AdaptadorPersonalizado extends BaseAdapter {
         u.setNome(pessoa);
 
         TextView nameTxt = (TextView) convertView.findViewById(R.id.txtNome);
+        TextView emailTxt = (TextView) convertView.findViewById(R.id.txtemail);
+        TextView crnTxt = (TextView) convertView.findViewById(R.id.txtcrn);
 
 
+        final String nomenut = planets.get(position).getNome();
+        final String email = planets.get(position).getEmail();
+        final String crnnut = planets.get(position).getCrn();
 
-        nameTxt.setText(planets.get(position).getAlimento());
+
+        nameTxt.setText(nomenut);
+        emailTxt.setText(email);
+        crnTxt.setText(crnnut);
         //dataTxt.setText(planets.get(position).getCarboidrato());
         //dataTxt.setText(planets.get(position).getData());
 
-        final String a = planets.get(position).getAlimento();
-        final String teste = planets.get(position).getCarboidrato();
-        final String protein = planets.get(position).getProteina();
+
+        //  final String protein = planets.get(position).getProteina();
 
         long date = System.currentTimeMillis();
         SimpleDateFormat sdf = new SimpleDateFormat("d/M/yyyy");
-       final String currentDateTimeString = sdf.format(date);
+        final String currentDateTimeString = sdf.format(date);
 
-       // final String currentDateTimeString = DateFormat.getDateInstance().format(new Date());
+        // final String currentDateTimeString = DateFormat.getDateInstance().format(new Date());
         //dataatual.setText(currentDateTimeString);
 
         final int pos = position;
@@ -112,24 +120,14 @@ public class AdaptadorPersonalizado extends BaseAdapter {
             public void onClick(View v) {
 
 
-                consumo.setAlimento(a);
-                consumo.setCarboidrato(teste);
-                consumo.setProteina(protein);
-                consumo.setData(currentDateTimeString);
-                consumo.setUsuario(u);
-
-                Toast.makeText(c, planets.get(position).getAlimento() + " : Adicionado", Toast.LENGTH_SHORT).show();
-                Toast.makeText(c, planets.get(position).getProteina() + " : Adicionado", Toast.LENGTH_SHORT).show();
-               Toast.makeText(c, consumo.getProteina() + " : valor", Toast.LENGTH_SHORT).show();
+                UsuarioDAO db = new UsuarioDAO(c);
+                db.atualizaNutricionista(pessoa, crnnut);
+                Toast.makeText(c, "Nutricionista adicionado", Toast.LENGTH_LONG).show();
 
 
-                //  Toast.makeText(c, consumo.getProteina() + " : valor", Toast.LENGTH_SHORT).show();
-
-                //   Toast.makeText(c, consumo.getCarboidrato() + " : valor", Toast.LENGTH_SHORT).show();
-                // Toast.makeText(c, consumo.getUsuario().getNome() + " : nome", Toast.LENGTH_SHORT).show();
-                ConsumoDAO db = new ConsumoDAO(c);
-                db.consumido(consumo);
                 //db.registrarGasto(consumo);
+
+
 
 
             }

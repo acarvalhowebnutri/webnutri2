@@ -9,7 +9,7 @@ public class Constantes {
     public static final String NAME = "alimento";
     public static final String DATE = "data";
     public static final String CARB = "alimento";
-
+    public static final String NOME = "nome";
     //DB
     public static final String DB_NAME = "WebNutriApp";
     public static final String TB_ALIMENTO = "alimento";
@@ -17,7 +17,7 @@ public class Constantes {
     public static final String TB_USUARIO = "USUARIO";
     public static final String TB_CALCULO = "CALCULO";
     public static final String TB_NUTRIENTES = "NUTRIENTES";
-
+    public static final String TB_NUTRICIONISTA = "nutricionista";
     public static final int DB_VERSION = 1;
 
     //CREATE TB
@@ -57,11 +57,14 @@ public class Constantes {
     public static final String KEY_DATA = "data";
     public static final String KEY_PESO = "peso";
     public static final String KEY_SEXO = "sexo";
-    public static final String KEY_CRN = "CRN";
+    public static final String KEY_CRN = "crn";
+    public static final String KEY_EMAIL = "email";
+
     // property help us to keep data
     public int alimento_ID;
     // public String name;
     public String alimento;
+
 
 
 }

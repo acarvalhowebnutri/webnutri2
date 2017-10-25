@@ -10,9 +10,8 @@
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="23" />
-
-    <android:uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -33,14 +32,17 @@
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activiy.CadastrarUsuarioActivity"
+            android:name=".Activiy.CadastrarMedidasActivity"
             android:label="@string/cadastrar" />
         <activity
             android:name=".Activiy.GraficoAcitivity"
             android:label="@string/Metas" />
         <activity
-            android:name=".Activiy.PerfilFragment"
+            android:name=".Activiy.PerfilActivityOld"
             android:label="Perfil" />
+        <activity
+            android:name=".Activiy.PesquisaNutricionistaCadastrados"
+            android:label="@string/PesquisaNutricionista" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -49,7 +51,10 @@
         <activity
             android:name=".Nutricionista.NutricionistaDrawerActivity"
             android:label="@string/title_activity_nutricionista_drawer"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activiy.CadastroLoginActivity" />
+        <activity android:name=".Activiy.CadastroNutricionistraActivity" />
+        <activity android:name=".Activiy.PerfilActivity"></activity>
     </application>
 
 </manifest>

@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import br.com.josecarlosestevao.appnutriv1.Constantes.AdaptadorPersonalizado;
+import br.com.josecarlosestevao.appnutriv1.Constantes.AdaptadorConsumo;
 import br.com.josecarlosestevao.appnutriv1.Constantes.SelectDateFragment;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.Consumo.Consumo;
@@ -31,7 +31,7 @@ public class PesquisaAlimentoFragment extends Fragment {
     SearchView sv;
     ArrayList<Consumo> alimento=new ArrayList<>();
  //   ConsumoDAO adapter1;
-    AdaptadorPersonalizado adapter;
+    AdaptadorConsumo adapter;
      Consumo consumo;
     Usuario u;
  //   private ConsumoDAO dao;
@@ -53,7 +53,7 @@ public class PesquisaAlimentoFragment extends Fragment {
         txtdata = (TextView) view.findViewById(R.id.txtData);
 
 
-        adapter=new AdaptadorPersonalizado(getContext(),alimento);
+        adapter=new AdaptadorConsumo(getContext(),alimento);
         consumo = new Consumo();
      //   lv.setOnItemClickListener(new ItemList());
       //  lv.setAdapter(adapter);

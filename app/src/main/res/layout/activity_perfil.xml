@@ -1,52 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Activiy.PerfilActivityOld"
-    tools:layout_editor_absoluteY="81dp"
-    tools:layout_editor_absoluteX="0dp">
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="81dp">
 
 
     <View
         android:id="@+id/view2"
         android:layout_width="418dp"
         android:layout_height="3dp"
+        android:layout_alignParentTop="true"
         android:layout_weight="0.15"
         android:background="#2c6130"
         tools:layout_conversion_absoluteHeight="7dp"
-        tools:layout_conversion_absoluteWidth="330dp"
-        android:layout_alignParentTop="true" />
+        tools:layout_conversion_absoluteWidth="330dp" />
 
     <ImageView
         android:id="@+id/foto_objeto"
         android:layout_width="126dp"
         android:layout_height="80dp"
+        android:layout_below="@+id/view2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="19dp"
         android:padding="0dip"
         android:src="@android:drawable/ic_menu_camera"
-        tools:layout_editor_absoluteY="27dp"
+        tools:layout_conversion_absoluteHeight="80dp"
+        tools:layout_conversion_absoluteWidth="126dp"
         tools:layout_conversion_absoluteX="0dp"
         tools:layout_conversion_absoluteY="0dp"
-        tools:layout_conversion_absoluteWidth="126dp"
-        tools:layout_conversion_absoluteHeight="80dp"
         tools:layout_editor_absoluteX="143dp"
-        android:layout_marginTop="19dp"
-        android:layout_below="@+id/view2"
-        android:layout_centerHorizontal="true" />
+        tools:layout_editor_absoluteY="27dp" />
 
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="373dp"
         android:layout_height="143dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="341dp"
-        android:layout_marginTop="12dp"
-        android:layout_below="@+id/relativeLayout2"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/relativeLayout2"
+        android:layout_marginTop="12dp"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="341dp">
 
         <TextView
             android:id="@+id/textView15"
@@ -86,6 +85,9 @@
             android:id="@+id/btnAlterarNutri"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginEnd="31dp"
             android:layout_marginRight="31dp"
             android:text="Alterar"
@@ -94,40 +96,37 @@
             tools:layout_conversion_absoluteX="0dp"
             tools:layout_conversion_absoluteY="0dp"
             tools:layout_editor_absoluteX="138dp"
-            tools:layout_editor_absoluteY="370dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            tools:layout_editor_absoluteY="370dp" />
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="375dp"
-        android:layout_height="176dp"
-
         android:id="@+id/relativeLayout2"
-        android:layout_marginTop="14dp"
-        android:layout_below="@+id/foto_objeto"
+        android:layout_width="375dp"
+
+        android:layout_height="176dp"
         android:layout_alignLeft="@+id/relativeLayout"
-        android:layout_alignStart="@+id/relativeLayout">
+        android:layout_alignStart="@+id/relativeLayout"
+        android:layout_below="@+id/foto_objeto"
+        android:layout_marginTop="14dp">
 
 
         <Button
             android:id="@+id/btnAlterar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="12dp"
+            android:layout_marginEnd="106dp"
+            android:layout_marginRight="106dp"
             android:text="Alterar"
             tools:layout_conversion_absoluteHeight="48dp"
             tools:layout_conversion_absoluteWidth="88dp"
             tools:layout_conversion_absoluteX="0dp"
             tools:layout_conversion_absoluteY="0dp"
             tools:layout_editor_absoluteX="257dp"
-            tools:layout_editor_absoluteY="236dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="106dp"
-            android:layout_marginEnd="106dp"
-            android:layout_marginBottom="12dp" />
+            tools:layout_editor_absoluteY="236dp" />
 
         <LinearLayout
             android:id="@+id/linearLayout7"
@@ -191,6 +190,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/linearLayout7"
+            android:layout_toRightOf="@+id/linearLayout7"
             android:orientation="vertical"
             android:weightSum="1"
             tools:layout_conversion_absoluteHeight="82dp"
@@ -198,10 +200,7 @@
             tools:layout_conversion_absoluteX="0dp"
             tools:layout_conversion_absoluteY="0dp"
             tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/linearLayout7"
-            android:layout_toEndOf="@+id/linearLayout7">
+            tools:layout_editor_absoluteY="0dp">
 
             <TextView
                 android:id="@+id/textViewExibeNome"

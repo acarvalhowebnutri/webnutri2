@@ -16,6 +16,35 @@ public class Usuario implements Serializable {
     private String peso;
     private String sexo;
     private String altura;
+    private String email;
+    private String crn;
+    private byte[] foto;
+    private Double valor;
+
+    public Usuario(Long id, String nome, String senha, String email) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+    }
+
+    public Usuario() {
+    }
+
+    public String getCrn() {
+        return crn;
+    }
+
+    public void setCrn(String crn) {
+        this.crn = crn;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getAltura() {
         return altura;
@@ -48,15 +77,6 @@ public class Usuario implements Serializable {
 
     public void setDataNasc(String dataNasc) {
         this.dataNasc = dataNasc;
-    }
-
-    private byte[] foto;
-    private Double valor;
-
-    public Usuario(Long id, String nome, String senha, Double valor) {
-        this.id = id;
-        this.nome = nome;
-        this.senha = senha;
     }
 
     public byte[] getFoto() {
@@ -102,18 +122,16 @@ public class Usuario implements Serializable {
     public Double getValor() {
         return valor;
     }
+
     public void setValor(Double valor) {
         this.valor = valor;
     }
-
-
-    public Usuario() {
-    }
-
-    public Usuario(Long id, String nome, String senha, Integer alimentoId) {
+/*
+    public Usuario(Long id, String nome, String senha, String email) {
         this.id = id;
         this.nome = nome;
-        this.senha = senha;
+        this.email = email;
         this.alimentoId = alimentoId;
     }
+    */
 }

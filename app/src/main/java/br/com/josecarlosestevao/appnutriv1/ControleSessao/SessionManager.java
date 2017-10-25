@@ -13,29 +13,24 @@ import br.com.josecarlosestevao.appnutriv1.Login.LoginActivity;
  */
 public class SessionManager {
 
+    // User name (make variable public to access from outside)
+    public static final String KEY_NAME = "name";
+    // Email address (make variable public to access from outside)
+    public static final String KEY_EMAIL = "email";
+    // Sharedpref file name
+    private static final String PREF_NAME = "AndroidHivePref";
+    // All Shared Preferences Keys
+    private static final String IS_LOGIN = "IsLoggedIn";
     // Shared Preferences
     SharedPreferences pref;
-
     // Editor for Shared preferences
     SharedPreferences.Editor editor;
-
     // Context
     Context _context;
-
     // Shared pref mode
     int PRIVATE_MODE = 0;
 
-    // Sharedpref file name
-    private static final String PREF_NAME = "AndroidHivePref";
 
-    // All Shared Preferences Keys
-    private static final String IS_LOGIN = "IsLoggedIn";
-
-    // User name (make variable public to access from outside)
-    public static final String KEY_NAME = "name";
-
-    // Email address (make variable public to access from outside)
-    public static final String KEY_EMAIL = "email";
 
     // Constructor
     public SessionManager(Context context){
@@ -94,6 +89,8 @@ public class SessionManager {
         user.put(KEY_NAME, pref.getString(KEY_NAME, null));
 
         // user email id
+        user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
+
         user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
 
         // return user

@@ -19,26 +19,29 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import br.com.josecarlosestevao.appnutriv1.Activiy.CadastrarUsuarioActivity;
+import br.com.josecarlosestevao.appnutriv1.Activiy.CadastroLoginActivity;
 import br.com.josecarlosestevao.appnutriv1.Activiy.MainActivity;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
+<<<<<<< HEAD
+=======
+import br.com.josecarlosestevao.appnutriv1.Nutricionista.NutricionistaDao;
+import br.com.josecarlosestevao.appnutriv1.Nutricionista.NutricionistaDrawerActivity;
+>>>>>>> c709ba0b520b987b328f4022bf9c0768af593197
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.SQLite.DatabaseHelper;
 import br.com.josecarlosestevao.appnutriv1.Usuario.UsuarioDAO;
 
 public class LoginActivity extends Activity {
 
+    public static final String Nome = "Nome";
+    private static final String MANTER_CONECTADO = "manter_conectado";
+    Cursor cursor;
+    SessionManager session;
     private UsuarioDAO usuarioDAO;
     private Button entrarPacienteBtn, entrarNutricionistaBtn;
     private EditText nomeEditText, senhaEditText;
     private TextView criarContaTextView, esqueceuContaTextView;
     private CheckBox manterConectado;
-
-    private static final String MANTER_CONECTADO = "manter_conectado";
-   public static final String Nome = "Nome";
-    Cursor cursor;
-
-    SessionManager session;
     private DatabaseHelper mDBHelper;
 
     @Override
@@ -136,10 +139,10 @@ inserirUsuarioTeste();
             public void onClick(View v) {
 
 
-                UsuarioDAO dao = new UsuarioDAO(getApplicationContext());
+                NutricionistaDao dao = new NutricionistaDao(getApplicationContext());
                 String nome = nomeEditText.getText().toString();
                 String senha = senhaEditText.getText().toString();
-                String senhaValidacao = dao.pesquisarUsuario(nome);
+                String senhaValidacao = dao.pesquisarNutricionista(nome);
                 if (nome.equals("")) {
                     Toast.makeText(getApplicationContext(), "Preencha o campo usuario", Toast.LENGTH_LONG).show();
                     return;
@@ -181,7 +184,7 @@ inserirUsuarioTeste();
                 // TODO Auto-generated method stub
 
                 /// Create Intent for SignUpActivity  abd Start The Activity
-                Intent i = new Intent(getApplicationContext(), CadastrarUsuarioActivity.class);
+                Intent i = new Intent(getApplicationContext(), CadastroLoginActivity.class);
                 startActivity(i);
             }
         });
