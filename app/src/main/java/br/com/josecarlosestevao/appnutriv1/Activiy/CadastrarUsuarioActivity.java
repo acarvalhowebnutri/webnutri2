@@ -27,6 +27,9 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.IOException;
 
 import br.com.josecarlosestevao.appnutriv1.Constantes.ConversorImagem;
@@ -53,14 +56,15 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
     SessionManager session;
 
     RadioButton radioButtonFem, radioButtonMasc;
+    boolean selecionouSexoMasculino;
+    boolean selecionouSexoFem;
     private DatePicker cadastra_nascimento_data;
     private Bitmap foto;
     private byte[] recebfoto;
     private Usuario usuario;
     private ImageView campoFotoObjeto;
     private Usuario userU;
-    boolean selecionouSexoMasculino;
-    boolean selecionouSexoFem;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,17 +82,10 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                         RESULT_GALERIA);
             }
-
         }
 
-        if (usuario == null) {
-            usuario = new Usuario();
-        }
-        if (userU == null) {
-            userU = new Usuario();
-        }
-
-
+        usuario = (usuario == null) ? new Usuario() : usuario;
+        userU = (userU == null) ? new Usuario() : userU;
 
         nomeEditText = (EditText) findViewById(R.id.nomeEditText);
         senhaEditText = (EditText) findViewById(R.id.senhaEditText);
@@ -97,55 +94,38 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
         criarContaBtn = (Button) findViewById(R.id.criarContaBtn);
         campoFotoObjeto = (ImageView) findViewById(R.id.foto_objeto);
         pesoEditText = (EditText) findViewById(R.id.cadastro_peso);
-       // cadastro_sexo_masc = (CheckBox) findViewById(R.id.cadastro_sexo_masc);
+        // cadastro_sexo_masc = (CheckBox) findViewById(R.id.cadastro_sexo_masc);
         //cadastro_sexo_fem = (CheckBox) findViewById(R.id.cadastro_sexo_masc);
         cadastro_data_nasc = (TextView) findViewById(R.id.cadastro_data_nasc);
         radioButtonMasc = (RadioButton) findViewById(R.id.radioButtonMasc);
         radioButtonFem = (RadioButton) findViewById(R.id.radioButtonFem);
-
-
-
-
 
         campoFotoObjeto.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
             @Override
             public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
                 menu.add(0, MENU_FOTO, 0, "TIRAR FOTO");
                 menu.add(1, MENU_GALERIA, 1, "GALERIA");
-
-
             }
         });
 
 
         cadastro_data_nasc.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
-
                 DialogFragment newFragment = new SelectDateFragment();
                 newFragment.show(getSupportFragmentManager(), "DatePicker");
-
-
             }
         });
         criarContaBtn.setOnClickListener(new View.OnClickListener() {
-                                             @Override
-                                             public void onClick(View v) {
-
-                                                 try {
-                                                     validaCampos();
-                                                 } catch (IOException e) {
-                                                     e.printStackTrace();
-                                                 }
-
-                                             }
-                                         }
-
-        );
-
-
+            @Override
+            public void onClick(View v) {
+                try {
+                 validaCampos();
+                } catch (IOException e) {
+                 e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override
@@ -156,17 +136,12 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
         if (item.getItemId() == MENU_FOTO) {
 
             intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
             startActivityForResult(intent, ID_RETORNO_TIRA_FOTO_OBJETO);
-
 
             return true;
         } else if (item.getItemId() == MENU_GALERIA) {
             intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
             startActivityForResult(intent, RESULT_GALERIA);
-
-
         }
         return super.onContextItemSelected(item);
     }
@@ -281,26 +256,24 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Preencha o campo peso", Toast.LENGTH_LONG).show();
                             pesoEditText.requestFocus();
                             return;
-                        } else
+                        } else {
                             criarConta();
-
+                        }
                     }
                 }
             }
         }
     }
+
     private void carregarfoto(byte[] x) {
-
         // nomeEditText.setText(usuario.getNome());
-
-
-        campoFotoObjeto.setImageBitmap(ConversorImagem
-                .converteByteArrayPraBitmap(x));
+        campoFotoObjeto
+                .setImageBitmap(ConversorImagem
+                        .converteByteArrayPraBitmap(x));
         userU.setFoto(x);
         //validaCampos();
 
     }
-
 
     public void criarConta() throws IOException {
 
@@ -324,6 +297,9 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
 
         Toast.makeText(getApplicationContext(), "Conta criada com sucesso", Toast.LENGTH_LONG).show();
 
+        //CADASTRANDO NO FIREBASE O USUÁRIO
+        cadastrarUsuarioNoFirebase(userU);
+
         Intent voltar = new Intent(CadastrarUsuarioActivity.this, LoginActivity.class);
         startActivity(voltar);
         /*Intent outratela = new Intent(CadastrarUsuarioActivity.this, CadastroMetricosActivity.class);
@@ -337,6 +313,12 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
 
     }
 
+    private void cadastrarUsuarioNoFirebase(Usuario user){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference mDatabase = database.getReference();
+
+        mDatabase.child("users").child(user.getId().toString()).setValue(user);
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {

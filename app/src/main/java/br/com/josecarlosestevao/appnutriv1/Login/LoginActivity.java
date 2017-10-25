@@ -22,7 +22,6 @@ import java.io.OutputStream;
 import br.com.josecarlosestevao.appnutriv1.Activiy.CadastrarUsuarioActivity;
 import br.com.josecarlosestevao.appnutriv1.Activiy.MainActivity;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
-import br.com.josecarlosestevao.appnutriv1.Nutricionista.NutricionistaDrawerActivity;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.SQLite.DatabaseHelper;
 import br.com.josecarlosestevao.appnutriv1.Usuario.UsuarioDAO;
@@ -158,9 +157,9 @@ inserirUsuarioTeste();
                     session.createLoginSession(nome);
 
 
-                    Intent i = new Intent(getApplicationContext(), NutricionistaDrawerActivity.class);
+                    //Intent i = new Intent(getApplicationContext(), NutricionistaDrawerActivity.class);
 
-                    startActivity(i);
+                    startActivity(new Intent(getApplicationContext(), CadastrarUsuarioActivity.class));
                     finish();
                     Toast.makeText(LoginActivity.this, "login feito com sucesso", Toast.LENGTH_LONG).show();
 
