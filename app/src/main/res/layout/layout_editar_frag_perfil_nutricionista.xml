@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+
+    tools:context=".Nutricionista.PerfilNutricionistaFragment"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="81dp">>
+
+    <!-- <SearchView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:id="@+id/search"/>
+ -->
+
+
+    <ImageView
+        android:id="@+id/imageViewFotoNutricionista"
+        android:layout_width="126dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/view2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="19dp"
+        android:padding="0dip"
+        android:src="@android:drawable/ic_menu_camera"
+        tools:layout_conversion_absoluteHeight="80dp"
+        tools:layout_conversion_absoluteWidth="126dp"
+        tools:layout_conversion_absoluteX="0dp"
+        tools:layout_conversion_absoluteY="0dp"
+        tools:layout_editor_absoluteX="143dp"
+        tools:layout_editor_absoluteY="27dp" />
+
+    <EditText
+        android:id="@+id/editTextExibeNOME"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+
+        android:layout_below="@+id/imageViewFotoNutricionista"
+        android:layout_marginTop="33dp"
+        android:text="nome"
+        android:textColor="#716f6f"
+        android:textSize="22sp" />
+
+    <EditText
+        android:id="@+id/editTextExibeCRN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+
+        android:layout_below="@+id/editTextExibeNOME"
+        android:text="crn "
+        android:textColor="#716f6f"
+        android:textSize="22sp" />
+
+    <EditText
+        android:id="@+id/editTextExibeEMAIL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+
+        android:layout_below="@+id/editTextExibeCRN"
+        android:layout_marginTop="19dp"
+        android:text="e-mail "
+        android:textColor="#716f6f"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="9dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginStart="21dp"
+        android:text="Nova Senha" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/confirmarsenhaEditText"
+        android:layout_alignLeft="@+id/confirmarsenhaEditText"
+        android:layout_alignStart="@+id/confirmarsenhaEditText"
+        android:layout_marginBottom="32dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginStart="21dp"
+        android:text="Confirmar Senha" />
+
+    <EditText
+        android:id="@+id/senhaEditText"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/confirmarsenhaEditText"
+        android:layout_alignBottom="@+id/confirmarsenhaEditText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="top"
+        android:password="true" />
+
+    <EditText
+        android:id="@+id/confirmarsenhaEditText"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonAlterar"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="top"
+        android:layout_marginBottom="26dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:password="true" />
+
+    <Button
+        android:id="@+id/buttonAlterar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="34dp"
+        android:layout_toEndOf="@+id/senhaEditText"
+        android:layout_toRightOf="@+id/senhaEditText"
+        android:text="alterar"
+        android:textColor="#499b3c" />
+
+
+</RelativeLayout>
