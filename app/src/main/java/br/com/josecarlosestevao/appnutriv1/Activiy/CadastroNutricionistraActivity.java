@@ -24,7 +24,7 @@ public class CadastroNutricionistraActivity extends AppCompatActivity {
     Bundle bundle = new Bundle();
     TextView cadastro_data_nasc;
     SessionManager session;
-    private Nutricionista userU;
+    private Nutricionista usercad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,29 +35,26 @@ public class CadastroNutricionistraActivity extends AppCompatActivity {
         criarContaBtn = (Button) findViewById(R.id.criarContaBtn);
 
 
-        Intent intent = getIntent();
-
-        Bundle bundle = intent.getExtras();
-
-
-        if (userU == null) {
-            userU = new Nutricionista();
-        }
-        userU.setNome(bundle.getString("nome"));
-        userU.setSenha(bundle.getString("senha"));
-        userU.setEmail(bundle.getString("email"));
-
-
-
-
         criarContaBtn.setOnClickListener(new View.OnClickListener() {
                                              @Override
                                              public void onClick(View v) {
 
+                                                 if (usercad == null) {
+                                                     usercad = new Nutricionista();
+                                                 }
+
+                                                 Intent intent = getIntent();
+
+                                                 Bundle bundle = intent.getExtras();
+                                                 byte[] x = bundle.getByteArray("foto");
                                                  String crn = crnEditText.getText().toString();
-                                                 userU.setCrn(crn);
+                                                 usercad.setCrn(crn);
+                                                 usercad.setFoto(x);
+                                                 usercad.setNome(bundle.getString("nome"));
+                                                 usercad.setSenha(bundle.getString("senha"));
+                                                 usercad.setEmail(bundle.getString("email"));
                                                  NutricionistaDao dao = new NutricionistaDao(getApplicationContext());
-                                                 dao.adicionarNutricionista(userU);
+                                                 dao.adicionarNutricionista(usercad);
                                                  Toast.makeText(getApplicationContext(), "Conta criada com sucesso", Toast.LENGTH_LONG).show();
 
                                                  Intent voltar = new Intent(CadastroNutricionistraActivity.this, LoginActivity.class);

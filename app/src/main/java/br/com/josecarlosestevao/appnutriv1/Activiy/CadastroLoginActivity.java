@@ -273,7 +273,7 @@ public class CadastroLoginActivity extends AppCompatActivity {
         campoFotoObjeto.setImageBitmap(ConversorImagem
                 .converteByteArrayPraBitmap(x));
         userU.setFoto(x);
-        bundle.putString("foto", x.toString());
+        bundle.putByteArray("foto", x);
         //validaCampos();
 
     }

@@ -60,7 +60,7 @@ public class NutricionistaDao {
         dbHelper.openDatabase();
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Cursor cursor = db.query(Constantes.TB_NUTRICIONISTA, null, " nome=?", new String[]{nome}, null, null, null);
+        Cursor cursor = db.query(Constantes.TB_NUTRICIONISTA, null, " nome=?", new String[]{nome}, null, null, null, null);
         if (cursor.getCount() < 1) // UserName Not Exist
         {
             cursor.close();

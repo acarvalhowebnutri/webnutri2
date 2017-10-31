@@ -120,7 +120,7 @@ public class NutricionistaDrawerActivity extends AppCompatActivity
                 ListaPacientesFragment listapaciente = new ListaPacientesFragment();
 
                 FragmentTransaction ft = fm.beginTransaction();
-                ft.add(R.id.layout_direito, listapaciente, "frag1");
+                ft.add(R.id.layout_direito_nutricionista, listapaciente, "frag1");
                 ft.commit();
             }
         }

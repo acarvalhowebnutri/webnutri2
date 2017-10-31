@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import br.com.josecarlosestevao.appnutriv1.Activiy.PesquisaAlimentoFragment;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
@@ -28,8 +29,10 @@ public class ListaPacientesFragment extends Fragment {
 
 
     private static final int MENU_APAGAR = Menu.FIRST;
+    private static final int MENU_RECEITAR = Menu.NONE;
     SessionManager session;
     private ListView listapacientes;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,6 +63,7 @@ public class ListaPacientesFragment extends Fragment {
         super.onCreateContextMenu(menu, v, menuInfo);
 
         menu.add(0, MENU_APAGAR, 0, "APAGAR");
+        menu.add(1, MENU_RECEITAR, 1, "RECEITAR");
     }
 
     public ListView getListapacientes() {
@@ -104,10 +108,24 @@ public class ListaPacientesFragment extends Fragment {
         AdapterView.AdapterContextMenuInfo info;
         info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
+
         if (item.getItemId() == MENU_APAGAR) {
             Usuario usuario = (Usuario) getListapacientes().getItemAtPosition(info.position);
             remove(usuario);
             Toast.makeText(getContext(), "registro removido com sucesso ", Toast.LENGTH_LONG).show();
+            return true;
+        }
+        if (item.getItemId() == MENU_RECEITAR) {
+            Usuario usuariodois = (Usuario) getListapacientes().getItemAtPosition(info.position);
+           /* remove(usuario);
+            Toast.makeText(getContext(), "registro removido com sucesso ", Toast.LENGTH_LONG).show();*/
+
+
+            PesquisaAlimentoFragment fragment = new PesquisaAlimentoFragment();
+            // fragment.setArguments(arguments);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.layout_direito_nutricionista, fragment).commit();
+
+
             return true;
         }
         return super.onContextItemSelected(item);

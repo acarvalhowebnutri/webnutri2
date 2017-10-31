@@ -14,7 +14,7 @@
 
 
     <LinearLayout
-        android:id="@+id/layout_direito"
+        android:id="@+id/layout_direito_nutricionista"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/textView8"
