@@ -26,7 +26,7 @@ public class ListaAlimentosConsumidosListener implements AdapterView.OnItemClick
     public void onItemClick(AdapterView<?> adapterView, View view, int posicao, long idPosicao) {
         Intent i = new Intent(activity.getContext(),CadastrarAlimentoActivity.class);
         i.putExtra("itemSelecionadoParaEdicao",(Consumo)activity.getListaAlimentosConsumidos().getItemAtPosition(posicao));
-        activity.startActivity(i);
+        // activity.startActivity(i);
 
 
 
