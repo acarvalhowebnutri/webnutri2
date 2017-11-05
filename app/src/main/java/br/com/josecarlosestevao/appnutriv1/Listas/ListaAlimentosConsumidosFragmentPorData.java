@@ -8,14 +8,10 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-import br.com.josecarlosestevao.appnutriv1.Consumo.Consumo;
 import br.com.josecarlosestevao.appnutriv1.Consumo.ConsumoDAO;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
 import br.com.josecarlosestevao.appnutriv1.R;
@@ -83,10 +79,11 @@ public class ListaAlimentosConsumidosFragmentPorData extends Fragment {
       // final String link1 = DateFormat.getDateInstance().format(new Date());
         //dataatual.setText(currentDateTimeString);
 
+
         String name = user.get(SessionManager.KEY_NAME);
         ConsumoDAO daoNew = new ConsumoDAO(getContext());
         //  final List<Consumo> alimentosConsumidos = dao.listaConsumidos(name);
-        final List<Consumo> alimentosConsumidosNew = daoNew.listaConsumidosNew(name, link);
+        /*final List<Consumo> alimentosConsumidosNew = daoNew.listaConsumidosNew(name, link);
 
 
         ArrayAdapter<Consumo> adapterNew = new ListaAlimentosConsumidosAdapterData(getActivity(),
@@ -94,9 +91,9 @@ public class ListaAlimentosConsumidosFragmentPorData extends Fragment {
 
         listaAlimentosConsumidosData.setAdapter(adapterNew);
 
-        ArrayList<Consumo> alimentoNew = new ArrayList<>();
+        ArrayList<Consumo> alimentoNew = new ArrayList<>();*/
 
-        listaAlimentosConsumidosData.setOnItemClickListener(new ListaAlimentosConsumidosListenerData(this));
+        //listaAlimentosConsumidosData.setOnItemClickListener(new ListaAlimentosConsumidosListenerData(this));
 
     }
 
@@ -104,7 +101,7 @@ public class ListaAlimentosConsumidosFragmentPorData extends Fragment {
 
 /*
     private static final int MENU_APAGAR = Menu.FIRST;
-    private ListView listaAlimentosConsumidosData;
+    private ListView listaAlimentosDietaNutricionistaDataFragment;
 
     SessionManager session;
 
@@ -117,9 +114,9 @@ public class ListaAlimentosConsumidosFragmentPorData extends Fragment {
         TextView tv = (TextView) view.findViewById(R.id.textViewdata);
         tv.setText("Fragment 1");
 
-        listaAlimentosConsumidosData = (ListView) view.findViewById(R.id.listdata);
+        listaAlimentosDietaNutricionistaDataFragment = (ListView) view.findViewById(R.id.listdata);
 
-        registerForContextMenu(listaAlimentosConsumidosData);
+        registerForContextMenu(listaAlimentosDietaNutricionistaDataFragment);
 
 
        // Bundle params = intent.getExtras();
@@ -142,9 +139,9 @@ public class ListaAlimentosConsumidosFragmentPorData extends Fragment {
 
 
 
-    public ListView getListaAlimentosConsumidosData() {
+    public ListView getListaAlimentosDietaNutricionistaDataFragment() {
 
-        return listaAlimentosConsumidosData;
+        return listaAlimentosDietaNutricionistaDataFragment;
     }
 
 
@@ -171,17 +168,17 @@ public class ListaAlimentosConsumidosFragmentPorData extends Fragment {
         String name = user.get(SessionManager.KEY_NAME);
         ConsumoDAO daoNew = new ConsumoDAO(getContext());
       //  final List<Consumo> alimentosConsumidos = dao.listaConsumidos(name);
-        final List<Consumo> alimentosConsumidosNew = daoNew.listaConsumidosNew(name, link);
+        final List<Consumo> alimentosConsumidosNew = daoNew.listaReceitaPacicente(name, link);
 
 
         ArrayAdapter<Consumo> adapterNew = new ListaAlimentosConsumidosAdapterData(getActivity(),
                 android.R.layout.simple_list_item_1, alimentosConsumidosNew);
 
-        listaAlimentosConsumidosData.setAdapter(adapterNew);
+        listaAlimentosDietaNutricionistaDataFragment.setAdapter(adapterNew);
 
         ArrayList<Consumo> alimentoNew = new ArrayList<>();
 
-        listaAlimentosConsumidosData.setOnItemClickListener(new ListaAlimentosConsumidosListenerData(this));
+        listaAlimentosDietaNutricionistaDataFragment.setOnItemClickListener(new ListaAlimentosConsumidosListenerData(this));
 
 
     }
@@ -198,7 +195,7 @@ public class ListaAlimentosConsumidosFragmentPorData extends Fragment {
         info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
         if (item.getItemId() == MENU_APAGAR) {
-            Consumo consumo = (Consumo) getListaAlimentosConsumidosData().getItemAtPosition(info.position);
+            Consumo consumo = (Consumo) getListaAlimentosDietaNutricionistaDataFragment().getItemAtPosition(info.position);
             remove(consumo);
             Toast.makeText(getContext(), "registro removido com sucesso ", Toast.LENGTH_LONG).show();
             return true;

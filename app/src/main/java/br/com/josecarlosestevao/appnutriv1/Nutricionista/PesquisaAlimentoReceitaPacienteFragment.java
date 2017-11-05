@@ -3,7 +3,6 @@ package br.com.josecarlosestevao.appnutriv1.Nutricionista;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
@@ -15,11 +14,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import br.com.josecarlosestevao.appnutriv1.Constantes.AdaptadorConsumo;
-import br.com.josecarlosestevao.appnutriv1.Constantes.SelectDateFragment;
 import br.com.josecarlosestevao.appnutriv1.Consumo.Consumo;
 import br.com.josecarlosestevao.appnutriv1.Consumo.ConsumoDAO;
 import br.com.josecarlosestevao.appnutriv1.R;
+import br.com.josecarlosestevao.appnutriv1.Receita.AdaptadorReceita;
 import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 
 /**
@@ -32,7 +30,7 @@ public class PesquisaAlimentoReceitaPacienteFragment extends Fragment {
     SearchView sv;
     ArrayList<Consumo> alimento = new ArrayList<>();
     //   ConsumoDAO adapter1;
-    AdaptadorConsumo adapter;
+    AdaptadorReceita adapter;
     Consumo consumo;
     Usuario u;
     ConsumoDAO alimentoRepo;
@@ -51,7 +49,7 @@ public class PesquisaAlimentoReceitaPacienteFragment extends Fragment {
         txtdata = (TextView) view.findViewById(R.id.txtData);
 
 
-        adapter = new AdaptadorConsumo(getContext(), alimento);
+        adapter = new AdaptadorReceita(getContext(), alimento);
         consumo = new Consumo();
         //   lv.setOnItemClickListener(new ItemList());
         //  lv.setAdapter(adapter);
@@ -59,8 +57,13 @@ public class PesquisaAlimentoReceitaPacienteFragment extends Fragment {
 
         //   if(cursor==null) insertDummy();
 
-
-        txtdata.setOnClickListener(new View.OnClickListener() {
+        Bundle bundle = getArguments();
+        String nomepaciente = bundle.getString("username");
+        if (u == null) {
+            u = new Usuario();
+        }
+        u.setNome(nomepaciente);
+     /*   txtdata.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -72,7 +75,7 @@ public class PesquisaAlimentoReceitaPacienteFragment extends Fragment {
 
             }
         });
-
+*/
 
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -119,6 +122,7 @@ public class PesquisaAlimentoReceitaPacienteFragment extends Fragment {
             p.setAlimento(name);
             p.setCarboidrato(valor);
             p.setProteina(pro);
+            p.setUsuario(u);
 
             alimento.add(p);
         }

@@ -1,5 +1,8 @@
 package br.com.josecarlosestevao.appnutriv1.Receita;
 
+import br.com.josecarlosestevao.appnutriv1.Usuario.Nutricionista;
+import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
+
 /**
  * Created by Dell on 30/10/2017.
  */
@@ -9,8 +12,30 @@ public class Receita {
     private Long id;
     private String alimento;
     private String data;
-    private String usuario;
+    //private String usuario;
+    private Usuario usuario = new Usuario();
+    private Nutricionista nutricionista = new Nutricionista();
 
+    public Nutricionista getNutricionista() {
+        return nutricionista;
+    }
+
+    public void setNutricionista(Nutricionista nutricionista) {
+        this.nutricionista = nutricionista;
+    }
+
+    /*
+
+        public String getNutricionista() {
+            return nutricionista;
+        }
+
+        public void setNutricionista(String nutricionista) {
+            this.nutricionista = nutricionista;
+        }
+
+        private String nutricionista;
+    */
     public Long getId() {
         return id;
     }
@@ -35,6 +60,16 @@ public class Receita {
         this.data = data;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+
+/*
     public String getUsuario() {
         return usuario;
     }
@@ -42,4 +77,5 @@ public class Receita {
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
+    */
 }

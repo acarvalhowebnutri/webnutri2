@@ -60,7 +60,7 @@ public class NutricionistaDao {
         dbHelper.openDatabase();
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Cursor cursor = db.query(Constantes.TB_NUTRICIONISTA, null, " nome=?", new String[]{nome}, null, null, null, null);
+        Cursor cursor = db.query(Constantes.TB_NUTRICIONISTA, null, " nome=?", new String[]{nome}, null, null, null);
         if (cursor.getCount() < 1) // UserName Not Exist
         {
             cursor.close();
@@ -70,6 +70,8 @@ public class NutricionistaDao {
         String senha = cursor.getString(cursor.getColumnIndex("senha"));
         cursor.close();
         dbHelper.close();
+        db.close();
+
         return senha;
     }
 
@@ -88,6 +90,7 @@ public class NutricionistaDao {
         String crn = cursor.getString(cursor.getColumnIndex("crn"));
         cursor.close();
         dbHelper.close();
+        db.close();
         return crn;
     }
 
@@ -123,6 +126,8 @@ public class NutricionistaDao {
             c.close();
         }
         db.close();
+        c.close();
+        dbHelper.close();
         return listapacientes;
     }
 
@@ -143,13 +148,15 @@ public class NutricionistaDao {
         user.setNome(cursor.getString(1));
         user.setEmail(cursor.getString(3));
         user.setCrn(cursor.getString(4));
-        user.setFoto(cursor.getBlob(5));
+        //   user.setFoto(cursor.getBlob(5));
 
 
         // user.setSenha(cursor.getString(2));
 
 
         cursor.close();
+        db.close();
+        dbHelper.close();
         return user;
     }
 

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import br.com.josecarlosestevao.appnutriv1.Activiy.PesquisaAlimentoFragment;
+import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessaoDietaPaciente;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
@@ -31,6 +31,7 @@ public class ListaPacientesFragment extends Fragment {
     private static final int MENU_APAGAR = Menu.FIRST;
     private static final int MENU_RECEITAR = Menu.NONE;
     SessionManager session;
+    SessaoDietaPaciente sessaoDietaPaciente;
     private ListView listapacientes;
 
 
@@ -117,12 +118,20 @@ public class ListaPacientesFragment extends Fragment {
         }
         if (item.getItemId() == MENU_RECEITAR) {
             Usuario usuariodois = (Usuario) getListapacientes().getItemAtPosition(info.position);
+            String nome = usuariodois.getNome();
+            //    sessaoDietaPaciente = new SessaoDietaPaciente(getContext());
+
+            //  sessaoDietaPaciente.createLoginSession(nome);
            /* remove(usuario);
             Toast.makeText(getContext(), "registro removido com sucesso ", Toast.LENGTH_LONG).show();*/
 
 
-            PesquisaAlimentoFragment fragment = new PesquisaAlimentoFragment();
+            PesquisaAlimentoReceitaPacienteFragment fragment = new PesquisaAlimentoReceitaPacienteFragment();
             // fragment.setArguments(arguments);
+            Bundle bundle = new Bundle();
+            bundle.putString("username", nome);
+            // bundle.putString("senha", user_pass);
+            fragment.setArguments(bundle);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.layout_direito_nutricionista, fragment).commit();
 
 

@@ -44,6 +44,10 @@
             android:name=".Activiy.PesquisaNutricionistaCadastrados"
             android:label="@string/PesquisaNutricionista" />
 
+        <activity
+            android:name=".Activiy.CadastrarAlimentoActivity"
+            android:label="@string/cadastrar" />
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/appFacebook_id" />
