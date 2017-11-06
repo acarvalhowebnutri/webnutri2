@@ -113,8 +113,8 @@ public class ConsumoDAO {
         dbHelper.openDatabase();
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        long id = db.insert(Constantes.TB_CONSUMIDO, null, values);
-        alimento.setId(id);
+        long idteste = db.insert("consumido", null, values);
+        alimento.setId(idteste);
 
         dbHelper.close();
         db.close();
@@ -277,7 +277,7 @@ public class ConsumoDAO {
                 Constantes.KEY_ALIMENTO +
                 " FROM " + Constantes.TB_CONSUMIDO
                 + " WHERE " +
-                Constantes.KEY_PESSOA + "=?" + " AND " +
+                Constantes.KEY_PESSOA + " =?" + " AND " +
                 Constantes.KEY_DATA + " =? ";
         int iCount = 0;
         Consumo a = new Consumo();
