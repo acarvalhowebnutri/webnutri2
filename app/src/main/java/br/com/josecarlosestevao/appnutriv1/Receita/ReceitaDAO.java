@@ -3,6 +3,7 @@ package br.com.josecarlosestevao.appnutriv1.Receita;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
@@ -26,6 +27,36 @@ public class ReceitaDAO {
         dbHelper = new DatabaseHelper(context);
         this.context = context;
     }
+
+    public ReceitaDAO open() throws SQLException {
+        db = dbHelper.getWritableDatabase();
+        return this;
+    }
+
+    public void close() {
+
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.close();
+    }
+
+    public void openDB() {
+        try {
+            db = dbHelper.getWritableDatabase();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //CLOSE
+    public void closeDB() {
+        try {
+            dbHelper.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void adicionarReceita(Receita receita) {
         ContentValues values = new ContentValues();

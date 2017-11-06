@@ -8,10 +8,14 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import br.com.josecarlosestevao.appnutriv1.Consumo.Consumo;
 import br.com.josecarlosestevao.appnutriv1.Consumo.ConsumoDAO;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
 import br.com.josecarlosestevao.appnutriv1.R;
@@ -83,7 +87,7 @@ public class ListaAlimentosConsumidosFragmentPorData extends Fragment {
         String name = user.get(SessionManager.KEY_NAME);
         ConsumoDAO daoNew = new ConsumoDAO(getContext());
         //  final List<Consumo> alimentosConsumidos = dao.listaConsumidos(name);
-        /*final List<Consumo> alimentosConsumidosNew = daoNew.listaConsumidosNew(name, link);
+        final List<Consumo> alimentosConsumidosNew = daoNew.listaConsumidosNew(name, link);
 
 
         ArrayAdapter<Consumo> adapterNew = new ListaAlimentosConsumidosAdapterData(getActivity(),
@@ -91,9 +95,9 @@ public class ListaAlimentosConsumidosFragmentPorData extends Fragment {
 
         listaAlimentosConsumidosData.setAdapter(adapterNew);
 
-        ArrayList<Consumo> alimentoNew = new ArrayList<>();*/
+        ArrayList<Consumo> alimentoNew = new ArrayList<>();
 
-        //listaAlimentosConsumidosData.setOnItemClickListener(new ListaAlimentosConsumidosListenerData(this));
+        listaAlimentosConsumidosData.setOnItemClickListener(new ListaAlimentosConsumidosListenerData(this));
 
     }
 

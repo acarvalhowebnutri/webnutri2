@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Locale;
 
 import br.com.josecarlosestevao.appnutriv1.Constantes.Constantes;
+import br.com.josecarlosestevao.appnutriv1.Receita.Receita;
 import br.com.josecarlosestevao.appnutriv1.SQLite.DatabaseHelper;
 
 
@@ -59,8 +60,27 @@ public class ConsumoDAO {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
 
-        long id = db.insert(Constantes.TB_ALIMENTO, null, values);
+        long id = db.insert(Constantes.TB_CONSUMIDO, null, values);
         alimento.setId(id);
+
+        dbHelper.close();
+        db.close();
+
+    }
+
+    public void adicionaReceitaConsumo(Receita alimento) {
+        ContentValues values = new ContentValues();
+        values.put("alimento", alimento.getAlimento());
+        // values.put("valor", alimento.getCarboidrato());
+        //values.put("proteina", alimento.getProteina());
+        dbHelper.openDatabase();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+
+        long id = db.insert(Constantes.TB_CONSUMIDO, null, values);
+        alimento.setId(id);
+
+        dbHelper.close();
         db.close();
 
     }
@@ -78,6 +98,25 @@ public class ConsumoDAO {
 
         long id = db.insert(Constantes.TB_CONSUMIDO, null, values);
         alimento.setId(id);
+        db.close();
+
+    }
+
+    public void consumidoReceita(Receita alimento) {
+        ContentValues values = new ContentValues();
+        values.put("alimento", alimento.getAlimento());
+        values.put("pessoa", alimento.getUsuario().getNome());
+        // values.put("valor", alimento.getCarboidrato());
+        //values.put("proteina", alimento.getProteina());
+        values.put("data", alimento.getData());
+
+        dbHelper.openDatabase();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        long id = db.insert(Constantes.TB_CONSUMIDO, null, values);
+        alimento.setId(id);
+
+        dbHelper.close();
         db.close();
 
     }

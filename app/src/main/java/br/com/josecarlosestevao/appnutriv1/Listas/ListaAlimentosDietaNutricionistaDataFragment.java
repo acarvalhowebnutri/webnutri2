@@ -13,11 +13,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 
+import br.com.josecarlosestevao.appnutriv1.Consumo.ConsumoDAO;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.Receita.Receita;
@@ -30,10 +32,12 @@ import br.com.josecarlosestevao.appnutriv1.Usuario.UsuarioDAO;
  */
 public class ListaAlimentosDietaNutricionistaDataFragment extends Fragment {
 
-    private static final int MENU_APAGAR = Menu.FIRST;
+    // private static final int MENU_APAGAR = Menu.FIRST;
+    private static final int MENU_ADICIONAR_CONSUMO = Menu.FIRST;
     SessionManager session;
     Intent intent = new Intent();
     String dburl = intent.getStringExtra("databaseUrl");
+    Usuario usuario;
     private ListView listaAlimentosDietaNutricionistaDataFragment;
 
     @Nullable
@@ -70,7 +74,7 @@ public class ListaAlimentosDietaNutricionistaDataFragment extends Fragment {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
 
-        menu.add(0, MENU_APAGAR, 0, "APAGAR");
+        menu.add(0, MENU_ADICIONAR_CONSUMO, 0, "Adinar consumo");
     }
 
     private void montaLisViewNew() {
@@ -108,14 +112,14 @@ public class ListaAlimentosDietaNutricionistaDataFragment extends Fragment {
         final List<Receita> alimentosReceita = daoreceita.recuperaDietaTodos(name, nomenutri, dateString);
 
 
-        ArrayAdapter<Receita> adapterNew = new ListaAlimentosConsumidosAdapterData(getActivity(),
+        ArrayAdapter<Receita> adapterNew = new ListaAlimentosReceitaAdapter(getActivity(),
                 android.R.layout.simple_list_item_1, alimentosReceita);
 
         listaAlimentosDietaNutricionistaDataFragment.setAdapter(adapterNew);
 
         //ArrayList<Consumo> alimentoNew = new ArrayList<>();
 
-        listaAlimentosDietaNutricionistaDataFragment.setOnItemClickListener(new ListaAlimentosConsumidosListenerData(this));
+        // listaAlimentosDietaNutricionistaDataFragment.setOnItemClickListener(new ListaAlimentosConsumidosListenerData(this));
 
     }
 
@@ -124,13 +128,46 @@ public class ListaAlimentosDietaNutricionistaDataFragment extends Fragment {
         AdapterView.AdapterContextMenuInfo info;
         info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-        if (item.getItemId() == MENU_APAGAR) {
-       /*     Consumo consumo = (Consumo) getListaAlimentosConsumidos().getItemAtPosition(info.position);
-            remove(consumo);
-            Toast.makeText(getContext(), "registro removido com sucesso ", Toast.LENGTH_LONG).show();
-            return true;*/
+        if (item.getItemId() == MENU_ADICIONAR_CONSUMO) {
+
+            long date = System.currentTimeMillis();
+            SimpleDateFormat sdf = new SimpleDateFormat("d/M/yyyy");
+            final String currentDateTimeString = sdf.format(date);
+
+            Receita consumo = (Receita) getListaAlimentosDietaNutricionistaDataFragment().getItemAtPosition(info.position);
+            consumo.setData(currentDateTimeString);
+
+
+            session = new SessionManager(getContext());
+
+            session.checkLogin();
+
+            // get user data from session
+            HashMap<String, String> user = session.getUserDetails();
+
+            // name
+
+            // final String link1 = DateFormat.getDateInstance().format(new Date());
+            //dataatual.setText(currentDateTimeString);
+            String name = user.get(SessionManager.KEY_NAME);
+
+            if (usuario == null) {
+                usuario = new Usuario();
+            }
+            usuario.setNome(name);
+
+            consumo.setUsuario(usuario);
+            adicionarconsumo(consumo);
+            Toast.makeText(getContext(), "item adicionado aos consumidos ", Toast.LENGTH_LONG).show();
+            return true;
         }
         return super.onContextItemSelected(item);
+    }
+
+    private void adicionarconsumo(Receita consumo) {
+        ConsumoDAO dao = new ConsumoDAO(getContext());
+        dao.consumidoReceita(consumo);
+        montaLisViewNew();
     }
 
 }

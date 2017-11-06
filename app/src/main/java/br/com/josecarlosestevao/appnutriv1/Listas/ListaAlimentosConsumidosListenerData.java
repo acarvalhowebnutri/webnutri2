@@ -12,18 +12,18 @@ import br.com.josecarlosestevao.appnutriv1.Consumo.Consumo;
  */
 public class ListaAlimentosConsumidosListenerData implements AdapterView.OnItemClickListener{
 
-    ListaAlimentosDietaNutricionistaDataFragment activity;
+    ListaAlimentosConsumidosFragmentPorData activity;
     // private final ListaAlimentosConsumidosActivity activity;
 
 
-    public ListaAlimentosConsumidosListenerData(ListaAlimentosDietaNutricionistaDataFragment activity) {
+    public ListaAlimentosConsumidosListenerData(ListaAlimentosConsumidosFragmentPorData activity) {
         this.activity = activity;
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int posicao, long idPosicao) {
         Intent i = new Intent(activity.getContext(),CadastrarAlimentoActivity.class);
-        i.putExtra("itemSelecionadoParaEdicao", (Consumo) activity.getListaAlimentosDietaNutricionistaDataFragment().getItemAtPosition(posicao));
+        i.putExtra("itemSelecionadoParaEdicao", (Consumo) activity.getListaAlimentosConsumidosData().getItemAtPosition(posicao));
         activity.startActivity(i);
 
 
