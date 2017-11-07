@@ -18,6 +18,8 @@ public class Constantes {
     public static final String TB_CALCULO = "CALCULO";
     public static final String TB_NUTRIENTES = "NUTRIENTES";
     public static final String TB_NUTRICIONISTA = "nutricionista";
+    public static final String TB_RECEITA = "receita";
+
     public static final int DB_VERSION = 1;
 
     //CREATE TB
@@ -59,6 +61,8 @@ public class Constantes {
     public static final String KEY_SEXO = "sexo";
     public static final String KEY_CRN = "crn";
     public static final String KEY_EMAIL = "email";
+    public static final String KEY_NUTRICIONISTA = "nutricionista";
+    public static final String KEY_USUARIO = "usuario";
 
     // property help us to keep data
     public int alimento_ID;

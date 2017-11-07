@@ -34,7 +34,6 @@ import java.io.IOException;
 
 import br.com.josecarlosestevao.appnutriv1.Constantes.ConversorImagem;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
-import br.com.josecarlosestevao.appnutriv1.Login.LoginActivity;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 import br.com.josecarlosestevao.appnutriv1.Usuario.UsuarioDAO;
@@ -217,6 +216,7 @@ public class CadastroLoginActivity extends AppCompatActivity {
             campoFotoObjeto.setImageBitmap(thumbnail);
             byte[] x = ConversorImagem.converteBitmapPraByteArray(thumbnail, 70);
             carregarfoto(x);
+            bundle.putString("foto", x.toString());
             // bundle.putByteArray("foto", ConversorImagem.converteBitmapPraByteArray(thumbnail, 70));
             //  user.setFoto(x);
           /*Uri imageUri = data.getData();
@@ -305,7 +305,7 @@ public class CadastroLoginActivity extends AppCompatActivity {
                 .setImageBitmap(ConversorImagem
                         .converteByteArrayPraBitmap(x));
         userU.setFoto(x);
-        bundle.putString("foto", x.toString());
+        bundle.putByteArray("foto", x);
         //validaCampos();
 
     }
@@ -350,6 +350,7 @@ public class CadastroLoginActivity extends AppCompatActivity {
             bundle.putString("nome", nomeEditText.getText().toString());
             bundle.putString("senha", senhaEditText.getText().toString());
             bundle.putString("email", emailEditText.getText().toString());
+            //bundle.putString("foto", x.toString());
             i.putExtras(bundle);
             startActivity(i);
         } else {

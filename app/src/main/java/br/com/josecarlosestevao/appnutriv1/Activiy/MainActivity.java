@@ -23,7 +23,7 @@ import java.util.HashMap;
 
 import br.com.josecarlosestevao.appnutriv1.Constantes.ConversorImagem;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
-import br.com.josecarlosestevao.appnutriv1.Listas.ListaAlimentosConsumidosFragment;
+import br.com.josecarlosestevao.appnutriv1.Listas.ListaAlimentosDietaNutricionistaDataFragment;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 import br.com.josecarlosestevao.appnutriv1.Usuario.UsuarioDAO;
@@ -148,8 +148,8 @@ public class MainActivity extends AppCompatActivity
 */
 
             if (savedInstanceState == null) {
-                ListaAlimentosConsumidosFragment listafrag = new ListaAlimentosConsumidosFragment();
-
+                //ListaAlimentosConsumidosFragment listafrag = new ListaAlimentosConsumidosFragment();
+                ListaAlimentosDietaNutricionistaDataFragment listafrag = new ListaAlimentosDietaNutricionistaDataFragment();
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.add(R.id.layout_direito, listafrag, "frag1");
                 ft.commit();

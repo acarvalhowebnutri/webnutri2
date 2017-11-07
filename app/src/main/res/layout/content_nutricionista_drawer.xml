@@ -13,21 +13,15 @@
     tools:showIn="@layout/app_bar_nutricionista_drawer">
 
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Lista Pacientes" />
-
     <LinearLayout
-        android:id="@+id/layout_direito"
+        android:id="@+id/layout_direito_nutricionista"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="7"
-        android:orientation="vertical"
-        android:background="#ffffff"
         android:layout_below="@+id/textView8"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:layout_weight="7"
+        android:background="#ffffff"
+        android:orientation="vertical">
 
 
     </LinearLayout>

@@ -1,4 +1,4 @@
-package br.com.josecarlosestevao.appnutriv1.Usuario;
+package br.com.josecarlosestevao.appnutriv1.Nutricionista;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,8 +6,14 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.josecarlosestevao.appnutriv1.Constantes.Constantes;
+import br.com.josecarlosestevao.appnutriv1.Consumo.Consumo;
 import br.com.josecarlosestevao.appnutriv1.SQLite.DatabaseHelper;
+import br.com.josecarlosestevao.appnutriv1.Usuario.Nutricionista;
+import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 
 /**
  * Created by Dell on 16/10/2017.
@@ -25,6 +31,7 @@ public class NutricionistaDao {
         dbHelper = new DatabaseHelper(context);
         this.context = context;
     }
+
     public void adicionarNutricionista(Nutricionista nutricionista) {
         ContentValues values = new ContentValues();
 
@@ -32,7 +39,7 @@ public class NutricionistaDao {
         values.put("senha", nutricionista.getSenha());
         values.put("email", nutricionista.getEmail());
         values.put("crn", nutricionista.getCrn());
-
+        values.put("foto", nutricionista.getFoto());
 
 
         dbHelper.openDatabase();
@@ -63,8 +70,67 @@ public class NutricionistaDao {
         String senha = cursor.getString(cursor.getColumnIndex("senha"));
         cursor.close();
         dbHelper.close();
+        db.close();
+
         return senha;
     }
+
+    public String pesquisarCRN(String nome) {
+
+        dbHelper.openDatabase();
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor cursor = db.query(Constantes.TB_NUTRICIONISTA, null, " nome=?", new String[]{nome}, null, null, null);
+        if (cursor.getCount() < 1) // UserName Not Exist
+        {
+            cursor.close();
+            return "NOT EXIST";
+        }
+        cursor.moveToFirst();
+        String crn = cursor.getString(cursor.getColumnIndex("crn"));
+        cursor.close();
+        dbHelper.close();
+        db.close();
+        return crn;
+    }
+
+    public List<Usuario> listaPacientesCRN(String CRN) {
+        List<Usuario> listapacientes = new ArrayList<Usuario>();
+        dbHelper.openDatabase();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+
+        String selectQuery = "SELECT  " +
+                Constantes.KEY_ID + "," +
+                Constantes.KEY_NOME + "," +
+                Constantes.KEY_EMAIL +
+
+                " FROM " + Constantes.TB_USUARIO
+                + " WHERE " +
+                Constantes.KEY_CRN + "=?";// I
+        int iCount = 0;
+        Consumo a = new Consumo();
+
+        Cursor c = db.rawQuery(selectQuery, new String[]{String.valueOf(CRN)});
+
+        try {
+            while (c.moveToNext()) {
+                Usuario paciente = new Usuario();
+                paciente.setId(c.getLong(c.getColumnIndex("_id")));
+                paciente.setNome(c.getString(c.getColumnIndex("nome")));
+                paciente.setEmail(c.getString(c.getColumnIndex("email")));
+                //    alimento.setData(c.getString(c.getColumnIndex("data")));
+                listapacientes.add(paciente);
+            }
+        } finally {
+            c.close();
+        }
+        db.close();
+        c.close();
+        dbHelper.close();
+        return listapacientes;
+    }
+
 
     public Nutricionista ler(String userName) {
         dbHelper.openDatabase();
@@ -80,16 +146,22 @@ public class NutricionistaDao {
         Nutricionista user = new Nutricionista();
         cursor.moveToFirst();
         user.setNome(cursor.getString(1));
-        user.setEmail(cursor.getString(2));
+        user.setEmail(cursor.getString(3));
+        user.setCrn(cursor.getString(4));
+        //   user.setFoto(cursor.getBlob(5));
+
 
         // user.setSenha(cursor.getString(2));
 
 
         cursor.close();
+        db.close();
+        dbHelper.close();
         return user;
     }
-    public NutricionistaDao open() throws SQLException
-    {
+
+
+    public NutricionistaDao open() throws SQLException {
         db = dbHelper.getWritableDatabase();
         return this;
     }

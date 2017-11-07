@@ -22,7 +22,7 @@ import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 /**
  * Created by Dell on 09/12/2016.
  */
-public class NutricionistaDAO {
+public class NutricionistaDAOold {
 
     DatabaseHelper dbHelper;
     SQLiteDatabase db;
@@ -30,7 +30,7 @@ public class NutricionistaDAO {
     ArrayList<Consumo> alimento = new ArrayList<>();
     //ConsumoDAO dao = new ConsumoDAO(context);
     ListView lv;
-    NutricionistaDAO adapter1;
+    NutricionistaDAOold adapter1;
     //AdaptadorPersonalizado adapter;
     Double ini = 0.0;
     String total;
@@ -38,12 +38,12 @@ public class NutricionistaDAO {
 
     String data = String.valueOf(System.currentTimeMillis());
 
-    public NutricionistaDAO(Context context) {
+    public NutricionistaDAOold(Context context) {
         dbHelper = new DatabaseHelper(context);
         this.context = context;
     }
 
-    public NutricionistaDAO open() throws SQLException {
+    public NutricionistaDAOold open() throws SQLException {
         db = dbHelper.getWritableDatabase();
         return this;
     }
@@ -196,6 +196,39 @@ public class NutricionistaDAO {
         }
         db.close();
         return listapaciente;
+    }
+
+
+    public List<Usuario> listaPacientesCRN(String CRN) {
+        List<Usuario> listapacientes = new ArrayList<Usuario>();
+        dbHelper.openDatabase();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+
+        String selectQuery = "SELECT  " +
+                Constantes.KEY_ID + "," +
+                Constantes.KEY_NOME +
+                " FROM " + Constantes.TB_USUARIO
+                + " WHERE " +
+                Constantes.KEY_CRN + "=?";// I
+        int iCount = 0;
+        Consumo a = new Consumo();
+
+        Cursor c = db.rawQuery(selectQuery, new String[]{String.valueOf(CRN)});
+
+        try {
+            while (c.moveToNext()) {
+                Usuario paciente = new Usuario();
+                paciente.setId(c.getLong(c.getColumnIndex("_id")));
+                paciente.setNome(c.getString(c.getColumnIndex("nome")));
+                //    alimento.setData(c.getString(c.getColumnIndex("data")));
+                listapacientes.add(paciente);
+            }
+        } finally {
+            c.close();
+        }
+        db.close();
+        return listapacientes;
     }
 
     public List<Consumo> listaConsumidos(String pessoa) {

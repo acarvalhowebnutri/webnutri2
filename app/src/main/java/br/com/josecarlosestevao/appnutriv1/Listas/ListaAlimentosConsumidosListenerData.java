@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import br.com.josecarlosestevao.appnutriv1.Activiy.CadastrarAlimentoActivity;
+import br.com.josecarlosestevao.appnutriv1.Consumo.Consumo;
 
 /**
  * Created by Dell on 11/07/2017.
@@ -15,8 +16,6 @@ public class ListaAlimentosConsumidosListenerData implements AdapterView.OnItemC
     // private final ListaAlimentosConsumidosActivity activity;
 
 
-
-
     public ListaAlimentosConsumidosListenerData(ListaAlimentosConsumidosFragmentPorData activity) {
         this.activity = activity;
     }
@@ -24,7 +23,7 @@ public class ListaAlimentosConsumidosListenerData implements AdapterView.OnItemC
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int posicao, long idPosicao) {
         Intent i = new Intent(activity.getContext(),CadastrarAlimentoActivity.class);
-     //   i.putExtra("itemSelecionadoParaEdicao",(Consumo)activity.getListaAlimentosConsumidosData().getItemAtPosition(posicao));
+        i.putExtra("itemSelecionadoParaEdicao", (Consumo) activity.getListaAlimentosConsumidosData().getItemAtPosition(posicao));
         activity.startActivity(i);
 
 

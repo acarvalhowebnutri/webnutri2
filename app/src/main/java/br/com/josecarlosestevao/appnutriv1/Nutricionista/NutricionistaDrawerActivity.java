@@ -3,8 +3,8 @@ package br.com.josecarlosestevao.appnutriv1.Nutricionista;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -20,8 +20,9 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 
+import br.com.josecarlosestevao.appnutriv1.Activiy.HistoricoFragment;
 import br.com.josecarlosestevao.appnutriv1.Activiy.PerfilActivityOld;
-import br.com.josecarlosestevao.appnutriv1.Activiy.PesquisaAlimentoFragment;
+import br.com.josecarlosestevao.appnutriv1.Constantes.ConversorImagem;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.Usuario.Nutricionista;
@@ -31,9 +32,9 @@ public class NutricionistaDrawerActivity extends AppCompatActivity
 
     SessionManager session;
     FragmentManager fm = getSupportFragmentManager();
-    Nutricionista usuario;
+    Nutricionista nutricionista;
     Activity context = this;
-    NutricionistaDao usuarioDAO;
+    NutricionistaDao nutricionistaDao;
     TextView nomePerfil;
     TextView emailPerfil;
     private ImageView campoFotoObjeto;
@@ -48,33 +49,15 @@ public class NutricionistaDrawerActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if (usuarioDAO == null) {
-            usuarioDAO = new NutricionistaDao(context);
+        if (nutricionistaDao == null) {
+            nutricionistaDao = new NutricionistaDao(context);
         }
         session = new SessionManager(getApplicationContext());
         session.checkLogin();
         HashMap<String, String> user = session.getUserDetails();
         String name = user.get(SessionManager.KEY_NAME);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-  /*              Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-*/
-                FragmentTransaction ft = fm.beginTransaction();
 
-                setTitle("Pesquisar");
-                PesquisaAlimentoFragment frag3 = (PesquisaAlimentoFragment) fm.findFragmentByTag("layout_frag3");
-
-                if (frag3 == null) {
-                    frag3 = new PesquisaAlimentoFragment();
-                }
-                ft.replace(R.id.layout_direito, frag3, "layout_frag3");
-                ft.commit();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -101,19 +84,19 @@ public class NutricionistaDrawerActivity extends AppCompatActivity
         if (name != null) {
 
             //   String recebe = params.getString("nome", null);
-            usuarioDAO = usuarioDAO.open();
+            nutricionistaDao = nutricionistaDao.open();
 
-            usuario = usuarioDAO.ler(name);
-            final String nome = usuario.getNome();
-           // final String peso = usuario.getPeso();
-            //final String dtNas = usuario.getDataNasc();
+            nutricionista = nutricionistaDao.ler(name);
+            final String nome = nutricionista.getNome();
+            // final String peso = nutricionista.getPeso();
+            //final String dtNas = nutricionista.getDataNasc();
 
-//byte[] foto = usuario.getFoto();
+//byte[] foto = nutricionista.getFoto();
 
             nomePerfil.setText(nome);
 
-            //if (usuario.getFoto() != null)
-              //  campoFotoObjeto.setImageBitmap(ConversorImagem.converteByteArrayPraBitmap(usuario.getFoto()));
+            if (nutricionista.getFoto() != null)
+                campoFotoObjeto.setImageBitmap(ConversorImagem.converteByteArrayPraBitmap(nutricionista.getFoto()));
 
 
             campoFotoObjeto.setOnClickListener(new View.OnClickListener() {
@@ -125,7 +108,7 @@ public class NutricionistaDrawerActivity extends AppCompatActivity
                     startActivity(alterar);
 
 
-                    //String userName=usuario.getText().toString()
+                    //String userName=nutricionista.getText().toString()
 
 
                 }
@@ -137,7 +120,7 @@ public class NutricionistaDrawerActivity extends AppCompatActivity
                 ListaPacientesFragment listapaciente = new ListaPacientesFragment();
 
                 FragmentTransaction ft = fm.beginTransaction();
-                ft.add(R.id.layout_direito, listapaciente, "frag1");
+                ft.add(R.id.layout_direito_nutricionista, listapaciente, "frag1");
                 ft.commit();
             }
         }
@@ -179,21 +162,55 @@ public class NutricionistaDrawerActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        FragmentTransaction ft = fm.beginTransaction();
+        if (id == R.id.perfil) {
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+            setTitle("Perfil");
+            PerfilNutricionistaFragment frag_perfil_nutri = (PerfilNutricionistaFragment) fm.findFragmentByTag("frag_perfil_nutri");
 
-        } else if (id == R.id.nav_slideshow) {
+            if (frag_perfil_nutri == null) {
+                frag_perfil_nutri = new PerfilNutricionistaFragment();
+            }
+            ft.replace(R.id.layout_direito, frag_perfil_nutri, "frag_perfil_nutri");
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.home) {
 
-        } else if (id == R.id.nav_share) {
+            Intent i = new Intent(this, NutricionistaDrawerActivity.class);
+            startActivity(i);
 
-        } else if (id == R.id.nav_send) {
+
+        } else if (id == R.id.configuracoes) {
+
+
+            setTitle("Teste");
+            DialogFragment frag4 = (HistoricoFragment) fm.findFragmentByTag("layout_frag4");
+
+            if (frag4 == null) {
+                frag4 = new HistoricoFragment();
+            }
+            ft.replace(R.id.layout_direito, frag4, "layout_frag4");
+
+
+        } else if (id == R.id.historico) {
+            setTitle("Historico");
+            DialogFragment newFragment = new HistoricoFragment();
+            newFragment.show(getSupportFragmentManager(), "datePicker");
+       /*     DialogFragment dataHistorico = (HistoricoFragment) fm.findFragmentByTag("dataHistorico");
+
+
+            if (dataHistorico == null) {
+                dataHistorico = new HistoricoFragment();
+            }
+            ft.replace(R.id.layout_direito, dataHistorico, "dataHistorico");
+
+*/
+        } else if (id == R.id.sair) {
+
+
+            session.logoutUser();
 
         }
-
+        ft.commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
