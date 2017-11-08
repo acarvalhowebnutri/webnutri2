@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
@@ -33,7 +34,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.io.IOException;
 
 import br.com.josecarlosestevao.appnutriv1.Constantes.ConversorImagem;
+import br.com.josecarlosestevao.appnutriv1.Constantes.SelectDateFragment;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
+import br.com.josecarlosestevao.appnutriv1.Login.LoginActivity;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 import br.com.josecarlosestevao.appnutriv1.Usuario.UsuarioDAO;
@@ -55,20 +58,14 @@ public class CadastroLoginActivity extends AppCompatActivity {
     RadioButton radioButtonFem, radioButtonMasc;
     boolean selecionouSexoMasculino;
     boolean selecionouSexoFem;
-<<<<<<< HEAD:app/src/main/java/br/com/josecarlosestevao/appnutriv1/Activiy/CadastrarUsuarioActivity.java
-=======
     Switch simpleSwitch1;
->>>>>>> c709ba0b520b987b328f4022bf9c0768af593197:app/src/main/java/br/com/josecarlosestevao/appnutriv1/Activiy/CadastroLoginActivity.java
     private DatePicker cadastra_nascimento_data;
     private Bitmap foto;
     private byte[] recebfoto;
     private Usuario usuario;
     private ImageView campoFotoObjeto;
     private Usuario userU;
-<<<<<<< HEAD:app/src/main/java/br/com/josecarlosestevao/appnutriv1/Activiy/CadastrarUsuarioActivity.java
     private DatabaseReference mDatabase;
-=======
->>>>>>> c709ba0b520b987b328f4022bf9c0768af593197:app/src/main/java/br/com/josecarlosestevao/appnutriv1/Activiy/CadastroLoginActivity.java
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,11 +84,9 @@ public class CadastroLoginActivity extends AppCompatActivity {
             }
         }
 
-<<<<<<< HEAD:app/src/main/java/br/com/josecarlosestevao/appnutriv1/Activiy/CadastrarUsuarioActivity.java
         usuario = (usuario == null) ? new Usuario() : usuario;
         userU = (userU == null) ? new Usuario() : userU;
 
-=======
         if (usuario == null) {
             usuario = new Usuario();
         }
@@ -100,7 +95,6 @@ public class CadastroLoginActivity extends AppCompatActivity {
         }
 
         simpleSwitch1 = (Switch) findViewById(R.id.switch1);
->>>>>>> c709ba0b520b987b328f4022bf9c0768af593197:app/src/main/java/br/com/josecarlosestevao/appnutriv1/Activiy/CadastroLoginActivity.java
         nomeEditText = (EditText) findViewById(R.id.nomeEditText);
         senhaEditText = (EditText) findViewById(R.id.senhaEditText);
         emailEditText = (EditText) findViewById(R.id.emailEditText);
@@ -114,10 +108,6 @@ public class CadastroLoginActivity extends AppCompatActivity {
         radioButtonMasc = (RadioButton) findViewById(R.id.radioButtonMasc);
         radioButtonFem = (RadioButton) findViewById(R.id.radioButtonFem);
 
-<<<<<<< HEAD:app/src/main/java/br/com/josecarlosestevao/appnutriv1/Activiy/CadastrarUsuarioActivity.java
-=======
-
->>>>>>> c709ba0b520b987b328f4022bf9c0768af593197:app/src/main/java/br/com/josecarlosestevao/appnutriv1/Activiy/CadastroLoginActivity.java
         campoFotoObjeto.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
             @Override
             public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
@@ -126,8 +116,6 @@ public class CadastroLoginActivity extends AppCompatActivity {
             }
         });
 
-<<<<<<< HEAD:app/src/main/java/br/com/josecarlosestevao/appnutriv1/Activiy/CadastrarUsuarioActivity.java
-
         cadastro_data_nasc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,8 +123,6 @@ public class CadastroLoginActivity extends AppCompatActivity {
                 newFragment.show(getSupportFragmentManager(), "DatePicker");
             }
         });
-=======
->>>>>>> c709ba0b520b987b328f4022bf9c0768af593197:app/src/main/java/br/com/josecarlosestevao/appnutriv1/Activiy/CadastroLoginActivity.java
         criarContaBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -272,7 +258,6 @@ public class CadastroLoginActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Senhas diferentes", Toast.LENGTH_LONG).show();
                         confirmarSenhaEditText.requestFocus();
                         return;
-<<<<<<< HEAD:app/src/main/java/br/com/josecarlosestevao/appnutriv1/Activiy/CadastrarUsuarioActivity.java
                     } else {
                         // Valida campo peso
                         if (pesoEditText.getText().toString().isEmpty()) {
@@ -283,21 +268,11 @@ public class CadastroLoginActivity extends AppCompatActivity {
                             criarConta();
                         }
                     }
-=======
-                    } else
-                        criarConta();
-
->>>>>>> c709ba0b520b987b328f4022bf9c0768af593197:app/src/main/java/br/com/josecarlosestevao/appnutriv1/Activiy/CadastroLoginActivity.java
                 }
             }
         }
     }
-<<<<<<< HEAD:app/src/main/java/br/com/josecarlosestevao/appnutriv1/Activiy/CadastrarUsuarioActivity.java
-=======
 
-
-    private void carregarfoto(byte[] x) {
->>>>>>> c709ba0b520b987b328f4022bf9c0768af593197:app/src/main/java/br/com/josecarlosestevao/appnutriv1/Activiy/CadastroLoginActivity.java
 
     private void carregarfoto(byte[] x) {
         // nomeEditText.setText(usuario.getNome());
@@ -320,7 +295,6 @@ public class CadastroLoginActivity extends AppCompatActivity {
 
         userU.setNome(nomeEditText.getText().toString());
         userU.setSenha(senhaEditText.getText().toString());
-<<<<<<< HEAD:app/src/main/java/br/com/josecarlosestevao/appnutriv1/Activiy/CadastrarUsuarioActivity.java
         // user.setFoto( campoFotoObjeto.setImageBitmap(ConversorImagem.converteByteArrayPraBitmap(x));
         userU.setDataNasc(cadastro_data_nasc.getText().toString());
         userU.setPeso(pesoEditText.getText().toString());
@@ -338,9 +312,8 @@ public class CadastroLoginActivity extends AppCompatActivity {
         //CADASTRANDO NO FIREBASE O USUÁRIO
         cadastrarUsuarioNoFirebase(userU);
 
-        Intent voltar = new Intent(CadastrarUsuarioActivity.this, LoginActivity.class);
+        Intent voltar = new Intent(CadastroLoginActivity.this, LoginActivity.class);
         startActivity(voltar);
-=======
         // userU.setFoto( campoFotoObjeto.setImageBitmap(ConversorImagem.converteByteArrayPraBitmap(x)));
 
 
@@ -363,7 +336,6 @@ public class CadastroLoginActivity extends AppCompatActivity {
         }
 
 
->>>>>>> c709ba0b520b987b328f4022bf9c0768af593197:app/src/main/java/br/com/josecarlosestevao/appnutriv1/Activiy/CadastroLoginActivity.java
         /*Intent outratela = new Intent(CadastrarUsuarioActivity.this, CadastroMetricosActivity.class);
 
 
