@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -31,6 +33,7 @@ public class ReceitaDAO {
     SQLiteDatabase db;
     Context context;
     private DatabaseReference mDatabase;
+    FirebaseDatabase database;
 
     public ReceitaDAO(Context context) {
         dbHelper = new DatabaseHelper(context);
@@ -85,7 +88,7 @@ public class ReceitaDAO {
         dbHelper.close();
 
         //ADICIONA NO FIREBASE
-        this.cadastrarUsuarioNoFirebase(receita.getUsuario());
+        this.cadastrarUsuarioNoFirebase(receita);
     }
 
     public List<Receita> listaReceitaPacicente(String pessoa, String nutricionista) {
@@ -159,54 +162,88 @@ public class ReceitaDAO {
         c.close();
         dbHelper.close();
         return al;
-
-        // BUSCAR NO FIREBASE
     }
 
 
     public List<Receita> recuperaDietaTodos(String pessoa, String nutricionista, String data) {
+        final List<Receita> ali = new ArrayList<Receita>();
 
-
-        List<Receita> ali = new ArrayList<Receita>();
-        dbHelper.openDatabase();
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-
-        String selectQuery = "SELECT  " +
-                Constantes.KEY_ID + "," +
-                Constantes.KEY_ALIMENTO +
-                " FROM " + Constantes.TB_RECEITA
-                + " WHERE " +
-                Constantes.KEY_USUARIO + "=?" + " AND " +
-                Constantes.KEY_NUTRICIONISTA + " =?" + " AND " +
-                Constantes.KEY_DATA + " =? ";// I
-        int iCount = 0;
-        Receita a = new Receita();
-
-        Cursor c = db.rawQuery(selectQuery, new String[]{String.valueOf(pessoa), String.valueOf(nutricionista), String.valueOf(data)});
-
-        try {
-            while (c.moveToNext()) {
-                Receita alimento = new Receita();
-                alimento.setId(c.getLong(c.getColumnIndex("_id")));
-                alimento.setAlimento(c.getString(c.getColumnIndex("alimento")));
-                //    alimento.setData(c.getString(c.getColumnIndex("data")));
-                ali.add(alimento);
-            }
-        } finally {
-            c.close();
+        if(mDatabase == null) {
+            database = FirebaseDatabase.getInstance();
+            mDatabase = database.getReference();
         }
-        db.close();
-        c.close();
-        dbHelper.close();
-        return ali;
+
+        if (isDataConnectionAvailable(this.context)){
+            ValueEventListener postListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // Get Post object and use the values to update the UI
+                    Receita receita = dataSnapshot
+                            .child("users")
+                            .child("a")
+                            .child("receita")
+                            .getValue(Receita.class);
+                    // ...
+                    System.out.println(receita.toString());
+                    ali.add(receita);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    // Getting Post failed, log a message
+                    Log.w(this.getClass().toString(), "loadPost:onCancelled", databaseError.toException());
+                    // ...
+                }
+            };
+
+            mDatabase.addListenerForSingleValueEvent(postListener);
+
+            return ali;
+        } else {
+            // Se não tiver conexão com Internet, busco do SQLite
+            dbHelper.openDatabase();
+            SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+            String selectQuery = "SELECT  " +
+                    Constantes.KEY_ID + "," +
+                    Constantes.KEY_ALIMENTO +
+                    " FROM " + Constantes.TB_RECEITA
+                    + " WHERE " +
+                    Constantes.KEY_USUARIO + "=?" + " AND " +
+                    Constantes.KEY_NUTRICIONISTA + " =?" + " AND " +
+                    Constantes.KEY_DATA + " =? ";// I
+            int iCount = 0;
+            Receita a = new Receita();
+
+            Cursor c = db.rawQuery(selectQuery, new String[]{String.valueOf(pessoa), String.valueOf(nutricionista), String.valueOf(data)});
+
+            try {
+                while (c.moveToNext()) {
+                    Receita alimento = new Receita();
+                    alimento.setId(c.getLong(c.getColumnIndex("_id")));
+                    alimento.setAlimento(c.getString(c.getColumnIndex("alimento")));
+                    //    alimento.setData(c.getString(c.getColumnIndex("data")));
+                    ali.add(alimento);
+                }
+            } finally {
+                c.close();
+            }
+            db.close();
+            c.close();
+            dbHelper.close();
+            return ali;
+        }
     }
 
-    private void cadastrarUsuarioNoFirebase(Usuario user){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private void cadastrarUsuarioNoFirebase(Receita receita){
+        database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference();
 
-        mDatabase.child("users").child(user.getId().toString()).setValue(user);
+        mDatabase
+                .child("users")
+                .child(receita.getUsuario().getNome())
+                .child("receita")
+                .setValue(receita);
     }
 
     private void listarDadosFirebase() {
@@ -226,5 +263,12 @@ public class ReceitaDAO {
             }
         };
         mDatabase.addValueEventListener(postListener);
+    }
+
+    public static boolean isDataConnectionAvailable(Context context) {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 }
