@@ -5,6 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +19,7 @@ import java.util.List;
 import br.com.josecarlosestevao.appnutriv1.Constantes.Constantes;
 import br.com.josecarlosestevao.appnutriv1.Consumo.Consumo;
 import br.com.josecarlosestevao.appnutriv1.SQLite.DatabaseHelper;
+import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 
 /**
  * Created by Dell on 30/10/2017.
@@ -22,6 +30,7 @@ public class ReceitaDAO {
     DatabaseHelper dbHelper;
     SQLiteDatabase db;
     Context context;
+    private DatabaseReference mDatabase;
 
     public ReceitaDAO(Context context) {
         dbHelper = new DatabaseHelper(context);
@@ -74,6 +83,9 @@ public class ReceitaDAO {
 
         db.close();
         dbHelper.close();
+
+        //ADICIONA NO FIREBASE
+        this.cadastrarUsuarioNoFirebase(receita.getUsuario());
     }
 
     public List<Receita> listaReceitaPacicente(String pessoa, String nutricionista) {
@@ -147,10 +159,14 @@ public class ReceitaDAO {
         c.close();
         dbHelper.close();
         return al;
+
+        // BUSCAR NO FIREBASE
     }
 
 
     public List<Receita> recuperaDietaTodos(String pessoa, String nutricionista, String data) {
+
+
         List<Receita> ali = new ArrayList<Receita>();
         dbHelper.openDatabase();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -186,4 +202,29 @@ public class ReceitaDAO {
         return ali;
     }
 
+    private void cadastrarUsuarioNoFirebase(Usuario user){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        mDatabase = database.getReference();
+
+        mDatabase.child("users").child(user.getId().toString()).setValue(user);
+    }
+
+    private void listarDadosFirebase() {
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                //Post post = dataSnapshot.getValue(Post.class);
+                // ...
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(this.getClass().toString(), "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        };
+        mDatabase.addValueEventListener(postListener);
+    }
 }
