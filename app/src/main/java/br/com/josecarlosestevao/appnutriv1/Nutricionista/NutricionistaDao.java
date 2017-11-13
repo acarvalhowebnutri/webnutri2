@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +26,9 @@ public class NutricionistaDao {
 
     SQLiteDatabase db;
     DatabaseHelper dbHelper;
+    FirebaseDatabase database;
     private Context context;
+    private DatabaseReference mDatabase;
     // Database open/upgrade helper
 
 
@@ -52,7 +57,18 @@ public class NutricionistaDao {
         db.close();
 
         //Toast.makeText(context, "Reminder Is Successfully Saved", Toast.LENGTH_LONG).show();
+        this.cadastrarNutricionistaNoFirebase(nutricionista);
+    }
 
+    private void cadastrarNutricionistaNoFirebase(Nutricionista nutricionista) {
+        database = FirebaseDatabase.getInstance();
+        mDatabase = database.getReference();
+
+        mDatabase
+                .child("nutricionista")
+                .child(nutricionista.getNome())
+                .push().setValue(nutricionista);
+        //   .setValue(nutricionista);
     }
 
     public String pesquisarNutricionista(String nome) {

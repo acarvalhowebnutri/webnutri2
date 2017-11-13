@@ -21,7 +21,6 @@ import java.util.List;
 import br.com.josecarlosestevao.appnutriv1.Constantes.Constantes;
 import br.com.josecarlosestevao.appnutriv1.Consumo.Consumo;
 import br.com.josecarlosestevao.appnutriv1.SQLite.DatabaseHelper;
-import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 
 /**
  * Created by Dell on 30/10/2017.
@@ -32,12 +31,19 @@ public class ReceitaDAO {
     DatabaseHelper dbHelper;
     SQLiteDatabase db;
     Context context;
-    private DatabaseReference mDatabase;
     FirebaseDatabase database;
+    private DatabaseReference mDatabase;
 
     public ReceitaDAO(Context context) {
         dbHelper = new DatabaseHelper(context);
         this.context = context;
+    }
+
+    public static boolean isDataConnectionAvailable(Context context) {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
     public ReceitaDAO open() throws SQLException {
@@ -69,7 +75,6 @@ public class ReceitaDAO {
         }
     }
 
-
     public void adicionarReceita(Receita receita) {
         ContentValues values = new ContentValues();
         values.put("alimento", receita.getAlimento());
@@ -88,7 +93,7 @@ public class ReceitaDAO {
         dbHelper.close();
 
         //ADICIONA NO FIREBASE
-        this.cadastrarUsuarioNoFirebase(receita);
+        this.cadastrarReceitaNoFirebase(receita);
     }
 
     public List<Receita> listaReceitaPacicente(String pessoa, String nutricionista) {
@@ -164,7 +169,6 @@ public class ReceitaDAO {
         return al;
     }
 
-
     public List<Receita> recuperaDietaTodos(String pessoa, String nutricionista, String data) {
         final List<Receita> ali = new ArrayList<Receita>();
 
@@ -234,8 +238,7 @@ public class ReceitaDAO {
             return ali;
         }
     }
-
-    private void cadastrarUsuarioNoFirebase(Receita receita){
+/*    private void cadastrarUsuarioNoFirebase(Receita receita){
         database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference();
 
@@ -244,6 +247,23 @@ public class ReceitaDAO {
                 .child(receita.getUsuario().getNome())
                 .child("receita")
                 .setValue(receita);
+    }*/
+
+    //int i=0;
+    private void cadastrarReceitaNoFirebase(Receita receita) {
+        database = FirebaseDatabase.getInstance();
+        mDatabase = database.getReference();
+
+
+        mDatabase
+                .child("receita")
+                //      .child(String.valueOf(i))
+
+                .child(receita.getUsuario().getNome())
+                .child("receita")
+                .push().setValue(receita);
+        // .setValue(receita);
+        //i++;
     }
 
     private void listarDadosFirebase() {
@@ -263,12 +283,5 @@ public class ReceitaDAO {
             }
         };
         mDatabase.addValueEventListener(postListener);
-    }
-
-    public static boolean isDataConnectionAvailable(Context context) {
-        ConnectivityManager connectivityManager =
-                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 }
