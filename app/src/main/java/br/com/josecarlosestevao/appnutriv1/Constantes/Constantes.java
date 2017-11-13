@@ -19,6 +19,8 @@ public class Constantes {
     public static final String TB_NUTRIENTES = "NUTRIENTES";
     public static final String TB_NUTRICIONISTA = "nutricionista";
     public static final String TB_RECEITA = "receita";
+    public static final String TB_DRI = "DRI";
+
 
     public static final int DB_VERSION = 1;
 
@@ -63,6 +65,11 @@ public class Constantes {
     public static final String KEY_EMAIL = "email";
     public static final String KEY_NUTRICIONISTA = "nutricionista";
     public static final String KEY_USUARIO = "usuario";
+    public static final String KEY_VITAMINAAMIN = "VitaminaAmin";
+    public static final String KEY_VITAMINAAMAX = "VitaminaAmax";
+    public static final String KEY_MINIDADE = "min_idade";
+    public static final String KEY_MAXIDADE = "max_idade";
+    public static final String KEY_PESSOAL_STATUS = "Pessoal_status";
 
     // property help us to keep data
     public int alimento_ID;
