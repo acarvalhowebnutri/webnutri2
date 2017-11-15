@@ -78,7 +78,7 @@ public class ConsumoDAO {
 
 
         long id = db.insert(Constantes.TB_CONSUMIDO, null, values);
-        alimento.setId(id);
+        alimento.setId(String.valueOf(id));
 
         dbHelper.close();
         db.close();
@@ -114,7 +114,7 @@ public class ConsumoDAO {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         long idteste = db.insert("consumido", null, values);
-        alimento.setId(idteste);
+        alimento.setId(String.valueOf(idteste));
 
         dbHelper.close();
         db.close();

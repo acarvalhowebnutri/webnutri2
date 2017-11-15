@@ -9,12 +9,27 @@ import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 
 public class Receita {
 
-    private Long id;
+    private String id;
     private String alimento;
     private String data;
     //private String usuario;
     private Usuario usuario = new Usuario();
     private Nutricionista nutricionista = new Nutricionista();
+
+
+    public Receita(String id, String alimento, String data, Nutricionista nutricionista, Usuario usuario) {
+        // ...
+        this.id = id;
+        this.alimento = alimento;
+        this.data = data;
+        this.nutricionista = nutricionista;
+        this.usuario = usuario;
+    }
+
+    public Receita() {
+
+    }
+
 
     public Nutricionista getNutricionista() {
         return nutricionista;
@@ -36,11 +51,11 @@ public class Receita {
 
         private String nutricionista;
     */
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

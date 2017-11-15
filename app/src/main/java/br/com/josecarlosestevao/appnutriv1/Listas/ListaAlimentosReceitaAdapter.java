@@ -45,7 +45,7 @@ public class ListaAlimentosReceitaAdapter extends ArrayAdapter<Receita> {
     }
 
     public long getItemId(int position) {
-        return alimentosConsumidos.get(position).getId();
+        return Long.parseLong(alimentosConsumidos.get(position).getId());
     }
 
     public int getCount() {

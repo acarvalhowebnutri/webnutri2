@@ -144,7 +144,8 @@ public class CadastrarMedidasActivity extends AppCompatActivity {
 
         }
         UsuarioDAO dao = new UsuarioDAO(getApplicationContext());
-        dao.adicionausuario(userU);
+        dao.cadastrarUsuarioNoFirebase(userU);
+        //  dao.adicionausuario(userU);
         Toast.makeText(getApplicationContext(), "Conta criada com sucesso", Toast.LENGTH_LONG).show();
 
         Intent voltar = new Intent(CadastrarMedidasActivity.this, LoginActivity.class);

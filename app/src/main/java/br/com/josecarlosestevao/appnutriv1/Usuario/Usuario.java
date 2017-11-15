@@ -20,6 +20,7 @@ public class Usuario implements Serializable {
     private String crn;
     private byte[] foto;
     private Double valor;
+    private String imc;
 
     public Usuario(Long id, String nome, String senha, String email) {
         this.id = id;
@@ -28,6 +29,14 @@ public class Usuario implements Serializable {
     }
 
     public Usuario() {
+    }
+
+    public String getImc() {
+        return imc;
+    }
+
+    public void setImc(String imc) {
+        this.imc = imc;
     }
 
     public String getCrn() {

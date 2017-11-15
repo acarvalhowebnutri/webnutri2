@@ -48,14 +48,16 @@ public class UsuarioDAO {
     public void adicionausuario(Usuario usuario) {
         ContentValues values = new ContentValues();
 
-        this.cadastrarUsuarioNoFirebase(usuario);
+
 
         values.put("nome", usuario.getNome());
         values.put("senha", usuario.getSenha());
+        values.put("email", usuario.getEmail());
         values.put("foto", usuario.getFoto());
         values.put("data", usuario.getDataNasc());
         values.put("peso", usuario.getPeso());
         values.put("sexo", usuario.getSexo());
+        values.put("idFirebase", usuario.getImc());
         values.put("_id", usuario.getId());
         //values.put("data", alimento.getData());
 
@@ -69,12 +71,12 @@ public class UsuarioDAO {
         dbHelper.close();
         db.close();
 
-
+        //this.cadastrarUsuarioNoFirebase(usuario);
         //Toast.makeText(context, "Reminder Is Successfully Saved", Toast.LENGTH_LONG).show();
 
     }
 
-    private void cadastrarUsuarioNoFirebase(Usuario usuario) {
+    public void cadastrarUsuarioNoFirebase(Usuario usuario) {
         database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference();
 
@@ -89,9 +91,14 @@ public class UsuarioDAO {
                 .child("paciente")
                 .child(usuario.getNome())
                 .push().setValue(usuario);
+        // .setValue(usuario);
+        //.push().setValue(usuario);
         String postId = pushedPostRef.getKey();
         // usuario.getId();
         // .setValue(usuario);
+        usuario.setImc(postId);
+
+        adicionausuario(usuario);
     }
 
     public void atualizaNutricionista(String userName, String crn) {

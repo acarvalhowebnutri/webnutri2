@@ -28,6 +28,8 @@ import br.com.josecarlosestevao.appnutriv1.SQLite.DatabaseHelper;
 
 public class ReceitaDAO {
 
+    final List<Receita> ali = new ArrayList<Receita>();
+    final List<ReceitaTeste> ali2 = new ArrayList<ReceitaTeste>();
     DatabaseHelper dbHelper;
     SQLiteDatabase db;
     Context context;
@@ -87,7 +89,7 @@ public class ReceitaDAO {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         long id = db.insert(Constantes.TB_RECEITA, null, values);
-        receita.setId(id);
+        receita.setId(String.valueOf(id));
 
         db.close();
         dbHelper.close();
@@ -119,7 +121,7 @@ public class ReceitaDAO {
         try {
             while (c.moveToNext()) {
                 Receita alimentoc = new Receita();
-                alimentoc.setId(c.getLong(c.getColumnIndex("_id")));
+                alimentoc.setId(String.valueOf(c.getLong(c.getColumnIndex("_id"))));
                 alimentoc.setAlimento(c.getString(c.getColumnIndex("alimento")));
                 //    alimento.setData(c.getString(c.getColumnIndex("data")));
                 al.add(alimentoc);
@@ -169,42 +171,15 @@ public class ReceitaDAO {
         return al;
     }
 
-    public List<Receita> recuperaDietaTodos(String pessoa, String nutricionista, String data) {
-        final List<Receita> ali = new ArrayList<Receita>();
 
-        if(mDatabase == null) {
-            database = FirebaseDatabase.getInstance();
-            mDatabase = database.getReference();
-        }
+    public List<Receita> recuperaDietaTodos(final String pessoa, String nutricionista, String data) {
 
-        if (isDataConnectionAvailable(this.context)){
-            ValueEventListener postListener = new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    // Get Post object and use the values to update the UI
-                    Receita receita = dataSnapshot
-                            .child("users")
-                            .child("a")
-                            .child("receita")
-                            .getValue(Receita.class);
-                    // ...
-                    System.out.println(receita.toString());
-                    ali.add(receita);
-                }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    // Getting Post failed, log a message
-                    Log.w(this.getClass().toString(), "loadPost:onCancelled", databaseError.toException());
-                    // ...
-                }
-            };
+        // Se não tiver conexão com Internet, busco do SQLite
+        if (isDataConnectionAvailable(this.context)) {
+            listarDadosFirebaseTeste();
 
-            mDatabase.addListenerForSingleValueEvent(postListener);
-
-            return ali;
         } else {
-            // Se não tiver conexão com Internet, busco do SQLite
             dbHelper.openDatabase();
             SQLiteDatabase db = dbHelper.getReadableDatabase();
 
@@ -224,7 +199,7 @@ public class ReceitaDAO {
             try {
                 while (c.moveToNext()) {
                     Receita alimento = new Receita();
-                    alimento.setId(c.getLong(c.getColumnIndex("_id")));
+                    alimento.setId(String.valueOf(c.getLong(c.getColumnIndex("_id"))));
                     alimento.setAlimento(c.getString(c.getColumnIndex("alimento")));
                     //    alimento.setData(c.getString(c.getColumnIndex("data")));
                     ali.add(alimento);
@@ -235,9 +210,12 @@ public class ReceitaDAO {
             db.close();
             c.close();
             dbHelper.close();
-            return ali;
         }
+            return ali;
+
     }
+
+
 /*    private void cadastrarUsuarioNoFirebase(Receita receita){
         database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference();
@@ -284,4 +262,58 @@ public class ReceitaDAO {
         };
         mDatabase.addValueEventListener(postListener);
     }
+
+    private void listarDadosFirebaseTeste() {
+
+        if (mDatabase == null) {
+            database = FirebaseDatabase.getInstance();
+            mDatabase = database.getReference();
+        }
+
+        if (isDataConnectionAvailable(this.context)) {
+
+            // final ValueEventListener postListener = new ValueEventListener() {
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("receita");
+            mDatabase.addValueEventListener(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // Get Post object and use the values to update the UI
+                    //Post post = dataSnapshot.getValue(Post.class);
+                    // ...
+                    final Receita p = new Receita();
+
+                    String nome = null;
+                    if (dataSnapshot.getChildrenCount() == 0) {
+
+                    } else {
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            //  Receita p = postSnapshot.getValue(Receita.class);
+                            if (postSnapshot.getKey().equals("a")) {
+                                Receita post = postSnapshot.getValue(Receita.class);
+                                p.setAlimento(post.getAlimento());
+
+                                nome = postSnapshot.getValue().toString();
+                                p.setAlimento(nome);
+
+                            }
+                            ali.add(p);
+
+
+                            //ali.add(p);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    // Getting Post failed, log a message
+                    Log.w(this.getClass().toString(), "loadPost:onCancelled", databaseError.toException());
+                    // ...
+                }
+            });
+            //mDatabase.addValueEventListener(postListener);
+        }
+    }
+
 }
