@@ -78,7 +78,7 @@ public class ConsumoDAO {
 
 
         long id = db.insert(Constantes.TB_CONSUMIDO, null, values);
-        alimento.setId(String.valueOf(id));
+        //alimento.setId(String.valueOf(id));
 
         dbHelper.close();
         db.close();
@@ -105,16 +105,16 @@ public class ConsumoDAO {
     public void consumidoReceita(Receita alimento) {
         ContentValues values = new ContentValues();
         values.put("alimento", alimento.getAlimento());
-        values.put("pessoa", alimento.getUsuario().getNome());
+        //values.put("pessoa", alimento.getUsuario().getNome());
         // values.put("valor", alimento.getCarboidrato());
         //values.put("proteina", alimento.getProteina());
-        values.put("data", alimento.getData());
+        //values.put("data", alimento.getData());
 
         dbHelper.openDatabase();
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         long idteste = db.insert("consumido", null, values);
-        alimento.setId(String.valueOf(idteste));
+        //alimento.setId(String.valueOf(idteste));
 
         dbHelper.close();
         db.close();

@@ -32,7 +32,7 @@ public class ListaAlimentosReceitaAdapter extends ArrayAdapter<Receita> {
         View view = activity.getLayoutInflater().inflate(R.layout.item_alimento, null);
 
         TextView alimento = (TextView) view.findViewById(R.id.txtNome);
-        alimento.setText(consumo.getAlimento().toString());
+        alimento.setText(consumo.getAlimento());
 
 
         //   TextView data = (TextView) view.findViewById(R.id.txtvalor);
@@ -45,7 +45,7 @@ public class ListaAlimentosReceitaAdapter extends ArrayAdapter<Receita> {
     }
 
     public long getItemId(int position) {
-        return Long.parseLong(alimentosConsumidos.get(position).getId());
+        return (alimentosConsumidos.get(position).getId());
     }
 
     public int getCount() {

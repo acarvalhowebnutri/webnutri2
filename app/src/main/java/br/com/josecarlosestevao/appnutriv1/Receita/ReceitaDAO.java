@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,6 +22,8 @@ import java.util.List;
 import br.com.josecarlosestevao.appnutriv1.Constantes.Constantes;
 import br.com.josecarlosestevao.appnutriv1.Consumo.Consumo;
 import br.com.josecarlosestevao.appnutriv1.SQLite.DatabaseHelper;
+import br.com.josecarlosestevao.appnutriv1.Usuario.Nutricionista;
+import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 
 /**
  * Created by Dell on 30/10/2017.
@@ -34,6 +37,8 @@ public class ReceitaDAO {
     SQLiteDatabase db;
     Context context;
     FirebaseDatabase database;
+    int cont = 0;
+    int variavel = 0;
     private DatabaseReference mDatabase;
 
     public ReceitaDAO(Context context) {
@@ -89,13 +94,35 @@ public class ReceitaDAO {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         long id = db.insert(Constantes.TB_RECEITA, null, values);
-        receita.setId(String.valueOf(id));
+        receita.setId((id));
 
         db.close();
         dbHelper.close();
 
         //ADICIONA NO FIREBASE
         this.cadastrarReceitaNoFirebase(receita);
+
+    }
+
+    public void adicionarReceitanoSQL(Receita receita) {
+        ContentValues values = new ContentValues();
+        values.put("alimento", receita.getAlimento());
+        values.put("nutricionista", receita.getNutricionista().getNome());
+        values.put("usuario", receita.getUsuario().getNome());
+        values.put("data", receita.getData());
+
+
+        dbHelper.openDatabase();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        long id = db.insert(Constantes.TB_RECEITA, null, values);
+        receita.setId((id));
+
+        db.close();
+        dbHelper.close();
+
+        //ADICIONA NO FIREBASE
+
     }
 
     public List<Receita> listaReceitaPacicente(String pessoa, String nutricionista) {
@@ -111,7 +138,7 @@ public class ReceitaDAO {
                 " FROM " + Constantes.TB_RECEITA
                 + " WHERE " +
                 Constantes.KEY_USUARIO + " =?" + " AND " +
-                //  Constantes.KEY_DATA + " =? "+ " AND " +
+                Constantes.KEY_DATA + " =? " + " AND " +
                 Constantes.KEY_NUTRICIONISTA + " =? ";
         int iCount = 0;
         Receita a = new Receita();
@@ -121,7 +148,7 @@ public class ReceitaDAO {
         try {
             while (c.moveToNext()) {
                 Receita alimentoc = new Receita();
-                alimentoc.setId(String.valueOf(c.getLong(c.getColumnIndex("_id"))));
+                alimentoc.setId((c.getLong(c.getColumnIndex("_id"))));
                 alimentoc.setAlimento(c.getString(c.getColumnIndex("alimento")));
                 //    alimento.setData(c.getString(c.getColumnIndex("data")));
                 al.add(alimentoc);
@@ -176,42 +203,39 @@ public class ReceitaDAO {
 
 
         // Se não tiver conexão com Internet, busco do SQLite
-        if (isDataConnectionAvailable(this.context)) {
-            listarDadosFirebaseTeste();
 
-        } else {
-            dbHelper.openDatabase();
-            SQLiteDatabase db = dbHelper.getReadableDatabase();
+        dbHelper.openDatabase();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-            String selectQuery = "SELECT  " +
-                    Constantes.KEY_ID + "," +
-                    Constantes.KEY_ALIMENTO +
-                    " FROM " + Constantes.TB_RECEITA
-                    + " WHERE " +
-                    Constantes.KEY_USUARIO + "=?" + " AND " +
-                    Constantes.KEY_NUTRICIONISTA + " =?" + " AND " +
-                    Constantes.KEY_DATA + " =? ";// I
-            int iCount = 0;
-            Receita a = new Receita();
+        String selectQuery = "SELECT  " +
+                Constantes.KEY_ID + "," +
+                Constantes.KEY_ALIMENTO +
+                " FROM " + Constantes.TB_RECEITA
+                + " WHERE " +
+                Constantes.KEY_USUARIO + "=?" + " AND " +
+                Constantes.KEY_NUTRICIONISTA + " =?" + " AND " +
+                Constantes.KEY_DATA + " =? ";// I
+        int iCount = 0;
+        Receita a = new Receita();
 
-            Cursor c = db.rawQuery(selectQuery, new String[]{String.valueOf(pessoa), String.valueOf(nutricionista), String.valueOf(data)});
+        Cursor c = db.rawQuery(selectQuery, new String[]{String.valueOf(pessoa), String.valueOf(nutricionista), String.valueOf(data)});
 
-            try {
-                while (c.moveToNext()) {
-                    Receita alimento = new Receita();
-                    alimento.setId(String.valueOf(c.getLong(c.getColumnIndex("_id"))));
-                    alimento.setAlimento(c.getString(c.getColumnIndex("alimento")));
-                    //    alimento.setData(c.getString(c.getColumnIndex("data")));
-                    ali.add(alimento);
-                }
-            } finally {
-                c.close();
+        try {
+            while (c.moveToNext()) {
+                Receita alimento = new Receita();
+                alimento.setId((c.getLong(c.getColumnIndex("_id"))));
+                alimento.setAlimento(c.getString(c.getColumnIndex("alimento")));
+                //    alimento.setData(c.getString(c.getColumnIndex("data")));
+                ali.add(alimento);
             }
-            db.close();
+        } finally {
             c.close();
-            dbHelper.close();
         }
-            return ali;
+        db.close();
+        c.close();
+        dbHelper.close();
+
+        return ali;
 
     }
 
@@ -232,16 +256,21 @@ public class ReceitaDAO {
         database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference();
 
+        String id = mDatabase.push().getKey();
+        receita.setIdFb(id);
+//r.setAlimento(receita.getAlimento());
+        String paciente = receita.getUsuario().getNome();
 
-        mDatabase
-                .child("receita")
+        mDatabase.child("receita").child(paciente).child(id).setValue(receita);
                 //      .child(String.valueOf(i))
-
-                .child(receita.getUsuario().getNome())
-                .child("receita")
-                .push().setValue(receita);
+        //        .child(receita.getUsuario().getNome())
+        //  .child("receita")
+        //      .child((receita.getUsuario().getNome()) + cont)
+        //.push(cave)
+        //.push().setValue(receita);
         // .setValue(receita);
-        //i++;
+
+
     }
 
     private void listarDadosFirebase() {
@@ -263,7 +292,44 @@ public class ReceitaDAO {
         mDatabase.addValueEventListener(postListener);
     }
 
-    private void listarDadosFirebaseTeste() {
+    private List<Receita> listarDadosFirebaseTeste() {
+
+        if (mDatabase == null) {
+            database = FirebaseDatabase.getInstance();
+            mDatabase = database.getReference();
+        }
+
+        if (isDataConnectionAvailable(this.context)) {
+            ValueEventListener postListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // Get Post object and use the values to update the UI
+                    Receita receita = dataSnapshot
+                            .child("receita")
+                            .child("a")
+                            .child("receita")
+                            .getValue(Receita.class);
+                    // ...
+                    System.out.println(receita.toString());
+                    //                  Log.d(TAG, "User name: " + receita.getUsuario() + ", email " + receita.getNutricionista());
+                    ali.add(receita);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    // Getting Post failed, log a message
+                    Log.w(this.getClass().toString(), "loadPost:onCancelled", databaseError.toException());
+                    // ...
+                }
+            };
+
+            mDatabase.addListenerForSingleValueEvent(postListener);
+            //return ali;
+        }
+        return ali;
+    }
+
+    private void listarDadosFirebaseTeste2() {
 
         if (mDatabase == null) {
             database = FirebaseDatabase.getInstance();
@@ -273,15 +339,52 @@ public class ReceitaDAO {
         if (isDataConnectionAvailable(this.context)) {
 
             // final ValueEventListener postListener = new ValueEventListener() {
-            mDatabase = FirebaseDatabase.getInstance().getReference().child("receita");
-            mDatabase.addValueEventListener(new ValueEventListener() {
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("nutricionista");
+            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
 
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     // Get Post object and use the values to update the UI
                     //Post post = dataSnapshot.getValue(Post.class);
                     // ...
-                    final Receita p = new Receita();
+
+                    //////////////////////////////////////////////////
+                    /*Receita receita = dataSnapshot
+                            .child("receita")
+                            .child("a")
+                            .child("receita")
+                            .getValue(Receita.class);
+                    // ...
+                    System.out.println(receita.toString());
+                    ali.add(receita);*/
+                    //mDatabase.addListenerForSingleValueEvent(dataSnapshot);
+
+                    /////////////////////////////////////
+                    Receita post = dataSnapshot.getValue(Receita.class);
+
+
+                    if (post == null) {
+                        // User is null, error out
+
+                        Toast.makeText(context,
+                                "Receita nula.",
+                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        // Write new post
+                        Usuario u = new Usuario();
+                        u.setNome("joao");
+                        Nutricionista n = new Nutricionista();
+                        n.setNome("n");
+                        Receita teste = new Receita();
+                        teste.setAlimento("arroz");
+                        //                    teste.setUsuario(u);
+                        //                  teste.setNutricionista(n);
+                        ali.add(teste);
+
+                    }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                   /* final Receita p = new Receita();
 
                     String nome = null;
                     if (dataSnapshot.getChildrenCount() == 0) {
@@ -299,10 +402,12 @@ public class ReceitaDAO {
                             }
                             ali.add(p);
 
-
-                            //ali.add(p);
                         }
                     }
+                    */
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
                 }
 
                 @Override
@@ -315,5 +420,31 @@ public class ReceitaDAO {
             //mDatabase.addValueEventListener(postListener);
         }
     }
+
+    public String contador() {
+        // select count(nome) from Produtos;
+        //SELECT COUNT(_id) FROM receita;
+
+
+        dbHelper.openDatabase();
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        String selectQuery = "SELECT COUNT " +
+                Constantes.KEY_ID + "," +
+                " FROM " + Constantes.TB_RECEITA;//
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.getCount() < 1) // UserName Not Exist
+        {
+            c.close();
+            return "NOT EXIST";
+        }
+
+        String num = c.getString(c.getColumnIndex("COUNT(_id)"));
+        c.close();
+        // I
+        return num;
+    }
+
 
 }

@@ -10,8 +10,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DBNAME = "teste2.sqlite";
     public static final String DBLOCATION = "/data/data/br.com.josecarlosestevao.appnutriv1/databases/";
-    private Context mContext;
-    private SQLiteDatabase mDatabase;
+    public Context mContext;
+    public SQLiteDatabase mDatabase;
 
     public DatabaseHelper(Context context) {
         super(context, DBNAME, null, 28);

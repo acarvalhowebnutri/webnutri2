@@ -1,22 +1,67 @@
 package br.com.josecarlosestevao.appnutriv1.Receita;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import br.com.josecarlosestevao.appnutriv1.Usuario.Nutricionista;
 import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 
 /**
  * Created by Dell on 30/10/2017.
  */
-
+@IgnoreExtraProperties
 public class Receita {
 
-    private String id;
-    private String alimento;
+    public Long id;
+    public String alimento;
+    public Usuario usuario = new Usuario();
+    public Nutricionista nutricionista = new Nutricionista();
     private String data;
-    //private String usuario;
-    private Usuario usuario = new Usuario();
-    private Nutricionista nutricionista = new Nutricionista();
+    private String idFb;
 
 
+    public Receita() {
+
+    }
+
+    public Receita(Long id, String alimento) {
+        this.alimento = alimento;
+        this.id = id;
+
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getIdFb() {
+        return idFb;
+    }
+
+    public void setIdFb(String idFb) {
+        this.idFb = idFb;
+    }
+
+    public String getAlimento() {
+        return alimento;
+    }
+
+    public void setAlimento(String alimento) {
+        this.alimento = alimento;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+/*
     public Receita(String id, String alimento, String data, Nutricionista nutricionista, Usuario usuario) {
         // ...
         this.id = id;
@@ -25,11 +70,20 @@ public class Receita {
         this.nutricionista = nutricionista;
         this.usuario = usuario;
     }
+*/
+/*
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("id", id);
+        result.put("alimento", alimento);
+        result.put("data", data);
+        result.put("nutricionista", nutricionista);
+        result.put("usuario", usuario);
 
-    public Receita() {
-
+        return result;
     }
-
+*/
 
     public Nutricionista getNutricionista() {
         return nutricionista;
@@ -39,19 +93,17 @@ public class Receita {
         this.nutricionista = nutricionista;
     }
 
-    /*
+    public String getData() {
+        return data;
+    }
 
-        public String getNutricionista() {
-            return nutricionista;
-        }
+    public void setData(String data) {
+        this.data = data;
+    }
 
-        public void setNutricionista(String nutricionista) {
-            this.nutricionista = nutricionista;
-        }
 
-        private String nutricionista;
-    */
-    public String getId() {
+
+  /*  public String getId() {
         return id;
     }
 
@@ -67,23 +119,10 @@ public class Receita {
         this.alimento = alimento;
     }
 
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
 
 
+
+*/
 /*
     public String getUsuario() {
         return usuario;
