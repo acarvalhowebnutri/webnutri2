@@ -91,6 +91,7 @@ public class AdaptadorReceita extends BaseAdapter {
         nameTxt.setText(planets.get(position).getAlimento());
 
         final String a = planets.get(position).getAlimento();
+        final String data = planets.get(position).getDatareceita();
         final Usuario paciente = planets.get(position).getUsuario();
         final Nutricionista n = new Nutricionista();
 
@@ -113,10 +114,12 @@ public class AdaptadorReceita extends BaseAdapter {
             @Override
             public void onClick(View v) {
 
+
                 receita.setAlimento(a);
-                receita.setData(currentDateTimeString);
+                //  receita.setData(currentDateTimeString);
                 receita.setUsuario(paciente);
                 receita.setNutricionista(n);
+                receita.setData(data);
 
 
                 ReceitaDAO db = new ReceitaDAO(c);

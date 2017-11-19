@@ -91,7 +91,7 @@ public class ConsumoDAO {
         values.put("pessoa", alimento.getUsuario().getNome());
         values.put("valor", alimento.getCarboidrato());
         values.put("proteina", alimento.getProteina());
-        values.put("data", alimento.getData());
+        values.put("data", alimento.getData(data));
 
         dbHelper.openDatabase();
         SQLiteDatabase db = dbHelper.getWritableDatabase();

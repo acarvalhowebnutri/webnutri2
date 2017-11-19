@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -32,14 +31,11 @@ import java.util.List;
 import br.com.josecarlosestevao.appnutriv1.Consumo.ConsumoDAO;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
 import br.com.josecarlosestevao.appnutriv1.R;
-import br.com.josecarlosestevao.appnutriv1.Receita.Post;
 import br.com.josecarlosestevao.appnutriv1.Receita.Receita;
 import br.com.josecarlosestevao.appnutriv1.Receita.ReceitaDAO;
 import br.com.josecarlosestevao.appnutriv1.SQLite.DatabaseHelper;
 import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 import br.com.josecarlosestevao.appnutriv1.Usuario.UsuarioDAO;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by Dell on 25/12/2016.
@@ -277,7 +273,7 @@ public class ListaAlimentosDietaNutricionistaDataFragment extends Fragment {
 
 
     }
-
+/*
     public void montaListaFirebaseCopia() {
 
         if (mDatabase == null) {
@@ -291,9 +287,9 @@ public class ListaAlimentosDietaNutricionistaDataFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
-                Post post = dataSnapshot.getValue(Post.class);
+                //Post post = dataSnapshot.getValue(Post.class);
                 // [START_EXCLUDE]
-                String mAuthorView = (post.author);
+                //String mAuthorView = (post.author);
                 ali.add(null);
                 // [END_EXCLUDE]
             }
@@ -316,6 +312,6 @@ public class ListaAlimentosDietaNutricionistaDataFragment extends Fragment {
         listaAlimentosDietaNutricionistaDataFragment.setAdapter(adapterNew);
 
 
-    }
+    }*/
 }
 

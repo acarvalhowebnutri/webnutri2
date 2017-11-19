@@ -31,9 +31,9 @@ public class ListaAlimentosConsumidosFragment extends Fragment {
 
 
     private static final int MENU_APAGAR = Menu.FIRST;
+    SessionManager session;
     private ListView listaAlimentosConsumidos;
 
-    SessionManager session;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_frag1, null);
@@ -99,7 +99,6 @@ public class ListaAlimentosConsumidosFragment extends Fragment {
         ArrayList<Consumo> alimento = new ArrayList<>();
 
         listaAlimentosConsumidos.setOnItemClickListener(new ListaAlimentosConsumidosListener(this));
-
     }
 
     private void remove(Consumo consumo) {

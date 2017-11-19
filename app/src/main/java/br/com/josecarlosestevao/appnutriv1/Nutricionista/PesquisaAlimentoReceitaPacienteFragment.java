@@ -58,11 +58,16 @@ public class PesquisaAlimentoReceitaPacienteFragment extends Fragment {
         //   if(cursor==null) insertDummy();
 
         Bundle bundle = getArguments();
-        String nomepaciente = bundle.getString("username");
+        String nomepaciente = bundle.getString("nome");
+        final String data = bundle.getString("link");
         if (u == null) {
             u = new Usuario();
         }
         u.setNome(nomepaciente);
+        if (consumo == null) {
+            consumo = new Consumo();
+        }
+        consumo.setData(data);
      /*   txtdata.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -106,7 +111,9 @@ public class PesquisaAlimentoReceitaPacienteFragment extends Fragment {
     public void buscaAlimento(String newText) {
 
         alimento.clear();
-
+        Bundle bundle = getArguments();
+        //  String nomepaciente = bundle.getString("nome");
+        String data = bundle.getString("link");
         ConsumoDAO db = new ConsumoDAO(getContext());
         db.openDB();
         Consumo p = null;
@@ -123,6 +130,7 @@ public class PesquisaAlimentoReceitaPacienteFragment extends Fragment {
             p.setCarboidrato(valor);
             p.setProteina(pro);
             p.setUsuario(u);
+            p.setDatareceita(data);
 
             alimento.add(p);
         }

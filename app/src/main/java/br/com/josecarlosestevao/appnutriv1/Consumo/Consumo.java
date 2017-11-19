@@ -18,6 +18,32 @@ public class Consumo implements Serializable {
     private String carboidrato;
     private String proteina;
     private String data;
+    private String datareceita;
+    private Usuario usuario = new Usuario();
+
+    public Consumo() {
+    }
+
+    public Consumo(long id, String alimento, String carboidrato, String proteina, String data, String datareceita) {
+        this.id = id;
+        this.alimento = alimento;
+        this.carboidrato = carboidrato;
+        this.proteina = proteina;
+        this.data = data;
+        this.datareceita = datareceita;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getDatareceita() {
+        return datareceita;
+    }
+
+    public void setDatareceita(String datareceita) {
+        this.datareceita = datareceita;
+    }
 
     public String getData() {
         return data;
@@ -27,21 +53,9 @@ public class Consumo implements Serializable {
         this.data = data;
     }
 
-    private Usuario usuario = new Usuario();
+    public String getData(String data) {
 
-    public Consumo() {
-    }
-
-
-    public Consumo(long id, String alimento, String carboidrato, String proteina) {
-        this.id = id;
-        this.alimento = alimento;
-        this.carboidrato = carboidrato;
-        this.proteina = proteina;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+        return this.data;
     }
 
     public Long getId() {

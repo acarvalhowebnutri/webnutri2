@@ -1,7 +1,7 @@
 package br.com.josecarlosestevao.appnutriv1.Nutricionista;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.DialogFragment;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,11 +25,13 @@ import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 /**
  * Created by Dell on 25/12/2016.
  */
-public class ListaPacientesFragment extends Fragment {
+public class ListaPacientesFragment extends DialogFragment {
 
 
     private static final int MENU_APAGAR = Menu.FIRST;
     private static final int MENU_RECEITAR = Menu.NONE;
+    private static final int MENU_Calendario_Teste = Menu.NONE;
+
     SessionManager session;
     SessaoDietaPaciente sessaoDietaPaciente;
     private ListView listapacientes;
@@ -65,6 +67,7 @@ public class ListaPacientesFragment extends Fragment {
 
         menu.add(0, MENU_APAGAR, 0, "APAGAR");
         menu.add(1, MENU_RECEITAR, 1, "RECEITAR");
+        menu.add(1, MENU_Calendario_Teste, 1, "TESTE HISTORICO");
     }
 
     public ListView getListapacientes() {
@@ -119,24 +122,35 @@ public class ListaPacientesFragment extends Fragment {
         if (item.getItemId() == MENU_RECEITAR) {
             Usuario usuariodois = (Usuario) getListapacientes().getItemAtPosition(info.position);
             String nome = usuariodois.getNome();
-            //    sessaoDietaPaciente = new SessaoDietaPaciente(getContext());
 
-            //  sessaoDietaPaciente.createLoginSession(nome);
-           /* remove(usuario);
-            Toast.makeText(getContext(), "registro removido com sucesso ", Toast.LENGTH_LONG).show();*/
+
+            // EscolherDataReceitaFragment fragment = new EscolherDataReceitaFragment();
+            DialogFragment fragment = new EscolherDataReceitaFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("username", nome);
+            fragment.setArguments(bundle);
+            fragment.show(getActivity().getSupportFragmentManager(), "datePicker");
+
+            //////////////////////////////////////////////////////////////////////////////
+           /* Usuario usuariodois = (Usuario) getListapacientes().getItemAtPosition(info.position);
+            String nome = usuariodois.getNome();
+
 
 
             PesquisaAlimentoReceitaPacienteFragment fragment = new PesquisaAlimentoReceitaPacienteFragment();
             // fragment.setArguments(arguments);
+
             Bundle bundle = new Bundle();
             bundle.putString("username", nome);
             // bundle.putString("senha", user_pass);
             fragment.setArguments(bundle);
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.layout_direito_nutricionista, fragment).commit();
-
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.layout_direito_nutricionista, fragment).commit();*/
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             return true;
         }
+
+
         return super.onContextItemSelected(item);
     }
 }

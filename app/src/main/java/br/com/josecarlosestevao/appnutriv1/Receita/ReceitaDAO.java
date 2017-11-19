@@ -32,7 +32,7 @@ import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 public class ReceitaDAO {
 
     final List<Receita> ali = new ArrayList<Receita>();
-    final List<ReceitaTeste> ali2 = new ArrayList<ReceitaTeste>();
+
     DatabaseHelper dbHelper;
     SQLiteDatabase db;
     Context context;
@@ -87,7 +87,7 @@ public class ReceitaDAO {
         values.put("alimento", receita.getAlimento());
         values.put("nutricionista", receita.getNutricionista().getNome());
         values.put("usuario", receita.getUsuario().getNome());
-        values.put("data", receita.getData());
+        // values.put("data", receita.getData());
 
 
         dbHelper.openDatabase();
@@ -260,8 +260,8 @@ public class ReceitaDAO {
         receita.setIdFb(id);
 //r.setAlimento(receita.getAlimento());
         String paciente = receita.getUsuario().getNome();
-
-        mDatabase.child("receita").child(paciente).child(id).setValue(receita);
+        String data = receita.getData();
+        mDatabase.child("receita").child(paciente).child(data).child(id).setValue(receita);
                 //      .child(String.valueOf(i))
         //        .child(receita.getUsuario().getNome())
         //  .child("receita")
