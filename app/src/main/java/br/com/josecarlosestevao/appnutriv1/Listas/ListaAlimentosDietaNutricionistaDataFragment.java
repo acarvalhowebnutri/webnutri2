@@ -217,17 +217,20 @@ public class ListaAlimentosDietaNutricionistaDataFragment extends Fragment {
         // final String link1 = DateFormat.getDateInstance().format(new Date());
         //dataatual.setText(currentDateTimeString);
         String name = user.get(SessionManager.KEY_NAME);
+        long date = System.currentTimeMillis();
+        SimpleDateFormat sdf = new SimpleDateFormat("d/M/yyyy");
+        final String currentDateTimeString = sdf.format(date);
 
 
         if (mDatabase == null) {
             database = FirebaseDatabase.getInstance();
             //mDatabase = database.getReference().child("receita").child("a").child("receita");
-            mDatabase = database.getReference().child("receita").child(name);
+            mDatabase = database.getReference().child("receita").child(name).child(currentDateTimeString);
             //   mDatabase = database.getReference().child("receita").child("-Kz1I4FOl4yYZP8eUpi3").child("alimento");
 
 
         }
-        cont++;
+
 
         // app_title change listener
         mDatabase.addValueEventListener(new ValueEventListener() {
