@@ -92,6 +92,8 @@ public class AdaptadorReceita extends BaseAdapter {
 
         final String a = planets.get(position).getAlimento();
         final String data = planets.get(position).getDatareceita();
+        final String tipo = planets.get(position).getTipo();
+
         final Usuario paciente = planets.get(position).getUsuario();
         final Nutricionista n = new Nutricionista();
 
@@ -120,6 +122,7 @@ public class AdaptadorReceita extends BaseAdapter {
                 receita.setUsuario(paciente);
                 receita.setNutricionista(n);
                 receita.setData(data);
+                receita.setTipo(tipo);
 
 
                 ReceitaDAO db = new ReceitaDAO(c);

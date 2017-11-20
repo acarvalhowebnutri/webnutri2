@@ -17,7 +17,7 @@ public class Receita {
     public Nutricionista nutricionista = new Nutricionista();
     private String data;
     private String idFb;
-
+    private String tipo;
 
     public Receita() {
 
@@ -27,6 +27,14 @@ public class Receita {
         this.alimento = alimento;
         this.id = id;
 
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public Long getId() {

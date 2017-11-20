@@ -17,16 +17,17 @@ import java.util.ArrayList;
 
 import br.com.josecarlosestevao.appnutriv1.Constantes.AdaptadorConsumo;
 import br.com.josecarlosestevao.appnutriv1.Constantes.SelectDateFragment;
-import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.Consumo.Consumo;
-import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 import br.com.josecarlosestevao.appnutriv1.Consumo.ConsumoDAO;
+import br.com.josecarlosestevao.appnutriv1.R;
+import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 
 /**
  * Created by Dell on 06/01/2017.
  */
 public class PesquisaAlimentoFragment extends Fragment {
 
+    public TextView txtdata;
     ListView lv;
     SearchView sv;
     ArrayList<Consumo> alimento=new ArrayList<>();
@@ -34,19 +35,16 @@ public class PesquisaAlimentoFragment extends Fragment {
     AdaptadorConsumo adapter;
      Consumo consumo;
     Usuario u;
+    ConsumoDAO alimentoRepo;
+    Cursor cursor;
  //   private ConsumoDAO dao;
   //  List<Consumo> alimentoConsumidos = dao.listaTodos();
      private int ano, mes, dia;
-    public TextView txtdata;
-    ConsumoDAO alimentoRepo ;
-    Cursor cursor;
-
-
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_frag3, null);
+        View view = inflater.inflate(R.layout.layout_pesquisa_alimento, null);
 
         lv= (ListView) view.findViewById(R.id.listfrag);
         sv= (SearchView) view.findViewById(R.id.search);

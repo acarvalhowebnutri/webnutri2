@@ -261,7 +261,8 @@ public class ReceitaDAO {
 //r.setAlimento(receita.getAlimento());
         String paciente = receita.getUsuario().getNome();
         String data = receita.getData();
-        mDatabase.child("receita").child(paciente).child(data).child(id).setValue(receita);
+        String tipo = receita.getTipo();
+        mDatabase.child("receita").child(paciente).child(data).child(tipo).child(id).setValue(receita);
                 //      .child(String.valueOf(i))
         //        .child(receita.getUsuario().getNome())
         //  .child("receita")

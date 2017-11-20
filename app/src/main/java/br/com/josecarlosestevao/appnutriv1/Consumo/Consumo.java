@@ -20,21 +20,31 @@ public class Consumo implements Serializable {
     private String data;
     private String datareceita;
     private Usuario usuario = new Usuario();
+    private String tipo;
 
     public Consumo() {
     }
 
-    public Consumo(long id, String alimento, String carboidrato, String proteina, String data, String datareceita) {
+    public Consumo(long id, String alimento, String carboidrato, String proteina, String data, String datareceita, String tipo) {
         this.id = id;
         this.alimento = alimento;
         this.carboidrato = carboidrato;
         this.proteina = proteina;
         this.data = data;
         this.datareceita = datareceita;
+        this.tipo = tipo;
     }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getDatareceita() {

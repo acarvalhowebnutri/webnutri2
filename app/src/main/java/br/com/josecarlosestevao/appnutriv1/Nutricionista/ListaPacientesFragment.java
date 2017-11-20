@@ -67,7 +67,7 @@ public class ListaPacientesFragment extends DialogFragment {
 
         menu.add(0, MENU_APAGAR, 0, "APAGAR");
         menu.add(1, MENU_RECEITAR, 1, "RECEITAR");
-        menu.add(1, MENU_Calendario_Teste, 1, "TESTE HISTORICO");
+
     }
 
     public ListView getListapacientes() {

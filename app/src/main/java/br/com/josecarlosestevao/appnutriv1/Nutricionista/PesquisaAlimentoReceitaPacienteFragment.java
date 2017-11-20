@@ -42,7 +42,7 @@ public class PesquisaAlimentoReceitaPacienteFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_frag3, null);
+        View view = inflater.inflate(R.layout.layout_pesquisa_alimento, null);
 
         lv = (ListView) view.findViewById(R.id.listfrag);
         sv = (SearchView) view.findViewById(R.id.search);
@@ -114,6 +114,7 @@ public class PesquisaAlimentoReceitaPacienteFragment extends Fragment {
         Bundle bundle = getArguments();
         //  String nomepaciente = bundle.getString("nome");
         String data = bundle.getString("link");
+        String tipo = bundle.getString("tipo");
         ConsumoDAO db = new ConsumoDAO(getContext());
         db.openDB();
         Consumo p = null;
@@ -131,6 +132,8 @@ public class PesquisaAlimentoReceitaPacienteFragment extends Fragment {
             p.setProteina(pro);
             p.setUsuario(u);
             p.setDatareceita(data);
+            p.setTipo(tipo);
+
 
             alimento.add(p);
         }

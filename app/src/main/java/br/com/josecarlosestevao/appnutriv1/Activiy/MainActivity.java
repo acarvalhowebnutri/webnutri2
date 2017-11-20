@@ -23,8 +23,8 @@ import java.util.HashMap;
 
 import br.com.josecarlosestevao.appnutriv1.Constantes.ConversorImagem;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
-import br.com.josecarlosestevao.appnutriv1.Listas.ListaAlimentosDietaNutricionistaDataFragment;
 import br.com.josecarlosestevao.appnutriv1.R;
+import br.com.josecarlosestevao.appnutriv1.Usuario.MenuPacienteFragment;
 import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 import br.com.josecarlosestevao.appnutriv1.Usuario.UsuarioDAO;
 
@@ -65,12 +65,12 @@ public class MainActivity extends AppCompatActivity
                 FragmentTransaction ft = fm.beginTransaction();
 
                 setTitle("Pesquisar");
-                PesquisaAlimentoFragment frag3 = (PesquisaAlimentoFragment) fm.findFragmentByTag("layout_frag3");
+                PesquisaAlimentoFragment frag3 = (PesquisaAlimentoFragment) fm.findFragmentByTag("layout_pesquisa_alimento");
 
                 if (frag3 == null) {
                     frag3 = new PesquisaAlimentoFragment();
                 }
-                ft.replace(R.id.layout_direito, frag3, "layout_frag3");
+                ft.replace(R.id.layout_direito, frag3, "layout_pesquisa_alimento");
                 ft.commit();
             }
         });
@@ -149,7 +149,8 @@ public class MainActivity extends AppCompatActivity
 
             if (savedInstanceState == null) {
                 //ListaAlimentosConsumidosFragment listafrag = new ListaAlimentosConsumidosFragment();
-                ListaAlimentosDietaNutricionistaDataFragment listafrag = new ListaAlimentosDietaNutricionistaDataFragment();
+                //ListaAlimentosDietaNutricionistaDataFragment listafrag = new ListaAlimentosDietaNutricionistaDataFragment();
+                MenuPacienteFragment listafrag = new MenuPacienteFragment();
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.add(R.id.layout_direito, listafrag, "frag1");
                 ft.commit();
