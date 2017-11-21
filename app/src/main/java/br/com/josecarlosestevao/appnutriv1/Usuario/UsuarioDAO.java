@@ -246,6 +246,21 @@ public class UsuarioDAO {
         return senha;
     }
 
+    public void pesquisarUsuarioFirebase(Usuario usuario) {
+        database = FirebaseDatabase.getInstance();
+
+
+        String chave = usuario.getImc();
+        mDatabase = database.getReference().child("paciente").child(chave);
+        Map<String, Object> hopperUpdates = new HashMap<String, Object>();
+        hopperUpdates.put("crn", usuario.getCrn());
+        mDatabase.updateChildren(hopperUpdates);
+        // Generate a reference to a new location and add some data using push()
+//
+
+
+        atualizaNutricionista(usuario);
+    }
     public String verificarJaExiste(String nome) {
 
         dbHelper.openDatabase();
