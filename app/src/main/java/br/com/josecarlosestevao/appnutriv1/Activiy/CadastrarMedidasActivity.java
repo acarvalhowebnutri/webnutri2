@@ -138,11 +138,12 @@ public class CadastrarMedidasActivity extends AppCompatActivity {
         userU.setDataNasc(cadastro_data_nasc.getText().toString());
         userU.setPeso(cadastro_peso.getText().toString());
         if (selecionouSexoMasculino = radioButtonMasc.isChecked()) {
-            userU.setSexo("m");
+            userU.setSexo("masculino");
         } else if (selecionouSexoFem = radioButtonFem.isChecked()) {
-            userU.setSexo("f");
+            userU.setSexo("feminino");
 
         }
+        userU.setCrn(" sem dados");
         UsuarioDAO dao = new UsuarioDAO(getApplicationContext());
         dao.cadastrarUsuarioNoFirebase(userU);
         //  dao.adicionausuario(userU);

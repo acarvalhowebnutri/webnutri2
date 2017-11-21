@@ -3,7 +3,6 @@ package br.com.josecarlosestevao.appnutriv1.Activiy;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import br.com.josecarlosestevao.appnutriv1.Constantes.AdaptadorConsumo;
-import br.com.josecarlosestevao.appnutriv1.Constantes.SelectDateFragment;
 import br.com.josecarlosestevao.appnutriv1.Consumo.Consumo;
 import br.com.josecarlosestevao.appnutriv1.Consumo.ConsumoDAO;
 import br.com.josecarlosestevao.appnutriv1.R;
@@ -60,7 +58,7 @@ public class PesquisaAlimentoFragment extends Fragment {
      //   if(cursor==null) insertDummy();
 
 
-        txtdata.setOnClickListener(new View.OnClickListener(){
+/*        txtdata.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
@@ -75,7 +73,7 @@ public class PesquisaAlimentoFragment extends Fragment {
 
 
             }
-        });
+        });*/
 
 
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

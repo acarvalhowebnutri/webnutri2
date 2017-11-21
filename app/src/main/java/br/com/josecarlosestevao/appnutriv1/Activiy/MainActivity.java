@@ -25,6 +25,7 @@ import br.com.josecarlosestevao.appnutriv1.Constantes.ConversorImagem;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.Usuario.MenuPacienteFragment;
+import br.com.josecarlosestevao.appnutriv1.Usuario.PerfilPacienteFragment;
 import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 import br.com.josecarlosestevao.appnutriv1.Usuario.UsuarioDAO;
 
@@ -104,12 +105,14 @@ public class MainActivity extends AppCompatActivity
 
             usuario = usuarioDAO.ler(name);
             final String nome = usuario.getNome();
+            final String nutricionista = usuario.getCrn();
             final String peso = usuario.getPeso();
             final String dtNas = usuario.getDataNasc();
 
 //byte[] foto = usuario.getFoto();
 
-            nomePerfil.setText(nome);
+            nomePerfil.setText(" Seu nome: " + nome);
+            nomePerfil.setText(" Seu nutricionista: " + nome);
 
             if (usuario.getFoto() != null)
                 campoFotoObjeto.setImageBitmap(ConversorImagem.converteByteArrayPraBitmap(usuario.getFoto()));
@@ -205,8 +208,14 @@ public class MainActivity extends AppCompatActivity
  /*               Intent i = new Intent(this, ListaAlimentosConsumidosActivity.class);
                 startActivity(i);
 */
-            Intent alterar = new Intent(MainActivity.this, PerfilActivity.class);
+            /*Intent alterar = new Intent(MainActivity.this, PerfilActivity.class);
             startActivity(alterar);
+            */
+
+            PerfilPacienteFragment perfilPaciente = new PerfilPacienteFragment();
+            ft.replace(R.id.layout_direito, perfilPaciente, "perfilPaciente");
+
+
 
 
         } else if (id == R.id.home) {

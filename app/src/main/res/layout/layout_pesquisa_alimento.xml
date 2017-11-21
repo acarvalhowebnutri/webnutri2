@@ -10,7 +10,7 @@
          android:id="@+id/search"/>
  -->
         <TextView
-            android:id="@+id/txtData"
+            android:id="@+id/txtMensagem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="digite o nome do alimento"

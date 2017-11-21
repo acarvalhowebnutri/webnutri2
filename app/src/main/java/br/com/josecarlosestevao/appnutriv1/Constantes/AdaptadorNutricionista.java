@@ -31,6 +31,7 @@ public class AdaptadorNutricionista extends BaseAdapter {
     ArrayList<Nutricionista> planets;
     LayoutInflater inflater;
     Usuario consumo = new Usuario();
+    Usuario usuario;
 
     NutricionistaDao dao = new NutricionistaDao(c);
     PesquisaAlimentoFragment save;
@@ -120,8 +121,18 @@ public class AdaptadorNutricionista extends BaseAdapter {
             public void onClick(View v) {
 
 
+                if (usuario == null) {
+                    usuario = new Usuario();
+                }
+
+
+
                 UsuarioDAO db = new UsuarioDAO(c);
-                db.atualizaNutricionista(pessoa, crnnut);
+                String recebeidfb = db.lerIDFB(pessoa);
+                usuario.setCrn(crnnut);
+                usuario.setNome(pessoa);
+                usuario.setImc(recebeidfb);
+                db.alterarNutricionistaNoFirebase(usuario);
                 Toast.makeText(c, "Nutricionista adicionado", Toast.LENGTH_LONG).show();
 
 
