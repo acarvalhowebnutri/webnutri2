@@ -110,7 +110,9 @@ public class UsuarioDAO {
 
         String chave = usuario.getImc();
         Map<String, Object> hopperUpdates = new HashMap<String, Object>();
-        hopperUpdates.put(chave, usuario);
+        mDatabase = database.getReference().child("paciente").child(chave);
+
+        //   hopperUpdates.put(chave, usuario);
         hopperUpdates.put("nome", usuario.getCrn());
         hopperUpdates.put("peso", usuario.getPeso());
         hopperUpdates.put("sexo", usuario.getSexo());
