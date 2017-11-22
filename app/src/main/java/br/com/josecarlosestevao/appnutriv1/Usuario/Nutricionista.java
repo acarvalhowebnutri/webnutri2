@@ -1,5 +1,8 @@
 package br.com.josecarlosestevao.appnutriv1.Usuario;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.Serializable;
 
 /**
@@ -9,14 +12,18 @@ import java.io.Serializable;
 public class Nutricionista implements Serializable {
     public static final long serialVersionUID = 1l;
 
-    private Long id;
+    FirebaseDatabase database;
+
+    private DatabaseReference mDatabase;
+
+    private String id;
     private String nome;
     private String senha;
     private String email;
     private String crn;
     private byte[] foto;
 
-    public Nutricionista(Long id, String nome, String senha, String crn, String email) {
+    public Nutricionista(String id, String nome, String senha, String crn, String email) {
         this.id = id;
         this.nome = nome;
         this.email = senha;
@@ -35,11 +42,11 @@ public class Nutricionista implements Serializable {
         this.foto = foto;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -74,4 +81,6 @@ public class Nutricionista implements Serializable {
     public void setCrn(String crn) {
         this.crn = crn;
     }
+
+
 }

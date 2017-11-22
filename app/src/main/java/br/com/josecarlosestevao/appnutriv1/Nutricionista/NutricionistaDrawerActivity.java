@@ -55,7 +55,7 @@ public class NutricionistaDrawerActivity extends AppCompatActivity
         session = new SessionManager(getApplicationContext());
         session.checkLogin();
         HashMap<String, String> user = session.getUserDetails();
-        String name = user.get(SessionManager.KEY_NAME);
+        String chave = user.get(SessionManager.KEY_NAME);
 
 
 
@@ -81,12 +81,12 @@ public class NutricionistaDrawerActivity extends AppCompatActivity
         //  TextView textView = new TextView(this);
         //TextView textView2 = new TextView(this);
 
-        if (name != null) {
+        if (chave != null) {
 
             //   String recebe = params.getString("nome", null);
             nutricionistaDao = nutricionistaDao.open();
-
-            nutricionista = nutricionistaDao.ler(name);
+            //   nutricionista = nutricionistaDao.ler(name);
+            nutricionista = nutricionistaDao.lerNoFirebase(chave);
             final String nome = nutricionista.getNome();
             // final String peso = nutricionista.getPeso();
             //final String dtNas = nutricionista.getDataNasc();
