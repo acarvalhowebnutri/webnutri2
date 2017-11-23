@@ -34,18 +34,11 @@ import java.util.HashMap;
 import br.com.josecarlosestevao.appnutriv1.Activiy.CadastroLoginActivity;
 import br.com.josecarlosestevao.appnutriv1.Activiy.MainActivity;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
-<<<<<<< HEAD
 import br.com.josecarlosestevao.appnutriv1.Nutricionista.Nutricionista;
-=======
-<<<<<<< HEAD
-=======
->>>>>>> refs/remotes/origin/master
 import br.com.josecarlosestevao.appnutriv1.Nutricionista.NutricionistaDao;
 import br.com.josecarlosestevao.appnutriv1.Nutricionista.NutricionistaDrawerActivity;
->>>>>>> c709ba0b520b987b328f4022bf9c0768af593197
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.SQLite.DatabaseHelper;
-import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 import br.com.josecarlosestevao.appnutriv1.Usuario.UsuarioDAO;
 
 public class LoginActivity extends Activity {
@@ -188,9 +181,9 @@ public class LoginActivity extends Activity {
                     session.createLoginSession(nome);
 
 
-                    //Intent i = new Intent(getApplicationContext(), NutricionistaDrawerActivity.class);
+                    Intent i = new Intent(getApplicationContext(), NutricionistaDrawerActivity.class);
 
-                    startActivity(new Intent(getApplicationContext(), CadastrarUsuarioActivity.class));
+                    startActivity(i);
                     finish();
                     Toast.makeText(LoginActivity.this, "login feito com sucesso", Toast.LENGTH_LONG).show();
 
@@ -241,14 +234,14 @@ public class LoginActivity extends Activity {
                             String chave = user.getUid();
                             session.createLoginSession(chave);
                             // carregarDadosFirebase();
-
-
+                            carregarDadosNutricionistaFirebase();
+/*
                             Intent i = new Intent(getApplicationContext(), NutricionistaDrawerActivity.class);
 
                             startActivity(i);
 
                             Toast.makeText(LoginActivity.this, "login feito com sucesso", Toast.LENGTH_LONG).show();
-
+*/
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -299,7 +292,8 @@ public class LoginActivity extends Activity {
         finish();
     }
 
-    private void carregarDadosFirebase() {
+
+    private void carregarDadosNutricionistaFirebase() {
         session = new SessionManager(getApplicationContext());
         session.checkLogin();
         HashMap<String, String> user = session.getUserDetails();
@@ -326,30 +320,20 @@ public class LoginActivity extends Activity {
                 Nutricionista nutricionista = dataSnapshot.child(chave).getValue(Nutricionista.class);
 
                 if (nutricionista == null) {
-                    mDatabase = null;
-                    carregarDadosFirebasePaciente();
+                    carregarDadosPacienteFirebase();
                 } else {
-
                     String tipo = nutricionista.getTipo().toString();
-
-                    if (tipo == "nutricionista") {
+                    String validacao = "nutricionista";
+                    if (tipo.equals(validacao)) {
                         Intent i = new Intent(getApplicationContext(), NutricionistaDrawerActivity.class);
 
                         startActivity(i);
 
-                        Toast.makeText(LoginActivity.this, "Login Nutricionista feito com sucesso", Toast.LENGTH_LONG).show();
-
-
+                        Toast.makeText(LoginActivity.this, "login feito com sucesso", Toast.LENGTH_LONG).show();
                     } else {
-                        mDatabase = null;
-                        carregarDadosFirebasePaciente();
-
+                        carregarDadosPacienteFirebase();
                     }
-
-
-                    // update toolbar title
                 }
-
             }
 
             @Override
@@ -359,12 +343,13 @@ public class LoginActivity extends Activity {
         });
     }
 
-    private void carregarDadosFirebasePaciente() {
+
+    private void carregarDadosPacienteFirebase() {
         session = new SessionManager(getApplicationContext());
         session.checkLogin();
         HashMap<String, String> user = session.getUserDetails();
         final String chave = user.get(SessionManager.KEY_NAME);
-
+        mDatabase = null;
         if (mDatabase == null) {
             database = FirebaseDatabase.getInstance();
             //mDatabase = database.getReference().child("receita").child("a").child("receita");
@@ -383,20 +368,19 @@ public class LoginActivity extends Activity {
                 //   Receita appTitle = dataSnapshot.getValue(Receita.class);
 
                 //  String receita = dataSnapshot.getValue(String.class).toString();
-                Usuario paciente = dataSnapshot.child(chave).getValue(Usuario.class);
-                if (paciente == null) {
+                Nutricionista nutricionista = dataSnapshot.child(chave).getValue(Nutricionista.class);
+                String tipo = nutricionista.getTipo().toString();
+                String validacao = "paciente";
+                if (tipo.equals(validacao)) {
+                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+
+                    startActivity(i);
+
+                    Toast.makeText(LoginActivity.this, "login feito com sucesso", Toast.LENGTH_LONG).show();
+                } else {
                     Toast.makeText(LoginActivity.this, "Não foi possivel realizar login", Toast.LENGTH_LONG).show();
 
                 }
-                String tipo = paciente.getTipo().toString();
-
-
-                Intent i = new Intent(getApplicationContext(), MainActivity.class);
-
-                startActivity(i);
-
-                Toast.makeText(LoginActivity.this, "Login Paciente feito com sucesso", Toast.LENGTH_LONG).show();
-
 
             }
 

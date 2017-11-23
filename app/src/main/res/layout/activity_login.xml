@@ -21,26 +21,26 @@
             android:id="@+id/logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="20dp"
-            android:orientation="vertical"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true">
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="20dp">
 
             <ImageView
-                android:layout_width="88dp"
-                android:layout_height="88dp"
-                android:background="@drawable/maca_logo"/>
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/maca_logo" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:orientation="vertical">
 
             <EditText
                 android:id="@+id/usuario"
@@ -63,17 +63,17 @@
                 />
             />
 
-            <Button
-                android:id="@+id/entrarPaciente"
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/colorPrimary"
-                android:textColor="#fff"
-                android:textStyle="bold"
-                android:text="@string/paciente"/>
-            />
-
+            <!--       <Button
+                       android:id="@+id/entrarPaciente"
+                       android:layout_width="fill_parent"
+                       android:layout_height="40dp"
+                       android:layout_marginTop="20dp"
+                       android:background="@color/colorPrimary"
+                       android:textColor="#fff"
+                       android:textStyle="bold"
+                       android:text="@string/paciente"/>
+                   />
+       -->
 
             <Button
                 android:id="@+id/entrarNutricionista"
@@ -81,9 +81,9 @@
                 android:layout_height="40dp"
                 android:layout_marginTop="20dp"
                 android:background="@color/colorPrimary"
+                android:text="@string/entrar"
                 android:textColor="#fff"
-                android:textStyle="bold"
-                android:text="@string/nutricionista"/>
+                android:textStyle="bold" />
             />
 
             <!--   <com.facebook.login.widget.LoginButton
@@ -130,15 +130,15 @@
                 android:orientation="horizontal" >
 
                 <TextView
+                    android:id="@+id/criarTxtView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".49"
+                    android:autoText="false"
                     android:gravity="center"
                     android:text="Criar uma conta"
-                    android:textStyle="bold"
-                    android:id="@+id/criarTxtView"
-                    android:autoText="false"
                     android:textColor="@color/colorletras"
+                    android:textStyle="bold"
 
                     />
 
@@ -155,8 +155,8 @@
                     android:layout_weight=".49"
                     android:gravity="center"
                     android:text="Esqueceu a Senha?"
-                    android:textStyle="bold"
                     android:textColor="@color/colorletras"
+                    android:textStyle="bold"
                     />
             </LinearLayout>
         </LinearLayout>

@@ -46,4 +46,5 @@
     <string name="terceira">terceira</string>
     <string name="title_activity_nutricionista_drawer">Nutricionista</string>
     <string name="PesquisaNutricionista">Pesquisa Nutricionista</string>
+    <string name="entrar">Entrar</string>
 </resources>

@@ -19,9 +19,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.HashMap;
 
-import br.com.josecarlosestevao.appnutriv1.Constantes.ConversorImagem;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.Usuario.MenuPacienteFragment;
@@ -39,6 +44,8 @@ public class MainActivity extends AppCompatActivity
     Activity context = this;
     SessionManager session;
     FragmentManager fm = getSupportFragmentManager();
+    FirebaseDatabase database;
+    DatabaseReference mDatabase;
     private ImageView campoFotoObjeto;
     private String text;
 
@@ -97,8 +104,9 @@ public class MainActivity extends AppCompatActivity
         Bundle params = intent.getExtras();
         //  TextView textView = new TextView(this);
         //TextView textView2 = new TextView(this);
+        carregarDadosFirebase();
 
-        if (name != null) {
+ /*       if (name != null) {
 
             //   String recebe = params.getString("nome", null);
             usuarioDAO = usuarioDAO.open();
@@ -134,7 +142,7 @@ public class MainActivity extends AppCompatActivity
 
 
             });
-
+*/
 
   /*          if (usuario.getFoto() != null) {
 
@@ -158,7 +166,7 @@ public class MainActivity extends AppCompatActivity
                 ft.add(R.id.layout_direito, listafrag, "frag1");
                 ft.commit();
             }
-        }
+
 
 
     }
@@ -203,7 +211,6 @@ public class MainActivity extends AppCompatActivity
         FragmentTransaction ft = fm.beginTransaction();
 
 
-
         if (id == R.id.perfil) {
  /*               Intent i = new Intent(this, ListaAlimentosConsumidosActivity.class);
                 startActivity(i);
@@ -214,8 +221,6 @@ public class MainActivity extends AppCompatActivity
 
             PerfilPacienteFragment perfilPaciente = new PerfilPacienteFragment();
             ft.replace(R.id.layout_direito, perfilPaciente, "perfilPaciente");
-
-
 
 
         } else if (id == R.id.home) {
@@ -269,5 +274,44 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void carregarDadosFirebase() {
+        session = new SessionManager(getApplicationContext());
+        session.checkLogin();
+        HashMap<String, String> user = session.getUserDetails();
+        final String chave = user.get(SessionManager.KEY_NAME);
+
+        if (mDatabase == null) {
+            database = FirebaseDatabase.getInstance();
+            //mDatabase = database.getReference().child("receita").child("a").child("receita");
+            mDatabase = database.getReference().child("paciente");
+            //   mDatabase = database.getReference().child("receita").child("-Kz1I4FOl4yYZP8eUpi3").child("alimento");
+
+
+        }
+
+
+        // app_title change listener
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //   Receita appTitle = dataSnapshot.getValue(Receita.class);
+
+                //  String receita = dataSnapshot.getValue(String.class).toString();
+                Usuario nutricionista = dataSnapshot.child(chave).getValue(Usuario.class);
+                String nome = nutricionista.getNome().toString();
+                nomePerfil.setText("Nome : " + nome);
+                // update toolbar title
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }
