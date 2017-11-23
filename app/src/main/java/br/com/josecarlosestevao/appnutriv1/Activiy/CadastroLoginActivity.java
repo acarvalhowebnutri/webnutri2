@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
@@ -27,10 +28,15 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.IOException;
 
 import br.com.josecarlosestevao.appnutriv1.Constantes.ConversorImagem;
+import br.com.josecarlosestevao.appnutriv1.Constantes.SelectDateFragment;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
+import br.com.josecarlosestevao.appnutriv1.Login.LoginActivity;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 import br.com.josecarlosestevao.appnutriv1.Usuario.UsuarioDAO;
@@ -59,6 +65,7 @@ public class CadastroLoginActivity extends AppCompatActivity {
     private Usuario usuario;
     private ImageView campoFotoObjeto;
     private Usuario userU;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +82,10 @@ public class CadastroLoginActivity extends AppCompatActivity {
                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                         RESULT_GALERIA);
             }
-
         }
+
+        usuario = (usuario == null) ? new Usuario() : usuario;
+        userU = (userU == null) ? new Usuario() : userU;
 
         if (usuario == null) {
             usuario = new Usuario();
@@ -99,33 +108,31 @@ public class CadastroLoginActivity extends AppCompatActivity {
         radioButtonMasc = (RadioButton) findViewById(R.id.radioButtonMasc);
         radioButtonFem = (RadioButton) findViewById(R.id.radioButtonFem);
 
-
         campoFotoObjeto.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
             @Override
             public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
                 menu.add(0, MENU_FOTO, 0, "TIRAR FOTO");
                 menu.add(1, MENU_GALERIA, 1, "GALERIA");
-
-
             }
         });
 
+        cadastro_data_nasc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment newFragment = new SelectDateFragment();
+                newFragment.show(getSupportFragmentManager(), "DatePicker");
+            }
+        });
         criarContaBtn.setOnClickListener(new View.OnClickListener() {
-                                             @Override
-                                             public void onClick(View v) {
-
-                                                 try {
-                                                     validaCampos();
-                                                 } catch (IOException e) {
-                                                     e.printStackTrace();
-                                                 }
-
-                                             }
-                                         }
-
-        );
-
-
+            @Override
+            public void onClick(View v) {
+                try {
+                 validaCampos();
+                } catch (IOException e) {
+                 e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override
@@ -136,17 +143,12 @@ public class CadastroLoginActivity extends AppCompatActivity {
         if (item.getItemId() == MENU_FOTO) {
 
             intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
             startActivityForResult(intent, ID_RETORNO_TIRA_FOTO_OBJETO);
-
 
             return true;
         } else if (item.getItemId() == MENU_GALERIA) {
             intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
             startActivityForResult(intent, RESULT_GALERIA);
-
-
         }
         return super.onContextItemSelected(item);
     }
@@ -256,9 +258,16 @@ public class CadastroLoginActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Senhas diferentes", Toast.LENGTH_LONG).show();
                         confirmarSenhaEditText.requestFocus();
                         return;
-                    } else
-                        criarConta();
-
+                    } else {
+                        // Valida campo peso
+                        if (pesoEditText.getText().toString().isEmpty()) {
+                            Toast.makeText(getApplicationContext(), "Preencha o campo peso", Toast.LENGTH_LONG).show();
+                            pesoEditText.requestFocus();
+                            return;
+                        } else {
+                            criarConta();
+                        }
+                    }
                 }
             }
         }
@@ -266,12 +275,10 @@ public class CadastroLoginActivity extends AppCompatActivity {
 
 
     private void carregarfoto(byte[] x) {
-
         // nomeEditText.setText(usuario.getNome());
-
-
-        campoFotoObjeto.setImageBitmap(ConversorImagem
-                .converteByteArrayPraBitmap(x));
+        campoFotoObjeto
+                .setImageBitmap(ConversorImagem
+                        .converteByteArrayPraBitmap(x));
         userU.setFoto(x);
         bundle.putByteArray("foto", x);
         //validaCampos();
@@ -288,6 +295,25 @@ public class CadastroLoginActivity extends AppCompatActivity {
 
         userU.setNome(nomeEditText.getText().toString());
         userU.setSenha(senhaEditText.getText().toString());
+        // user.setFoto( campoFotoObjeto.setImageBitmap(ConversorImagem.converteByteArrayPraBitmap(x));
+        userU.setDataNasc(cadastro_data_nasc.getText().toString());
+        userU.setPeso(pesoEditText.getText().toString());
+        if (selecionouSexoMasculino = radioButtonMasc.isChecked()) {
+            userU.setSexo("m");
+        } else if (selecionouSexoFem = radioButtonFem.isChecked()) {
+            userU.setSexo("f");
+        } else
+            System.out.println("selecione um sexo");
+        UsuarioDAO dao = new UsuarioDAO(getApplicationContext());
+        dao.adicionausuario(userU);
+
+        Toast.makeText(getApplicationContext(), "Conta criada com sucesso", Toast.LENGTH_LONG).show();
+
+        //CADASTRANDO NO FIREBASE O USUÁRIO
+        cadastrarUsuarioNoFirebase(userU);
+
+        Intent voltar = new Intent(CadastroLoginActivity.this, LoginActivity.class);
+        startActivity(voltar);
         // userU.setFoto( campoFotoObjeto.setImageBitmap(ConversorImagem.converteByteArrayPraBitmap(x)));
 
 
@@ -321,6 +347,12 @@ public class CadastroLoginActivity extends AppCompatActivity {
 
     }
 
+    private void cadastrarUsuarioNoFirebase(Usuario user){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference mDatabase = database.getReference();
+
+        mDatabase.child("users").child(user.getId().toString()).setValue(user);
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {

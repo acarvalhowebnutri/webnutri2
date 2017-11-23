@@ -34,9 +34,15 @@ import java.util.HashMap;
 import br.com.josecarlosestevao.appnutriv1.Activiy.CadastroLoginActivity;
 import br.com.josecarlosestevao.appnutriv1.Activiy.MainActivity;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
+<<<<<<< HEAD
 import br.com.josecarlosestevao.appnutriv1.Nutricionista.Nutricionista;
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> refs/remotes/origin/master
 import br.com.josecarlosestevao.appnutriv1.Nutricionista.NutricionistaDao;
 import br.com.josecarlosestevao.appnutriv1.Nutricionista.NutricionistaDrawerActivity;
+>>>>>>> c709ba0b520b987b328f4022bf9c0768af593197
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.SQLite.DatabaseHelper;
 import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
@@ -182,9 +188,9 @@ public class LoginActivity extends Activity {
                     session.createLoginSession(nome);
 
 
-                    Intent i = new Intent(getApplicationContext(), NutricionistaDrawerActivity.class);
+                    //Intent i = new Intent(getApplicationContext(), NutricionistaDrawerActivity.class);
 
-                    startActivity(i);
+                    startActivity(new Intent(getApplicationContext(), CadastrarUsuarioActivity.class));
                     finish();
                     Toast.makeText(LoginActivity.this, "login feito com sucesso", Toast.LENGTH_LONG).show();
 

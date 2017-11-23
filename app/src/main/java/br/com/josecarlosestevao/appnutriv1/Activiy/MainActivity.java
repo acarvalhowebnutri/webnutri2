@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity
 //byte[] foto = usuario.getFoto();
 
             nomePerfil.setText(" Seu nome: " + nome);
-            nomePerfil.setText(" Seu nutricionista: " + nome);
+         //  nomePerfil.setText(" Seu nutricionista: " + nome);
 
             if (usuario.getFoto() != null)
                 campoFotoObjeto.setImageBitmap(ConversorImagem.converteByteArrayPraBitmap(usuario.getFoto()));
