@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -119,6 +120,29 @@ public class NutricionistaDao {
         db.close();
 
         return senha;
+    }
+
+    public void pesquisarNutricionistaNoFirebase(String nome) {
+
+
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                Nutricionista post = dataSnapshot.getValue(Nutricionista.class);
+                // ...
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(this.getClass().toString(), "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+
+        };
+        mDatabase.addValueEventListener(postListener);
+
     }
 
     public String pesquisarCRN(String nome) {
