@@ -92,7 +92,7 @@ public class LoginActivity extends Activity {
 
         session = new SessionManager(getApplicationContext());
 
-        entrarPacienteBtn = (Button) findViewById(R.id.entrarPaciente);
+        // entrarPacienteBtn = (Button) findViewById(R.id.entrarPaciente);
         entrarNutricionistaBtn = (Button) findViewById(R.id.entrarNutricionista);
 
         nomeEditText = (EditText) findViewById(R.id.usuario);
@@ -105,7 +105,7 @@ public class LoginActivity extends Activity {
 
 
         //  Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
-
+/*
 
         entrarPacienteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,7 +150,7 @@ public class LoginActivity extends Activity {
                 }
             }
         });
-
+*/
         entrarNutricionistaBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
