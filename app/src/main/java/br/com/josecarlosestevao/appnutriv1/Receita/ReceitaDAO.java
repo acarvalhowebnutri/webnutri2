@@ -21,8 +21,8 @@ import java.util.List;
 
 import br.com.josecarlosestevao.appnutriv1.Constantes.Constantes;
 import br.com.josecarlosestevao.appnutriv1.Consumo.Consumo;
+import br.com.josecarlosestevao.appnutriv1.Nutricionista.Nutricionista;
 import br.com.josecarlosestevao.appnutriv1.SQLite.DatabaseHelper;
-import br.com.josecarlosestevao.appnutriv1.Usuario.Nutricionista;
 import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 
 /**

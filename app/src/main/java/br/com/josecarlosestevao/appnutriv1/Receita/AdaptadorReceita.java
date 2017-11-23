@@ -19,10 +19,10 @@ import br.com.josecarlosestevao.appnutriv1.Consumo.Consumo;
 import br.com.josecarlosestevao.appnutriv1.Consumo.ConsumoDAO;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessaoDietaPaciente;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
+import br.com.josecarlosestevao.appnutriv1.Nutricionista.Nutricionista;
 import br.com.josecarlosestevao.appnutriv1.Nutricionista.NutricionistaDao;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.SQLite.DatabaseHelper;
-import br.com.josecarlosestevao.appnutriv1.Usuario.Nutricionista;
 import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 
 

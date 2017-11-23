@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Usuario implements Serializable {
     public static final long serialVersionUID = 1l;
 
-    private Long id;
+    private String id;
     private String nome;
     private String senha;
     private Integer alimentoId;
@@ -21,14 +21,23 @@ public class Usuario implements Serializable {
     private byte[] foto;
     private Double valor;
     private String imc;
+    private String tipo;
 
-    public Usuario(Long id, String nome, String senha, String email) {
+    public Usuario(String id, String nome, String senha, String email, String tipo) {
         this.id = id;
         this.nome = nome;
         this.email = email;
+        this.tipo = tipo;
+    }
+    public Usuario() {
     }
 
-    public Usuario() {
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getImc() {
@@ -96,11 +105,11 @@ public class Usuario implements Serializable {
         this.foto = foto;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

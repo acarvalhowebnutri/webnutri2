@@ -19,20 +19,27 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
 
 import br.com.josecarlosestevao.appnutriv1.Activiy.CadastroLoginActivity;
 import br.com.josecarlosestevao.appnutriv1.Activiy.MainActivity;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
+import br.com.josecarlosestevao.appnutriv1.Nutricionista.Nutricionista;
 import br.com.josecarlosestevao.appnutriv1.Nutricionista.NutricionistaDao;
 import br.com.josecarlosestevao.appnutriv1.Nutricionista.NutricionistaDrawerActivity;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.SQLite.DatabaseHelper;
-import br.com.josecarlosestevao.appnutriv1.Usuario.Nutricionista;
+import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 import br.com.josecarlosestevao.appnutriv1.Usuario.UsuarioDAO;
 
 public class LoginActivity extends Activity {
@@ -43,6 +50,8 @@ public class LoginActivity extends Activity {
     SessionManager session;
     Nutricionista usuario;
     EditText nomeEditText, senhaEditText;
+    FirebaseDatabase database;
+    DatabaseReference mDatabase;
     private UsuarioDAO usuarioDAO;
     private Button entrarPacienteBtn, entrarNutricionistaBtn;
     private TextView criarContaTextView, esqueceuContaTextView;
@@ -225,14 +234,18 @@ public class LoginActivity extends Activity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             String chave = user.getUid();
                             session.createLoginSession(chave);
+                            carregarDadosFirebase();
 
 
+
+
+/*
                             Intent i = new Intent(getApplicationContext(), NutricionistaDrawerActivity.class);
 
                             startActivity(i);
 
                             Toast.makeText(LoginActivity.this, "login feito com sucesso", Toast.LENGTH_LONG).show();
-
+*/
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -281,5 +294,113 @@ public class LoginActivity extends Activity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void carregarDadosFirebase() {
+        session = new SessionManager(getApplicationContext());
+        session.checkLogin();
+        HashMap<String, String> user = session.getUserDetails();
+        final String chave = user.get(SessionManager.KEY_NAME);
+
+        if (mDatabase == null) {
+            database = FirebaseDatabase.getInstance();
+            //mDatabase = database.getReference().child("receita").child("a").child("receita");
+            mDatabase = database.getReference().child("nutricionista");
+            //   mDatabase = database.getReference().child("receita").child("-Kz1I4FOl4yYZP8eUpi3").child("alimento");
+
+
+        }
+
+
+        // app_title change listener
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //   Receita appTitle = dataSnapshot.getValue(Receita.class);
+
+                //  String receita = dataSnapshot.getValue(String.class).toString();
+                Nutricionista nutricionista = dataSnapshot.child(chave).getValue(Nutricionista.class);
+
+                if (nutricionista == null) {
+                    mDatabase = null;
+                    carregarDadosFirebasePaciente();
+                } else {
+
+                    String tipo = nutricionista.getTipo().toString();
+
+                    if (tipo == "nutricionista") {
+                        Intent i = new Intent(getApplicationContext(), NutricionistaDrawerActivity.class);
+
+                        startActivity(i);
+
+                        Toast.makeText(LoginActivity.this, "Login Nutricionista feito com sucesso", Toast.LENGTH_LONG).show();
+
+
+                    } else {
+                        mDatabase = null;
+                        carregarDadosFirebasePaciente();
+
+                    }
+
+
+                    // update toolbar title
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void carregarDadosFirebasePaciente() {
+        session = new SessionManager(getApplicationContext());
+        session.checkLogin();
+        HashMap<String, String> user = session.getUserDetails();
+        final String chave = user.get(SessionManager.KEY_NAME);
+
+        if (mDatabase == null) {
+            database = FirebaseDatabase.getInstance();
+            //mDatabase = database.getReference().child("receita").child("a").child("receita");
+            mDatabase = database.getReference().child("paciente");
+            //   mDatabase = database.getReference().child("receita").child("-Kz1I4FOl4yYZP8eUpi3").child("alimento");
+
+
+        }
+
+
+        // app_title change listener
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //   Receita appTitle = dataSnapshot.getValue(Receita.class);
+
+                //  String receita = dataSnapshot.getValue(String.class).toString();
+                Usuario paciente = dataSnapshot.child(chave).getValue(Usuario.class);
+                if (paciente == null) {
+                    Toast.makeText(LoginActivity.this, "Não foi possivel realizar login", Toast.LENGTH_LONG).show();
+
+                }
+                String tipo = paciente.getTipo().toString();
+
+
+                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+
+                startActivity(i);
+
+                Toast.makeText(LoginActivity.this, "Login Paciente feito com sucesso", Toast.LENGTH_LONG).show();
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }

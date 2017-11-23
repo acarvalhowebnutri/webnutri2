@@ -18,29 +18,33 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.HashMap;
 
 import br.com.josecarlosestevao.appnutriv1.Activiy.HistoricoFragment;
-import br.com.josecarlosestevao.appnutriv1.Activiy.PerfilActivityOld;
-import br.com.josecarlosestevao.appnutriv1.Constantes.ConversorImagem;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
 import br.com.josecarlosestevao.appnutriv1.R;
-import br.com.josecarlosestevao.appnutriv1.Usuario.Nutricionista;
+import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 
 public class NutricionistaDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     SessionManager session;
     FragmentManager fm = getSupportFragmentManager();
-    Nutricionista nutricionista;
+    //Nutricionista nutricionista;
     Activity context = this;
     NutricionistaDao nutricionistaDao;
     TextView nomePerfil;
     TextView emailPerfil;
+    FirebaseDatabase database;
+    DatabaseReference mDatabase;
     private ImageView campoFotoObjeto;
     private String text;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +56,6 @@ public class NutricionistaDrawerActivity extends AppCompatActivity
         if (nutricionistaDao == null) {
             nutricionistaDao = new NutricionistaDao(context);
         }
-        session = new SessionManager(getApplicationContext());
-        session.checkLogin();
-        HashMap<String, String> user = session.getUserDetails();
-        String chave = user.get(SessionManager.KEY_NAME);
 
 
 
@@ -81,40 +81,30 @@ public class NutricionistaDrawerActivity extends AppCompatActivity
         //  TextView textView = new TextView(this);
         //TextView textView2 = new TextView(this);
 
-        if (chave != null) {
+        // if (chave != null) {
 
             //   String recebe = params.getString("nome", null);
             nutricionistaDao = nutricionistaDao.open();
             //   nutricionista = nutricionistaDao.ler(name);
-            nutricionista = nutricionistaDao.lerNoFirebase(chave);
-            final String nome = nutricionista.getNome();
+
+        /////////////////////////////////////////////////
+            /*nutricionista = nutricionistaDao.lerNoFirebase(chave);
+            final String nome = nutricionista.getNome();*/
+        /////////////////////////////////////////////////////
             // final String peso = nutricionista.getPeso();
             //final String dtNas = nutricionista.getDataNasc();
 
 //byte[] foto = nutricionista.getFoto();
 
-            nomePerfil.setText(nome);
 
-            if (nutricionista.getFoto() != null)
-                campoFotoObjeto.setImageBitmap(ConversorImagem.converteByteArrayPraBitmap(nutricionista.getFoto()));
-
-
-            campoFotoObjeto.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    //   Intent idados = getIntent();
-                    Intent alterar = new Intent(NutricionistaDrawerActivity.this, PerfilActivityOld.class);
-                    startActivity(alterar);
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        carregarDadosFirebase();
 
 
-                    //String userName=nutricionista.getText().toString()
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-                }
 
-
-            });
 
             if (savedInstanceState == null) {
                 ListaPacientesFragment listapaciente = new ListaPacientesFragment();
@@ -123,7 +113,7 @@ public class NutricionistaDrawerActivity extends AppCompatActivity
                 ft.add(R.id.layout_direito_nutricionista, listapaciente, "frag1");
                 ft.commit();
             }
-        }
+
     }
     @Override
     public void onBackPressed() {
@@ -214,5 +204,66 @@ public class NutricionistaDrawerActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void carregarDadosFirebase() {
+        session = new SessionManager(getApplicationContext());
+        session.checkLogin();
+        HashMap<String, String> user = session.getUserDetails();
+        final String chave = user.get(SessionManager.KEY_NAME);
+
+        if (mDatabase == null) {
+            database = FirebaseDatabase.getInstance();
+            //mDatabase = database.getReference().child("receita").child("a").child("receita");
+            mDatabase = database.getReference().child("nutricionista");
+            //   mDatabase = database.getReference().child("receita").child("-Kz1I4FOl4yYZP8eUpi3").child("alimento");
+
+
+        }
+
+
+        // app_title change listener
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //   Receita appTitle = dataSnapshot.getValue(Receita.class);
+
+                //  String receita = dataSnapshot.getValue(String.class).toString();
+                Usuario nutricionista = dataSnapshot.child(chave).getValue(Usuario.class);
+                String nome = nutricionista.getNome().toString();
+                nomePerfil.setText("Nome : " + nome);
+                // update toolbar title
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+/*
+        if (nutricionista.getFoto() != null)
+            campoFotoObjeto.setImageBitmap(ConversorImagem.converteByteArrayPraBitmap(nutricionista.getFoto()));
+
+
+        campoFotoObjeto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //   Intent idados = getIntent();
+                Intent alterar = new Intent(NutricionistaDrawerActivity.this, PerfilPacienteFragment.class);
+                startActivity(alterar);
+
+
+                //String userName=nutricionista.getText().toString()
+
+
+            }
+
+
+        });
+*/
     }
 }

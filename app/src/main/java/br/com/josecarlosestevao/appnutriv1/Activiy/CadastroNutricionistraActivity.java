@@ -18,9 +18,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
 import br.com.josecarlosestevao.appnutriv1.Login.LoginActivity;
+import br.com.josecarlosestevao.appnutriv1.Nutricionista.Nutricionista;
 import br.com.josecarlosestevao.appnutriv1.Nutricionista.NutricionistaDao;
 import br.com.josecarlosestevao.appnutriv1.R;
-import br.com.josecarlosestevao.appnutriv1.Usuario.Nutricionista;
 import br.com.josecarlosestevao.appnutriv1.Usuario.UsuarioDAO;
 
 public class CadastroNutricionistraActivity extends AppCompatActivity {
@@ -80,6 +80,7 @@ public class CadastroNutricionistraActivity extends AppCompatActivity {
                                                  nutricionista.setNome(bundle.getString("nome"));
                                                  nutricionista.setSenha(bundle.getString("senha"));
                                                  nutricionista.setEmail(bundle.getString("email"));
+                                                 nutricionista.setTipo("nutricionista");
                                                  salvarNutricionista();
                                                  //  String email = bundle.getString("email");
                                                  //String senha = bundle.getString("senha");

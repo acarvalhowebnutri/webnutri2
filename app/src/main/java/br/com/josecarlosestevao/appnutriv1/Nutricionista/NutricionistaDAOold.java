@@ -184,7 +184,7 @@ public class NutricionistaDAOold {
         try {
             while (c.moveToNext()) {
                 Usuario paciente = new Usuario();
-                paciente.setId(c.getLong(c.getColumnIndex("_id")));
+                //paciente.setId(c.getLong(c.getColumnIndex("_id")));
                 paciente.setNome(c.getString(c.getColumnIndex("nome")));
                 paciente.setSenha(c.getString(c.getColumnIndex("senha")));
 
@@ -219,7 +219,7 @@ public class NutricionistaDAOold {
         try {
             while (c.moveToNext()) {
                 Usuario paciente = new Usuario();
-                paciente.setId(c.getLong(c.getColumnIndex("_id")));
+                //paciente.setId(c.getLong(c.getColumnIndex("_id")));
                 paciente.setNome(c.getString(c.getColumnIndex("nome")));
                 //    alimento.setData(c.getString(c.getColumnIndex("data")));
                 listapacientes.add(paciente);
@@ -284,7 +284,7 @@ public class NutricionistaDAOold {
         try {
             while (c.moveToNext()) {
                 Usuario paciente = new Usuario();
-                paciente.setId(c.getLong(c.getColumnIndex("_id")));
+                // paciente.setId(c.getLong(c.getColumnIndex("_id")));
                 paciente.setNome(c.getString(c.getColumnIndex("nome")));
                 //    alimento.setData(c.getString(c.getColumnIndex("data")));
                 listapaciente.add(paciente);

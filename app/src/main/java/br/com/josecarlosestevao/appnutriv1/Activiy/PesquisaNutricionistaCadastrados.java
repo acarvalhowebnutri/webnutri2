@@ -13,8 +13,8 @@ import java.util.ArrayList;
 
 import br.com.josecarlosestevao.appnutriv1.Constantes.AdaptadorNutricionista;
 import br.com.josecarlosestevao.appnutriv1.Consumo.ConsumoDAO;
+import br.com.josecarlosestevao.appnutriv1.Nutricionista.Nutricionista;
 import br.com.josecarlosestevao.appnutriv1.R;
-import br.com.josecarlosestevao.appnutriv1.Usuario.Nutricionista;
 import br.com.josecarlosestevao.appnutriv1.Usuario.UsuarioDAO;
 
 /**

@@ -28,7 +28,6 @@ import br.com.josecarlosestevao.appnutriv1.Constantes.ConversorImagem;
 import br.com.josecarlosestevao.appnutriv1.Constantes.SelectDateFragment;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
 import br.com.josecarlosestevao.appnutriv1.R;
-import br.com.josecarlosestevao.appnutriv1.Usuario.Nutricionista;
 
 /**
  * Created by Dell on 06/01/2017.

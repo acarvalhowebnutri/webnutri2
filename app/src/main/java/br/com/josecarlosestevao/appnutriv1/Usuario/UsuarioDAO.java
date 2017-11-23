@@ -68,7 +68,7 @@ public class UsuarioDAO {
 
         //String n = alimentoConsumido.getAlimento();
         long id = db.insert(Constantes.TB_USUARIO, null, values);
-        usuario.setId(id);
+        //  usuario.setId(id);
         dbHelper.close();
         db.close();
 
@@ -78,6 +78,20 @@ public class UsuarioDAO {
     }
 
     public void cadastrarUsuarioNoFirebase(Usuario usuario) {
+        database = FirebaseDatabase.getInstance();
+        mDatabase = database.getReference();
+
+
+        String chave = usuario.getId();
+        mDatabase
+                .child("paciente")
+                .child(chave)
+                //  .child(id)
+                .setValue(usuario);
+
+    }
+
+    public void cadastrarUsuarioNoFirebaseOld(Usuario usuario) {
         database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference();
 

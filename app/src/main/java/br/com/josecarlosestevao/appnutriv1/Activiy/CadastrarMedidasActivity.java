@@ -3,6 +3,7 @@ package br.com.josecarlosestevao.appnutriv1.Activiy;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -17,7 +18,11 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import br.com.josecarlosestevao.appnutriv1.Constantes.SelectDateFragment;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
@@ -32,7 +37,7 @@ public class CadastrarMedidasActivity extends AppCompatActivity {
     private static final int RESULT_GALERIA = 1234;
     private static final int MENU_FOTO = Menu.FIRST;
     private static final int MENU_GALERIA = 2;
-
+    public FirebaseAuth mAuth;
     EditText nomeEditText, senhaEditText, confirmarSenhaEditText, cadastro_peso, emailEditText;
     Button criarContaBtn;
     UsuarioDAO loginAdapter;
@@ -40,7 +45,6 @@ public class CadastrarMedidasActivity extends AppCompatActivity {
     TextView cadastro_data_nasc;
     CheckBox cadastro_sexo_masc, cadastro_sexo_fem;
     SessionManager session;
-
     RadioButton radioButtonFem, radioButtonMasc;
     boolean selecionouSexoMasculino;
     boolean selecionouSexoFem;
@@ -51,19 +55,31 @@ public class CadastrarMedidasActivity extends AppCompatActivity {
     private Usuario usuario;
     private ImageView campoFotoObjeto;
     private Usuario userU;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cadasta_usuario);
 
+        mAuth = FirebaseAuth.getInstance();
 
-        if (usuario == null) {
-            usuario = new Usuario();
-        }
-        if (userU == null) {
-            userU = new Usuario();
-        }
+
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+                if (firebaseUser == null || userU.getId() != null) {
+                    return;
+                }
+
+                // nutricionista.setId(Long.valueOf(firebaseUser.getUid()));
+                UsuarioDAO dao = new UsuarioDAO(getApplicationContext());
+                dao.cadastrarUsuarioNoFirebase(userU);
+            }
+        };
 
 
         criarContaBtn = (Button) findViewById(R.id.criarContaBtn);
@@ -92,12 +108,37 @@ public class CadastrarMedidasActivity extends AppCompatActivity {
                                              @Override
                                              public void onClick(View v) {
 
-                                                 try {
-                                                     criarConta();
-                                                 } catch (IOException e) {
-                                                     e.printStackTrace();
-                                                 }
+                                                 Intent intent = getIntent();
 
+                                                 Bundle bundle = intent.getExtras();
+
+
+                                                 if (userU == null) {
+                                                     userU = new Usuario();
+                                                 }
+                                                 userU.setNome(bundle.getString("nome"));
+                                                 userU.setSenha(bundle.getString("senha"));
+                                                 userU.setEmail(bundle.getString("email"));
+                                                 userU.setDataNasc(cadastro_data_nasc.getText().toString());
+                                                 userU.setPeso(cadastro_peso.getText().toString());
+                                                 if (selecionouSexoMasculino = radioButtonMasc.isChecked()) {
+                                                     userU.setSexo("masculino");
+                                                 } else if (selecionouSexoFem = radioButtonFem.isChecked()) {
+                                                     userU.setSexo("feminino");
+
+                                                 }
+                                                 userU.setCrn(" sem dados");
+                                                 userU.setTipo("paciente");
+                                                 salvarPaciente();
+
+
+                                                 //UsuarioDAO dao = new UsuarioDAO(getApplicationContext());
+                                                 //dao.cadastrarUsuarioNoFirebase(userU);
+                                                 //  dao.adicionausuario(userU);
+                                                 /*Toast.makeText(getApplicationContext(), "Conta criada com sucesso", Toast.LENGTH_LONG).show();
+
+                                                 Intent voltar = new Intent(CadastrarMedidasActivity.this, LoginActivity.class);
+                                                 startActivity(voltar);*/
                                              }
                                          }
 
@@ -107,50 +148,34 @@ public class CadastrarMedidasActivity extends AppCompatActivity {
     }
 
 
-    private void validaCampos() throws IOException {
+    public void salvarPaciente() {
+        mAuth.createUserWithEmailAndPassword(userU.getEmail(), userU.getSenha())
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            String idfb = user.getUid();
+                            userU.setId(idfb);
 
+                            UsuarioDAO d = new UsuarioDAO(getApplicationContext());
+                            d.cadastrarUsuarioNoFirebase(userU);
+                            Toast.makeText(getApplicationContext(), "Conta criada com sucesso", Toast.LENGTH_LONG).show();
+                            Intent voltar = new Intent(CadastrarMedidasActivity.this, LoginActivity.class);
+                            startActivity(voltar);
+                            //    FirebaseUser user = mAuth.getCurrentUser();
+                            //  updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(getApplicationContext(), "Nao foi possivel fazer cadastro", Toast.LENGTH_LONG).show();
 
-        // Valida campo peso
-        if (cadastro_peso.getText().toString().isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Preencha o campo peso", Toast.LENGTH_LONG).show();
-            cadastro_peso.requestFocus();
-            return;
-        } else
-            criarConta();
+                            //updateUI(null);
+                        }
 
-
-    }
-
-
-    public void criarConta() throws IOException {
-
-        Intent intent = getIntent();
-
-        Bundle bundle = intent.getExtras();
-
-
-        if (userU == null) {
-            userU = new Usuario();
-        }
-        userU.setNome(bundle.getString("nome"));
-        userU.setSenha(bundle.getString("senha"));
-        userU.setEmail(bundle.getString("email"));
-        userU.setDataNasc(cadastro_data_nasc.getText().toString());
-        userU.setPeso(cadastro_peso.getText().toString());
-        if (selecionouSexoMasculino = radioButtonMasc.isChecked()) {
-            userU.setSexo("masculino");
-        } else if (selecionouSexoFem = radioButtonFem.isChecked()) {
-            userU.setSexo("feminino");
-
-        }
-        userU.setCrn(" sem dados");
-        UsuarioDAO dao = new UsuarioDAO(getApplicationContext());
-        dao.cadastrarUsuarioNoFirebase(userU);
-        //  dao.adicionausuario(userU);
-        Toast.makeText(getApplicationContext(), "Conta criada com sucesso", Toast.LENGTH_LONG).show();
-
-        Intent voltar = new Intent(CadastrarMedidasActivity.this, LoginActivity.class);
-        startActivity(voltar);
+                        // ...
+                    }
+                });
     }
 }
 

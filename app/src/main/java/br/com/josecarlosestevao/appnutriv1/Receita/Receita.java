@@ -2,7 +2,7 @@ package br.com.josecarlosestevao.appnutriv1.Receita;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
-import br.com.josecarlosestevao.appnutriv1.Usuario.Nutricionista;
+import br.com.josecarlosestevao.appnutriv1.Nutricionista.Nutricionista;
 import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 
 /**

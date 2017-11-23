@@ -53,10 +53,11 @@ public class ListaPacientesAdapter extends ArrayAdapter<Usuario> {
         return view;
     }
 
-    public long getItemId(int position) {
-        return pacientes.get(position).getId();
-    }
-
+    /*
+        public long getItemId(int position) {
+            return pacientes.get(position).getId();
+        }
+    */
     public int getCount() {
         return super.getCount();
     }
