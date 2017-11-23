@@ -234,18 +234,15 @@ public class LoginActivity extends Activity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             String chave = user.getUid();
                             session.createLoginSession(chave);
-                            carregarDadosFirebase();
+                            // carregarDadosFirebase();
 
 
-
-
-/*
                             Intent i = new Intent(getApplicationContext(), NutricionistaDrawerActivity.class);
 
                             startActivity(i);
 
                             Toast.makeText(LoginActivity.this, "login feito com sucesso", Toast.LENGTH_LONG).show();
-*/
+
 
                         } else {
                             // If sign in fails, display a message to the user.

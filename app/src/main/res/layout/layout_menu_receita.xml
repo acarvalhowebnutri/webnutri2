@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout11"
+        android:layout_width="wrap_content"
+
+        android:layout_height="match_parent"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/imageButtonCafe"
+            android:layout_width="122dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:backgroundTint="@color/nav_header_main"
+            app:srcCompat="@android:drawable/ic_input_add" />
+
+
+        <ImageButton
+            android:id="@+id/imageButtonAlmoço"
+            android:layout_width="122dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:backgroundTint="@color/nav_header_main"
+            app:srcCompat="@android:drawable/ic_input_add" />
+
+        <ImageButton
+            android:id="@+id/imageButtonJanta"
+            android:layout_width="122dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:backgroundTint="@color/nav_header_main"
+            app:srcCompat="@android:drawable/ic_input_add" />
+
+
+        <ImageButton
+            android:id="@+id/imageButtonLanche"
+            android:layout_width="122dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:backgroundTint="@color/nav_header_main"
+            app:srcCompat="@android:drawable/ic_input_add" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout12"
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/texViewCafedaManha"
+            android:layout_width="122dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="40dp"
+            android:elevation="24dp"
+            android:gravity="fill_vertical"
+            android:text="Café da Manha"
+            android:textColor="@color/colorletras" />
+
+        <TextView
+            android:id="@+id/texViewAlmoco"
+            android:layout_width="122dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="40dp"
+            android:gravity="fill_vertical"
+            android:text="Almoco"
+            android:textColor="@color/colorletras" />
+
+        <TextView
+            android:id="@+id/texViewJantar"
+            android:layout_width="122dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="40dp"
+            android:gravity="fill_vertical"
+            android:text="Jantar"
+            android:textColor="@color/colorletras" />
+
+        <TextView
+            android:id="@+id/texViewLanche"
+            android:layout_width="122dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="40dp"
+            android:gravity="fill_vertical"
+            android:text="Lanche"
+            android:textColor="@color/colorletras" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewNomePaciente"
+        android:layout_width="122dp"
+        android:layout_height="50dp"
+
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="32dp"
+        android:layout_marginStart="32dp"
+        android:autoText="false"
+        android:text="nome do paciente: "
+        android:textColor="@color/colorletras" />
+
+    <TextView
+        android:id="@+id/textViewDataReceita"
+        android:layout_width="122dp"
+        android:layout_height="50dp"
+
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_toEndOf="@+id/textViewNomePaciente"
+        android:layout_toRightOf="@+id/textViewNomePaciente"
+        android:autoText="false"
+        android:text="data Receita: "
+        android:textColor="@color/colorletras" />
+
+</RelativeLayout>

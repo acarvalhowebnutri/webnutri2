@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="450dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp"
+        android:baselineAligned="false">
+
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout3"
+            android:layout_width="280dp"
+            android:layout_height="250dp"
+            android:layout_below="@+id/textViewTexto"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="@color/colorAccent"
+            android:visibility="visible">
+
+
+            <ImageView
+                android:id="@+id/foto_objeto"
+                android:layout_width="126dp"
+                android:layout_height="80dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:src="@android:drawable/ic_menu_camera" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout7"
+                android:layout_width="80dp"
+                android:layout_height="130dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/foto_objeto"
+                android:orientation="vertical"
+                tools:layout_conversion_absoluteHeight="82dp"
+                tools:layout_conversion_absoluteWidth="44dp"
+                tools:layout_conversion_absoluteX="0dp"
+                tools:layout_conversion_absoluteY="0dp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp">
+
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_alignTop="@+id/textViewExibeNome"
+                    android:text="Nome : "
+                    android:textColor="@color/colorletras" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/textView6"
+                    android:layout_marginTop="20dp"
+                    android:text="Peso : "
+                    android:textColor="@color/colorletras" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/textView5"
+                    android:layout_marginTop="15dp"
+                    android:text="Data Nasc."
+                    android:textColor="@color/colorletras" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="150dp"
+                android:layout_height="130dp"
+                android:layout_marginLeft="80dp"
+
+                android:layout_marginTop="80dp"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/editTextExibeNome"
+                    android:layout_width="190dp"
+                    android:layout_height="30dp"
+
+                    android:text=" sem dados"
+                    android:textSize="10sp" />
+
+                <EditText
+                    android:id="@+id/editTextExibePeso"
+                    android:layout_width="190dp"
+                    android:layout_height="30dp"
+
+                    android:layout_marginTop="8dp"
+                    android:text=" sem dados"
+                    android:textSize="10sp" />
+
+                <EditText
+                    android:id="@+id/editDataNascimento"
+                    android:layout_width="190dp"
+                    android:layout_height="30dp"
+
+
+                    android:text=" sem dados"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/linearLayout2"
+                android:layout_marginTop="40dp"
+                android:layout_toEndOf="@+id/linearLayout2"
+                android:layout_toRightOf="@+id/linearLayout2"
+                android:text="kg" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioButtonMasc"
+                    android:layout_width="118dp"
+                    android:layout_height="wrap_content"
+
+                    android:text="Masculino" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonFem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Feminino" />
+            </RadioGroup>
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/textViewTexto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/relativeLayout3"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/relativeLayout3"
+            android:layout_marginLeft="7dp"
+            android:layout_marginStart="7dp"
+            android:text="Dados Pessoais"
+            android:visibility="visible" />
+
+        <View
+            android:id="@+id/textViewbarra1"
+
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:layout_alignLeft="@+id/relativeLayout3"
+            android:layout_alignStart="@+id/relativeLayout3"
+            android:layout_below="@+id/textViewTexto"
+            android:background="#2c6130" />
+
+        <Button
+            android:id="@+id/btnSalvarAlteracaoPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignEnd="@+id/relativeLayout3"
+            android:layout_alignRight="@+id/relativeLayout3"
+            android:layout_below="@+id/relativeLayout3"
+            android:layout_marginTop="37dp"
+            android:background="@color/colorPrimary"
+            android:text="Salvar"
+            android:textColor="#fff" />
+
+    </RelativeLayout>
+</RelativeLayout>
