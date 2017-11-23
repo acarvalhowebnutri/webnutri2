@@ -111,8 +111,8 @@ public class CadastroLoginActivity extends AppCompatActivity {
         campoFotoObjeto.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
             @Override
             public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-                menu.add(0, MENU_FOTO, 0, "TIRAR FOTO");
-                menu.add(1, MENU_GALERIA, 1, "GALERIA");
+                menu.add(0, MENU_FOTO, 0, "TIRAR FOTO ");
+                menu.add(1, MENU_GALERIA, 1, "GALERIA ");
             }
         });
 
