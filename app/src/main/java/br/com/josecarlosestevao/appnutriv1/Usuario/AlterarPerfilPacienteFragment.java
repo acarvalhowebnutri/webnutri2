@@ -13,9 +13,14 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.HashMap;
 
-import br.com.josecarlosestevao.appnutriv1.Constantes.ConversorImagem;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
 import br.com.josecarlosestevao.appnutriv1.R;
 
@@ -32,6 +37,8 @@ public class AlterarPerfilPacienteFragment extends Fragment {
     RadioButton radioButtonFem, radioButtonMasc;
     boolean selecionouSexoMasculino;
     boolean selecionouSexoFem;
+    FirebaseDatabase database;
+    DatabaseReference mDatabase;
     private ImageView campoFotoObjeto;
 
     @Nullable
@@ -52,7 +59,7 @@ public class AlterarPerfilPacienteFragment extends Fragment {
         HashMap<String, String> user = session.getUserDetails();
 
         // name
-        final String name = user.get(SessionManager.KEY_NAME);
+        final String chave = user.get(SessionManager.KEY_NAME);
 
 
         if (usuario == null) {
@@ -65,7 +72,7 @@ public class AlterarPerfilPacienteFragment extends Fragment {
         ednome = (EditText) view.findViewById(R.id.editTextExibeNome);
         edpeso = (EditText) view.findViewById(R.id.editTextExibePeso);
         edidade = (EditText) view.findViewById(R.id.editDataNascimento);
-        //edsexo = (EditText) view.findViewById(R.id.editTextSexo);
+        edsexo = (EditText) view.findViewById(R.id.editTextSexo);
         salvar = (Button) view.findViewById(R.id.btnSalvarAlteracaoPerfil);
         radioButtonMasc = (RadioButton) view.findViewById(R.id.radioButtonMasc);
         radioButtonFem = (RadioButton) view.findViewById(R.id.radioButtonFem);
@@ -73,7 +80,9 @@ public class AlterarPerfilPacienteFragment extends Fragment {
 
         campoFotoObjeto = (ImageView) view.findViewById(R.id.foto_objeto);
 
-        if (name != null) {
+
+        carregarDadosFirebase();
+    /*    if (name != null) {
             //String userName = params.getString("nome");
 
             usuario = loginAdapter.ler(name);
@@ -85,12 +94,11 @@ public class AlterarPerfilPacienteFragment extends Fragment {
             if (usuario.getFoto() != null)
 
                 campoFotoObjeto.setImageBitmap(ConversorImagem.converteByteArrayPraBitmap(usuario.getFoto()));
+*/
 
+        //setContentView(textView);
+        // setContentView(textView2);
 
-            //setContentView(textView);
-            // setContentView(textView2);
-
-        }
 
         salvar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +108,7 @@ public class AlterarPerfilPacienteFragment extends Fragment {
                 startActivity(i);
 */
                 UsuarioDAO dao = new UsuarioDAO(getContext());
-                String recebeidfb = dao.lerIDFB(name);
+                //String recebeidfb = dao.lerIDFB(name);
 
                 if (usuario == null) {
                     usuario = new Usuario();
@@ -111,7 +119,7 @@ public class AlterarPerfilPacienteFragment extends Fragment {
                 //  usuario.setEmail(ed.getText().toString());
                 usuario.setDataNasc(edidade.getText().toString());
                 usuario.setPeso(edpeso.getText().toString());
-                usuario.setImc(recebeidfb);
+                usuario.setId(chave);
                 if (selecionouSexoMasculino = radioButtonMasc.isChecked()) {
                     usuario.setSexo("masculino");
                 } else if (selecionouSexoFem = radioButtonFem.isChecked()) {
@@ -138,6 +146,53 @@ public class AlterarPerfilPacienteFragment extends Fragment {
         return (view);
     }
 
+    private void carregarDadosFirebase() {
+        session = new SessionManager(getContext());
+        session.checkLogin();
+        HashMap<String, String> user = session.getUserDetails();
+        final String chave = user.get(SessionManager.KEY_NAME);
+
+        if (mDatabase == null) {
+            database = FirebaseDatabase.getInstance();
+            //mDatabase = database.getReference().child("receita").child("a").child("receita");
+            mDatabase = database.getReference().child("paciente");
+            //   mDatabase = database.getReference().child("receita").child("-Kz1I4FOl4yYZP8eUpi3").child("alimento");
+
+
+        }
+
+
+        // app_title change listener
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //   Receita appTitle = dataSnapshot.getValue(Receita.class);
+
+                //  String receita = dataSnapshot.getValue(String.class).toString();
+                Usuario usuario = dataSnapshot.child(chave).getValue(Usuario.class);
+                // String nome = nutricionista.getNome().toString();
+                //nomePerfil.setText("Nome : " + nome);
+                ednome.setText(usuario.getNome());
+                edpeso.setText(usuario.getPeso());
+                edsexo.setText(usuario.getSexo());
+                edidade.setText(usuario.getDataNasc());
+                //  nomeNUtriTextView.setText(usuario.getCrn());
+                // update toolbar title
+                if (usuario.getSexo() == "masculino")
+                    radioButtonMasc.setChecked(selecionouSexoMasculino);
+                else if (usuario.getSexo().equals("feminino"))
+                    radioButtonFem.setChecked(selecionouSexoFem);
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 }
 

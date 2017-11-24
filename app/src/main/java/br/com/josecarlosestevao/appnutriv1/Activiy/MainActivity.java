@@ -58,10 +58,6 @@ public class MainActivity extends AppCompatActivity
         if (usuarioDAO == null) {
             usuarioDAO = new UsuarioDAO(context);
         }
-        session = new SessionManager(getApplicationContext());
-        session.checkLogin();
-        HashMap<String, String> user = session.getUserDetails();
-        String name = user.get(SessionManager.KEY_NAME);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +100,9 @@ public class MainActivity extends AppCompatActivity
         Bundle params = intent.getExtras();
         //  TextView textView = new TextView(this);
         //TextView textView2 = new TextView(this);
-        carregarDadosFirebase();
+
+        usuarioDAO = usuarioDAO.open();
+        carregarDadosPacientesFirebase();
 
  /*       if (name != null) {
 
@@ -276,11 +274,11 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void carregarDadosFirebase() {
+    private void carregarDadosPacientesFirebase() {
         session = new SessionManager(getApplicationContext());
         session.checkLogin();
-        HashMap<String, String> user = session.getUserDetails();
-        final String chave = user.get(SessionManager.KEY_NAME);
+        HashMap<String, String> userp = session.getUserDetails();
+        final String chavep = userp.get(SessionManager.KEY_NAME);
 
         if (mDatabase == null) {
             database = FirebaseDatabase.getInstance();
@@ -300,8 +298,8 @@ public class MainActivity extends AppCompatActivity
                 //   Receita appTitle = dataSnapshot.getValue(Receita.class);
 
                 //  String receita = dataSnapshot.getValue(String.class).toString();
-                Usuario nutricionista = dataSnapshot.child(chave).getValue(Usuario.class);
-                String nome = nutricionista.getNome().toString();
+                Usuario usuario = dataSnapshot.child(chavep).getValue(Usuario.class);
+                String nome = usuario.getNome().toString();
                 nomePerfil.setText("Nome : " + nome);
                 // update toolbar title
 

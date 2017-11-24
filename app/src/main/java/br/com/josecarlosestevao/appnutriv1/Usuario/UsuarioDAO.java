@@ -122,16 +122,16 @@ public class UsuarioDAO {
         database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference().child("paciente");
 
-        String chave = usuario.getImc();
+        String chave = usuario.getId();
         Map<String, Object> hopperUpdates = new HashMap<String, Object>();
         mDatabase = database.getReference().child("paciente").child(chave);
 
         //   hopperUpdates.put(chave, usuario);
-        hopperUpdates.put("nome", usuario.getCrn());
+        hopperUpdates.put("nome", usuario.getNome());
         hopperUpdates.put("peso", usuario.getPeso());
         hopperUpdates.put("sexo", usuario.getSexo());
         hopperUpdates.put("data", usuario.getDataNasc());
-        hopperUpdates.put("imc", usuario.getImc());
+        // hopperUpdates.put("imc", usuario.getImc());
         hopperUpdates.put("crn", usuario.getCrn());
         mDatabase.updateChildren(hopperUpdates);
         // Generate a reference to a new location and add some data using push()

@@ -11,9 +11,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.HashMap;
 
-import br.com.josecarlosestevao.appnutriv1.Constantes.ConversorImagem;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
 import br.com.josecarlosestevao.appnutriv1.Nutricionista.PesquisaNutricionistaFragment;
 import br.com.josecarlosestevao.appnutriv1.R;
@@ -28,8 +33,9 @@ public class PerfilPacienteFragment extends Fragment {
     Button alterardadospacientebtn, deletar, alterarNutri;
     SessionManager session;
     Usuario usuario;
+    FirebaseDatabase database;
+    DatabaseReference mDatabase;
     private ImageView campoFotoObjeto;
-
 
     @Nullable
     @Override
@@ -68,9 +74,12 @@ public class PerfilPacienteFragment extends Fragment {
         alterarNutri = (Button) view.findViewById(R.id.btnAlterarNutri);
         campoFotoObjeto = (ImageView) view.findViewById(R.id.foto_objeto);
 
+        carregarDadosFirebase();
+/*
         if (name != null) {
             //String userName = params.getString("nome");
 
+            //usuario = loginAdapter.ler(name);
             usuario = loginAdapter.ler(name);
             ednome.setText(usuario.getNome());
             edpeso.setText(usuario.getPeso());
@@ -87,7 +96,7 @@ public class PerfilPacienteFragment extends Fragment {
             // setContentView(textView2);
 
         }
-
+*/
         alterardadospacientebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,7 +138,49 @@ public class PerfilPacienteFragment extends Fragment {
         return (view);
     }
 
+    private void carregarDadosFirebase() {
+        session = new SessionManager(getContext());
+        session.checkLogin();
+        HashMap<String, String> user = session.getUserDetails();
+        final String chave = user.get(SessionManager.KEY_NAME);
 
+        if (mDatabase == null) {
+            database = FirebaseDatabase.getInstance();
+            //mDatabase = database.getReference().child("receita").child("a").child("receita");
+            mDatabase = database.getReference().child("paciente");
+            //   mDatabase = database.getReference().child("receita").child("-Kz1I4FOl4yYZP8eUpi3").child("alimento");
+
+
+        }
+
+
+        // app_title change listener
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //   Receita appTitle = dataSnapshot.getValue(Receita.class);
+
+                //  String receita = dataSnapshot.getValue(String.class).toString();
+                Usuario usuario = dataSnapshot.child(chave).getValue(Usuario.class);
+                // String nome = nutricionista.getNome().toString();
+                //nomePerfil.setText("Nome : " + nome);
+                ednome.setText(usuario.getNome());
+                edpeso.setText(usuario.getPeso());
+                edsexo.setText(usuario.getSexo());
+                edidade.setText(usuario.getDataNasc());
+                nomeNUtriTextView.setText(usuario.getCrn());
+                // update toolbar title
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 }
 
 

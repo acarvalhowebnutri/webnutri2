@@ -77,6 +77,16 @@
                     android:text="Data Nasc."
                     android:textColor="@color/colorletras" />
 
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/textView5"
+                    android:layout_marginTop="15dp"
+                    android:text="Sexo"
+                    android:textColor="@color/colorletras" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -113,6 +123,16 @@
 
                     android:text=" sem dados"
                     android:textSize="10sp" />
+
+                <EditText
+                    android:id="@+id/editTextSexo"
+                    android:layout_width="190dp"
+                    android:layout_height="30dp"
+
+
+                    android:text=" sem dados"
+                    android:textSize="10sp" />
+
 
             </LinearLayout>
 
