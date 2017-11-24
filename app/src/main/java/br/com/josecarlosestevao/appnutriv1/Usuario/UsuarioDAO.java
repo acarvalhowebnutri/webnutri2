@@ -124,7 +124,7 @@ public class UsuarioDAO {
         mDatabase = database.getReference().child("paciente");
 
         String chave = usuario.getId();
-        //String chavecrn = usuario.getCrn();
+
         Map<String, Object> hopperUpdates = new HashMap<String, Object>();
         mDatabase = database.getReference().child("paciente").child(chave);
 
@@ -164,9 +164,9 @@ public class UsuarioDAO {
         mDatabase = database.getReference().child("paciente");
 
         String chave = usuario.getId();
-       // String chavecrn = usuario.getCrn();
+        String chavecrn = usuario.getCrn();
         Map<String, Object> hopperUpdates = new HashMap<String, Object>();
-        mDatabase = database.getReference().child("paciente").child(chave);
+        mDatabase = database.getReference().child("paciente").child(chavecrn).child(chave);
 
         //   hopperUpdates.put(chave, usuario);
         hopperUpdates.put("crn", usuario.getCrn());

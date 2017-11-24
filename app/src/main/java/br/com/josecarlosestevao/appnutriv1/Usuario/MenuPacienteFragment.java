@@ -24,6 +24,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
+import br.com.josecarlosestevao.appnutriv1.Nutricionista.Nutricionista;
+import br.com.josecarlosestevao.appnutriv1.Nutricionista.NutricionistaDao;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.Receita.Receita;
 import br.com.josecarlosestevao.appnutriv1.Receita.ReceitaDAO;
@@ -37,6 +39,8 @@ public class MenuPacienteFragment extends Fragment {
     final List<Receita> almoçolist = new ArrayList<Receita>();
     final List<Receita> jantalist = new ArrayList<Receita>();
     final List<Receita> lanchelist = new ArrayList<Receita>();
+    final List<Usuario> listanutricionista = new ArrayList<Usuario>();
+
     SessionManager session;
     Intent intent = new Intent();
     String dburl = intent.getStringExtra("databaseUrl");
@@ -61,7 +65,7 @@ public class MenuPacienteFragment extends Fragment {
 
 
         montaLisViewFirebase();
-
+        carregarNutricionistasParaSQLite();
 
         return (view);
     }
@@ -224,6 +228,57 @@ public class MenuPacienteFragment extends Fragment {
 
 
     }
+
+
+    private void carregarNutricionistasParaSQLite() {
+        mDatabase = null;
+
+        if (mDatabase == null) {
+            database = FirebaseDatabase.getInstance();
+           mDatabase = database.getReference().child("nutricionista");
+
+
+        }
+
+        final NutricionistaDao dao = new NutricionistaDao(getContext());
+
+
+        // app_title change listener
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                listanutricionista.clear();
+
+                //   Receita appTitle = dataSnapshot.getValue(Receita.class);
+                for (DataSnapshot artistSnapshot : dataSnapshot.getChildren()) {
+                    //  String receita = dataSnapshot.getValue(String.class).toString();
+                    Nutricionista nutricionista = artistSnapshot.getValue(Nutricionista.class);
+                    dao.adicionarNutricionista(nutricionista);
+                    //   String teste = receita.alimento;
+                    //.child("receita")
+                    //.child("a")
+                    //.child("receita")
+
+
+                    listanutricionista.add(usuario);
+
+
+                    // update toolbar title
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
 }
 
 

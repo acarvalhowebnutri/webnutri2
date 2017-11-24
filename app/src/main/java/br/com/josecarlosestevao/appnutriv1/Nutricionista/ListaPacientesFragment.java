@@ -13,6 +13,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,11 +39,12 @@ public class ListaPacientesFragment extends DialogFragment {
     private static final int MENU_APAGAR = Menu.FIRST;
     private static final int MENU_RECEITAR = Menu.NONE;
     private static final int MENU_Calendario_Teste = Menu.NONE;
-
+    final List<Usuario> lista = new ArrayList<Usuario>();
     SessionManager session;
     SessaoDietaPaciente sessaoDietaPaciente;
+    FirebaseDatabase database;
+    DatabaseReference mDatabase;
     private ListView listapacientes;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,7 +58,6 @@ public class ListaPacientesFragment extends DialogFragment {
         registerForContextMenu(listapacientes);
 
 
-
         return (view);
     }
 
@@ -57,7 +65,9 @@ public class ListaPacientesFragment extends DialogFragment {
     public void onResume() {
         super.onResume();
 
-        montaLisView();
+        //montaLisView();
+    montaLisViewFirebase();
+
 
     }
 
@@ -74,6 +84,77 @@ public class ListaPacientesFragment extends DialogFragment {
         return listapacientes;
     }
 
+    private void montaLisViewFirebase() {
+        session = new SessionManager(getContext());
+
+        session.checkLogin();
+
+        // get user data from session
+        HashMap<String, String> user = session.getUserDetails();
+
+        // name
+
+        // final String link1 = DateFormat.getDateInstance().format(new Date());
+        //dataatual.setText(currentDateTimeString);
+        String name = user.get(SessionManager.KEY_NAME);
+        long date = System.currentTimeMillis();
+        SimpleDateFormat sdf = new SimpleDateFormat("d/M/yyyy");
+        final String currentDateTimeString = sdf.format(date);
+
+
+        if (mDatabase == null) {
+            database = FirebaseDatabase.getInstance();
+            //mDatabase = database.getReference().child("receita").child("a").child("receita");
+            mDatabase = database.getReference();
+            //   mDatabase = database.getReference().child("receita").child("-Kz1I4FOl4yYZP8eUpi3").child("alimento");
+
+        }
+
+        Query query = mDatabase.child("paciente").orderByChild("email").equalTo("t8@teste.com").limitToFirst(1);
+
+        // app_title change listener
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                lista.clear();
+
+                //   Receita appTitle = dataSnapshot.getValue(Receita.class);
+                for (DataSnapshot artistSnapshot : dataSnapshot.getChildren()) {
+                    //  String receita = dataSnapshot.getValue(String.class).toString();
+                    Usuario usuario = artistSnapshot.getValue(Usuario.class);
+
+                    //   String teste = receita.alimento;
+                    //.child("receita")
+                    //.child("a")
+                    //.child("receita")
+
+
+                    lista.add(usuario);
+
+
+                    // update toolbar title
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        ListaPacientesAdapter adapter = new ListaPacientesAdapter(getActivity(), android.R.layout.simple_list_item_1, lista);
+
+        listapacientes.setAdapter(adapter);
+
+        ArrayList<Usuario> alimento = new ArrayList<>();
+
+        listapacientes.setOnItemClickListener(new ListaPacientesListener(this));
+
+    }
+
 
     private void montaLisView() {
         session = new SessionManager(getContext());
@@ -88,7 +169,6 @@ public class ListaPacientesFragment extends DialogFragment {
 
 
         final List<Usuario> pacientes = dao.listaPacientesCRN(crn);
-
 
 
         ListaPacientesAdapter adapter = new ListaPacientesAdapter(getActivity(), android.R.layout.simple_list_item_1, pacientes);

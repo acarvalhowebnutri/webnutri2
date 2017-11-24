@@ -11,6 +11,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -162,6 +163,27 @@ public class NutricionistaDao {
         dbHelper.close();
         db.close();
         return crn;
+    }
+
+    public List<Usuario> listaPacientesNoFirebase() {
+        List<Usuario> listapacientes = new ArrayList<Usuario>();
+
+        database = FirebaseDatabase.getInstance();
+        mDatabase = database.getReference().child("paciente");
+
+        Query query1 = mDatabase.orderByChild("crn").equalTo("t8@teste.com").limitToFirst(1);
+        query1.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //Passar os dados para a interface grafica
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //Se ocorrer um erro
+            }
+        });
+        return listapacientes;
     }
 
     public List<Usuario> listaPacientesCRN(String CRN) {
