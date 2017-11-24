@@ -39,6 +39,7 @@ import br.com.josecarlosestevao.appnutriv1.Nutricionista.NutricionistaDao;
 import br.com.josecarlosestevao.appnutriv1.Nutricionista.NutricionistaDrawerActivity;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.SQLite.DatabaseHelper;
+import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 import br.com.josecarlosestevao.appnutriv1.Usuario.UsuarioDAO;
 
 public class LoginActivity extends Activity {
@@ -368,20 +369,25 @@ public class LoginActivity extends Activity {
                 //   Receita appTitle = dataSnapshot.getValue(Receita.class);
 
                 //  String receita = dataSnapshot.getValue(String.class).toString();
-                Nutricionista nutricionista = dataSnapshot.child(chave).getValue(Nutricionista.class);
-                String tipo = nutricionista.getTipo().toString();
-                String validacao = "paciente";
-                if (tipo.equals(validacao)) {
-                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                Usuario usuario = dataSnapshot.child(chave).getValue(Usuario.class);
 
-                    startActivity(i);
+                if (usuario == null) {
+                    Toast.makeText(LoginActivity.this, "usuario nao encontrado", Toast.LENGTH_LONG).show();
 
-                    Toast.makeText(LoginActivity.this, "login feito com sucesso", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(LoginActivity.this, "Não foi possivel realizar login", Toast.LENGTH_LONG).show();
+                }else {
+                    String tipo = usuario.getTipo().toString();
+                    String validacao = "paciente";
+                    if (tipo.equals(validacao)) {
+                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
 
+                        startActivity(i);
+
+                        Toast.makeText(LoginActivity.this, "login feito com sucesso", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Não foi possivel realizar login", Toast.LENGTH_LONG).show();
+
+                    }
                 }
-
             }
 
             @Override

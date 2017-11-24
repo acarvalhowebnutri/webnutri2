@@ -82,9 +82,9 @@ public class AdaptadorNutricionista extends BaseAdapter {
         HashMap<String, String> user = session.getUserDetails();
 
         // name
-        final String pessoa = user.get(SessionManager.KEY_NAME);
+        final String chave = user.get(SessionManager.KEY_NAME);
         final Usuario u = new Usuario();
-        u.setNome(pessoa);
+       // u.setNome(pessoa);
 
         TextView nameTxt = (TextView) convertView.findViewById(R.id.txtNome);
         TextView emailTxt = (TextView) convertView.findViewById(R.id.txtemail);
@@ -128,11 +128,12 @@ public class AdaptadorNutricionista extends BaseAdapter {
 
 
                 UsuarioDAO db = new UsuarioDAO(c);
-                String recebeidfb = db.lerIDFB(pessoa);
+              //  String recebeidfb = db.lerIDFB(pessoa);
                 usuario.setCrn(crnnut);
-                usuario.setNome(pessoa);
-                usuario.setImc(recebeidfb);
-                db.alterarNutricionistaNoFirebase(usuario);
+                usuario.setId(chave);
+                //usuario.setImc(recebeidfb);
+               // db.alterarNutricionistaNoFirebase(usuario);
+                db.alterarNutricionistaPacienteNoFirebase(usuario);
                 Toast.makeText(c, "Nutricionista adicionado", Toast.LENGTH_LONG).show();
 
 

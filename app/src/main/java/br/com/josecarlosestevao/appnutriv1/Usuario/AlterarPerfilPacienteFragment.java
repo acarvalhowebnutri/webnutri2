@@ -3,6 +3,7 @@ package br.com.josecarlosestevao.appnutriv1.Usuario;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -21,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
+import br.com.josecarlosestevao.appnutriv1.Constantes.SelecionarDataNascPerfilPacienteFragment;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
 import br.com.josecarlosestevao.appnutriv1.R;
 
@@ -30,7 +33,8 @@ import br.com.josecarlosestevao.appnutriv1.R;
 public class AlterarPerfilPacienteFragment extends Fragment {
 
     UsuarioDAO loginAdapter;
-    EditText ednome, edsenha, edpeso, edidade, edsexo, nomeNUtriTextView;
+    EditText ednome, edsenha, edpeso, nomeNUtriTextView;
+    TextView edidade, edsexo;
     Button salvar, deletar, alterarNutri;
     SessionManager session;
     Usuario usuario;
@@ -71,14 +75,15 @@ public class AlterarPerfilPacienteFragment extends Fragment {
 
         ednome = (EditText) view.findViewById(R.id.editTextExibeNome);
         edpeso = (EditText) view.findViewById(R.id.editTextExibePeso);
-        edidade = (EditText) view.findViewById(R.id.editDataNascimento);
-        edsexo = (EditText) view.findViewById(R.id.editTextSexo);
+        edidade = (TextView) view.findViewById(R.id.editDataNascimento);
+        edsexo = (TextView) view.findViewById(R.id.editTextSexo);
         salvar = (Button) view.findViewById(R.id.btnSalvarAlteracaoPerfil);
         radioButtonMasc = (RadioButton) view.findViewById(R.id.radioButtonMasc);
         radioButtonFem = (RadioButton) view.findViewById(R.id.radioButtonFem);
 
 
         campoFotoObjeto = (ImageView) view.findViewById(R.id.foto_objeto);
+
 
 
         carregarDadosFirebase();
@@ -98,6 +103,15 @@ public class AlterarPerfilPacienteFragment extends Fragment {
 
         //setContentView(textView);
         // setContentView(textView2);
+
+        edidade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogFragment newFragment = new SelecionarDataNascPerfilPacienteFragment();
+                newFragment.show(getActivity().getSupportFragmentManager(), "DatePicker");
+
+            }
+        });
 
 
         salvar.setOnClickListener(new View.OnClickListener() {
@@ -179,10 +193,16 @@ public class AlterarPerfilPacienteFragment extends Fragment {
                 edidade.setText(usuario.getDataNasc());
                 //  nomeNUtriTextView.setText(usuario.getCrn());
                 // update toolbar title
-                if (usuario.getSexo() == "masculino")
+
+
+                if (usuario.getSexo() == null) {
+                    radioButtonMasc.isChecked();
+                    Toast.makeText(getContext(), "sexo padrao adicionado", Toast.LENGTH_LONG).show();
+                                    }else if (usuario.getSexo() == "masculino"){
                     radioButtonMasc.setChecked(selecionouSexoMasculino);
-                else if (usuario.getSexo().equals("feminino"))
+                } if (usuario.getSexo()=="feminino")
                     radioButtonFem.setChecked(selecionouSexoFem);
+
 
 
             }

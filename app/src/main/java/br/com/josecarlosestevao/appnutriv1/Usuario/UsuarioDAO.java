@@ -85,6 +85,7 @@ public class UsuarioDAO {
         String chave = usuario.getId();
         mDatabase
                 .child("paciente")
+                .child(usuario.getCrn())
                 .child(chave)
                 //  .child(id)
                 .setValue(usuario);
@@ -123,6 +124,7 @@ public class UsuarioDAO {
         mDatabase = database.getReference().child("paciente");
 
         String chave = usuario.getId();
+        //String chavecrn = usuario.getCrn();
         Map<String, Object> hopperUpdates = new HashMap<String, Object>();
         mDatabase = database.getReference().child("paciente").child(chave);
 
@@ -130,7 +132,7 @@ public class UsuarioDAO {
         hopperUpdates.put("nome", usuario.getNome());
         hopperUpdates.put("peso", usuario.getPeso());
         hopperUpdates.put("sexo", usuario.getSexo());
-        hopperUpdates.put("data", usuario.getDataNasc());
+        hopperUpdates.put("dataNasc", usuario.getDataNasc());
         // hopperUpdates.put("imc", usuario.getImc());
         hopperUpdates.put("crn", usuario.getCrn());
         mDatabase.updateChildren(hopperUpdates);
@@ -153,6 +155,24 @@ public class UsuarioDAO {
 
 
         atualizaDadosPaciente(usuario);
+    }
+
+
+
+    public void alterarNutricionistaPacienteNoFirebase(Usuario usuario) {
+        database = FirebaseDatabase.getInstance();
+        mDatabase = database.getReference().child("paciente");
+
+        String chave = usuario.getId();
+       // String chavecrn = usuario.getCrn();
+        Map<String, Object> hopperUpdates = new HashMap<String, Object>();
+        mDatabase = database.getReference().child("paciente").child(chave);
+
+        //   hopperUpdates.put(chave, usuario);
+        hopperUpdates.put("crn", usuario.getCrn());
+
+        mDatabase.updateChildren(hopperUpdates);
+
     }
 
     public void atualizaDadosPaciente(Usuario usuario) {

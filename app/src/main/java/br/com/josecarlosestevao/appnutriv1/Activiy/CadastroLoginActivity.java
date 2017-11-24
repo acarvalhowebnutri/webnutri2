@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
@@ -29,12 +28,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 
 import br.com.josecarlosestevao.appnutriv1.Constantes.ConversorImagem;
-import br.com.josecarlosestevao.appnutriv1.Constantes.SelectDateFragment;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
 import br.com.josecarlosestevao.appnutriv1.Login.LoginActivity;
 import br.com.josecarlosestevao.appnutriv1.R;
@@ -84,8 +81,7 @@ public class CadastroLoginActivity extends AppCompatActivity {
             }
         }
 
-        usuario = (usuario == null) ? new Usuario() : usuario;
-        userU = (userU == null) ? new Usuario() : userU;
+
 
         if (usuario == null) {
             usuario = new Usuario();
@@ -115,14 +111,14 @@ public class CadastroLoginActivity extends AppCompatActivity {
                 menu.add(1, MENU_GALERIA, 1, "GALERIA ");
             }
         });
-
+/*
         cadastro_data_nasc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogFragment newFragment = new SelectDateFragment();
                 newFragment.show(getSupportFragmentManager(), "DatePicker");
             }
-        });
+        });*/
         criarContaBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -258,16 +254,18 @@ public class CadastroLoginActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Senhas diferentes", Toast.LENGTH_LONG).show();
                         confirmarSenhaEditText.requestFocus();
                         return;
-                    } else {
+                    }
+                  /*  else {
                         // Valida campo peso
                         if (pesoEditText.getText().toString().isEmpty()) {
                             Toast.makeText(getApplicationContext(), "Preencha o campo peso", Toast.LENGTH_LONG).show();
                             pesoEditText.requestFocus();
                             return;
-                        } else {
+                        } */
+                        else {
                             criarConta();
                         }
-                    }
+
                 }
             }
         }
@@ -296,21 +294,21 @@ public class CadastroLoginActivity extends AppCompatActivity {
         userU.setNome(nomeEditText.getText().toString());
         userU.setSenha(senhaEditText.getText().toString());
         // user.setFoto( campoFotoObjeto.setImageBitmap(ConversorImagem.converteByteArrayPraBitmap(x));
-        userU.setDataNasc(cadastro_data_nasc.getText().toString());
+      /*userU.setDataNasc(cadastro_data_nasc.getText().toString());
         userU.setPeso(pesoEditText.getText().toString());
         if (selecionouSexoMasculino = radioButtonMasc.isChecked()) {
             userU.setSexo("m");
         } else if (selecionouSexoFem = radioButtonFem.isChecked()) {
             userU.setSexo("f");
         } else
-            System.out.println("selecione um sexo");
+            System.out.println("selecione um sexo");*/
         UsuarioDAO dao = new UsuarioDAO(getApplicationContext());
-        dao.adicionausuario(userU);
+     //   dao.adicionausuario(userU);
 
         Toast.makeText(getApplicationContext(), "Conta criada com sucesso", Toast.LENGTH_LONG).show();
 
         //CADASTRANDO NO FIREBASE O USUÁRIO
-        cadastrarUsuarioNoFirebase(userU);
+       // cadastrarUsuarioNoFirebase(userU);
 
         Intent voltar = new Intent(CadastroLoginActivity.this, LoginActivity.class);
         startActivity(voltar);
@@ -346,14 +344,14 @@ public class CadastroLoginActivity extends AppCompatActivity {
         startActivity(outratela);*/
 
     }
-
+/*
     private void cadastrarUsuarioNoFirebase(Usuario user){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference mDatabase = database.getReference();
 
         mDatabase.child("users").child(user.getId().toString()).setValue(user);
     }
-
+*/
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
