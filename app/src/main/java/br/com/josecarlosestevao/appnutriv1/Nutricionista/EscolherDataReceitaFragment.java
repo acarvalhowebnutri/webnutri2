@@ -38,11 +38,15 @@ public class EscolherDataReceitaFragment extends DialogFragment
 
         //TextView txtdata = (TextView) getActivity().findViewById(R.id.textview1);
         Bundle bundlerecebe = getArguments();
-        String nomepaciente = bundlerecebe.getString("username");
+        String crnPaciente = bundlerecebe.getString("username");
+        String nomePaciente = bundlerecebe.getString("nomepaciente");
+        String idpaciente = bundlerecebe.getString("idpaciente");
         if (u == null) {
             u = new Usuario();
         }
-        u.setNome(nomepaciente);
+        u.setCrn(crnPaciente);
+        u.setNome(nomePaciente);
+        u.setId(idpaciente);
 
         String stringOfDate = dd + "/" + (mm + 1) + "/" + yy;
         //txtdata.setText(stringOfDate);
@@ -56,7 +60,9 @@ public class EscolherDataReceitaFragment extends DialogFragment
 // Passando um link
         Bundle bundle = new Bundle();
         bundle.putString("link", stringOfDate);
-        bundle.putString("nome", nomepaciente);
+        bundle.putString("crn", crnPaciente);
+        bundle.putString("nome", nomePaciente);
+        bundle.putString("idpaciente", idpaciente);
 
         mainFragment.setArguments(bundle);
         getFragmentManager()

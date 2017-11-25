@@ -23,7 +23,7 @@ public class Nutricionista implements Serializable {
     private String crn;
     private byte[] foto;
     private String tipo;
-
+    private Long idlong;
     public Nutricionista(String id, String nome, String senha, String crn, String email, String tipo) {
         this.id = id;
         this.nome = nome;
@@ -32,8 +32,15 @@ public class Nutricionista implements Serializable {
         this.email = email;
         this.tipo = tipo;
     }
-
     public Nutricionista() {
+    }
+
+    public Long getIdlong() {
+        return idlong;
+    }
+
+    public void setIdlong(Long idlong) {
+        this.idlong = idlong;
     }
 
     public String getTipo() {

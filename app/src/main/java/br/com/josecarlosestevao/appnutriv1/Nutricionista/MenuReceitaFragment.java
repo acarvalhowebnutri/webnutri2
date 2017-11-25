@@ -60,10 +60,13 @@ public class MenuReceitaFragment extends Fragment {
 
 
         Bundle bundlerecebe = getArguments();
-        final String nomepaciente = bundlerecebe.getString("nome");
+        final String crnpaciente = bundlerecebe.getString("crn");
         final String data = bundlerecebe.getString("link");
+        final String nome = bundlerecebe.getString("nome");
+        final String idpaciente = bundlerecebe.getString("idpaciente");
+        String idpaciente2 = bundlerecebe.getString("idpaciente");
 
-        textViewNomePaciente.setText("Paciente: " + nomepaciente);
+        textViewNomePaciente.setText("Paciente: " + nome);
         textViewDataReceita.setText("Data escolhida: " + data);
 
 
@@ -76,10 +79,14 @@ public class MenuReceitaFragment extends Fragment {
                 PesquisaAlimentoReceitaPacienteFragment mainFragment = new PesquisaAlimentoReceitaPacienteFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("link", data);
-                bundle.putString("nome", nomepaciente);
+                bundle.putString("crn", crnpaciente);
                 bundle.putString("tipo", tipo);
+                bundle.putString("nome", nome);
+                bundle.putString("idpaciente", idpaciente);
+
 
                 mainFragment.setArguments(bundle);
+
                 getFragmentManager()
                         .beginTransaction()
                         .replace(R.id.layout_direito_nutricionista, mainFragment, "layout_frag4")
@@ -97,8 +104,9 @@ public class MenuReceitaFragment extends Fragment {
                 PesquisaAlimentoReceitaPacienteFragment mainFragment = new PesquisaAlimentoReceitaPacienteFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("link", data);
-                bundle.putString("nome", nomepaciente);
+                bundle.putString("crn", crnpaciente);
                 bundle.putString("tipo", tipo);
+                bundle.putString("nome", nome);
 
                 mainFragment.setArguments(bundle);
                 getFragmentManager()
@@ -118,8 +126,9 @@ public class MenuReceitaFragment extends Fragment {
                 PesquisaAlimentoReceitaPacienteFragment mainFragment = new PesquisaAlimentoReceitaPacienteFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("link", data);
-                bundle.putString("nome", nomepaciente);
+                bundle.putString("crn", crnpaciente);
                 bundle.putString("tipo", tipo);
+                bundle.putString("nome", nome);
 
                 mainFragment.setArguments(bundle);
                 getFragmentManager()
@@ -139,8 +148,9 @@ public class MenuReceitaFragment extends Fragment {
                 PesquisaAlimentoReceitaPacienteFragment mainFragment = new PesquisaAlimentoReceitaPacienteFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("link", data);
-                bundle.putString("nome", nomepaciente);
+                bundle.putString("crn", crnpaciente);
                 bundle.putString("tipo", tipo);
+                bundle.putString("nome", nome);
 
                 mainFragment.setArguments(bundle);
                 getFragmentManager()

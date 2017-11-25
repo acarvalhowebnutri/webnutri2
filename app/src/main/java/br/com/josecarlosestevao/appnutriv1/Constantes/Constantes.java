@@ -70,6 +70,7 @@ public class Constantes {
     public static final String KEY_MINIDADE = "min_idade";
     public static final String KEY_MAXIDADE = "max_idade";
     public static final String KEY_PESSOAL_STATUS = "Pessoal_status";
+    public static final String ROW_ID_LONG = "_longID";
 
     // property help us to keep data
     public int alimento_ID;

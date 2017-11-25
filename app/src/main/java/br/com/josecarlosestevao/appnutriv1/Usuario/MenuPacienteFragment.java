@@ -81,34 +81,60 @@ public class MenuPacienteFragment extends Fragment {
 
     }
 
+
     private void montaLisViewFirebase() {
+
+
         session = new SessionManager(getContext());
+
 
         session.checkLogin();
 
+
         // get user data from session
+
+
         HashMap<String, String> user = session.getUserDetails();
+
 
         // name
 
+
         // final String link1 = DateFormat.getDateInstance().format(new Date());
+
+
         //dataatual.setText(currentDateTimeString);
-        String name = user.get(SessionManager.KEY_NAME);
+
+
+        String chave = user.get(SessionManager.KEY_NAME);
+
+
         long date = System.currentTimeMillis();
+
+
         SimpleDateFormat sdf = new SimpleDateFormat("d/M/yyyy");
+
+
         final String currentDateTimeString = sdf.format(date);
 
 
         if (mDatabase == null) {
+
+
             database = FirebaseDatabase.getInstance();
+
+
             //mDatabase = database.getReference().child("receita").child("a").child("receita");
-            mDatabase = database.getReference().child("receita").child(name).child(currentDateTimeString);
+
+
+            mDatabase = database.getReference().child("receita").child(chave).child(currentDateTimeString);
+
+            //mDatabase.                         child("receita").child(chave).child(currentDateTimeString).child(id);
+
             //   mDatabase = database.getReference().child("receita").child("-Kz1I4FOl4yYZP8eUpi3").child("alimento");
 
 
         }
-
-
         // app_title change listener
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -117,6 +143,7 @@ public class MenuPacienteFragment extends Fragment {
                 almoçolist.clear();
                 jantalist.clear();
                 cafeDaManhalist.clear();
+
                 //   Receita appTitle = dataSnapshot.getValue(Receita.class);
                 for (DataSnapshot artistSnapshot : dataSnapshot.child("café da manha").getChildren()) {
                     //  String receita = dataSnapshot.getValue(String.class).toString();
@@ -235,7 +262,7 @@ public class MenuPacienteFragment extends Fragment {
 
         if (mDatabase == null) {
             database = FirebaseDatabase.getInstance();
-           mDatabase = database.getReference().child("nutricionista");
+            mDatabase = database.getReference().child("nutricionista");
 
 
         }

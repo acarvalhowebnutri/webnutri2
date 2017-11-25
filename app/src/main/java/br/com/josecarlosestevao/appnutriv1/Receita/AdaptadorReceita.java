@@ -15,12 +15,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import br.com.josecarlosestevao.appnutriv1.Activiy.PesquisaAlimentoFragment;
-import br.com.josecarlosestevao.appnutriv1.Consumo.Consumo;
 import br.com.josecarlosestevao.appnutriv1.Consumo.ConsumoDAO;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessaoDietaPaciente;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
 import br.com.josecarlosestevao.appnutriv1.Nutricionista.Nutricionista;
-import br.com.josecarlosestevao.appnutriv1.Nutricionista.NutricionistaDao;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.SQLite.DatabaseHelper;
 import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
@@ -30,7 +28,7 @@ public class AdaptadorReceita extends BaseAdapter {
 
     private static final int MENU_APAGAR = Menu.FIRST;
     Context c;
-    ArrayList<Consumo> planets;
+    ArrayList<Receita> planets;
     LayoutInflater inflater;
     Receita receita = new Receita();
 
@@ -44,7 +42,7 @@ public class AdaptadorReceita extends BaseAdapter {
     private TextView dataGasto;
 
 
-    public AdaptadorReceita(Context c, ArrayList<Consumo> planets) {
+    public AdaptadorReceita(Context c, ArrayList<Receita> planets) {
         this.c = c;
         this.planets = planets;
     }
@@ -55,7 +53,7 @@ public class AdaptadorReceita extends BaseAdapter {
     }
 
     @Override
-    public Consumo getItem(int position) {
+    public Receita getItem(int position) {
         return planets.get(position);
     }
 
@@ -81,24 +79,29 @@ public class AdaptadorReceita extends BaseAdapter {
         HashMap<String, String> user = session.getUserDetails();
         String nutricionista = user.get(SessionManager.KEY_NAME);
 
-
+/*
         NutricionistaDao daouser = new NutricionistaDao(c);
         Nutricionista nutri = daouser.ler(nutricionista);
         String nomenutri = nutri.getCrn();
+        */
         TextView nameTxt = (TextView) convertView.findViewById(R.id.txtNome);
 
 
         nameTxt.setText(planets.get(position).getAlimento());
 
         final String a = planets.get(position).getAlimento();
-        final String data = planets.get(position).getDatareceita();
+        final String data = planets.get(position).getData();
         final String tipo = planets.get(position).getTipo();
 
-        final Usuario paciente = planets.get(position).getUsuario();
+        //final Usuario paciente = planets.get(position).getUsuario();
         final Nutricionista n = new Nutricionista();
-
+        final Usuario paciente = new Usuario();
+        paciente.setNome(planets.get(position).getUsuario().getNome());
+        paciente.setId(planets.get(position).getUsuario().getId());
         //n.setNome(nutricionista);
-        n.setNome(nutri.getCrn());
+        //n.setNome(nutri.getCrn());
+        n.setNome(nutricionista);
+
 
 
         long date = System.currentTimeMillis();
@@ -121,6 +124,7 @@ public class AdaptadorReceita extends BaseAdapter {
                 //  receita.setData(currentDateTimeString);
                 receita.setUsuario(paciente);
                 receita.setNutricionista(n);
+                //receita.setNutricionista(n);
                 receita.setData(data);
                 receita.setTipo(tipo);
 

@@ -166,7 +166,7 @@ public class UsuarioDAO {
         String chave = usuario.getId();
         String chavecrn = usuario.getCrn();
         Map<String, Object> hopperUpdates = new HashMap<String, Object>();
-        mDatabase = database.getReference().child("paciente").child(chavecrn).child(chave);
+        mDatabase = database.getReference().child("paciente").child(chave);
 
         //   hopperUpdates.put(chave, usuario);
         hopperUpdates.put("crn", usuario.getCrn());
@@ -370,7 +370,7 @@ public class UsuarioDAO {
     }
 
     public Cursor recuperarNutri(String searchTerm) {
-        String[] columns = {Constantes.ROW_ID, Constantes.NOME};
+        String[] columns = {Constantes.ROW_ID_LONG, Constantes.NOME};
         Cursor c = null;
         dbHelper.openDatabase();
         SQLiteDatabase db = dbHelper.getReadableDatabase();

@@ -86,6 +86,8 @@ public class PesquisaNutricionistaFragment extends Fragment {
             String senha = cn.getString(2);
             String email = cn.getString(3);
             String crn = cn.getString(4);
+            String idfb = cn.getString(5);
+
             //String pro=c.getString(3);
 
             p = new Nutricionista();
@@ -94,6 +96,7 @@ public class PesquisaNutricionistaFragment extends Fragment {
             p.setSenha(senha);
             p.setEmail(email);
             p.setCrn(crn);
+            p.setId(idfb);
             //p.setProteina(pro);
 
             alimento.add(p);

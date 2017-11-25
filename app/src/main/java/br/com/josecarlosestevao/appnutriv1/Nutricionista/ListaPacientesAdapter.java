@@ -37,11 +37,11 @@ public class ListaPacientesAdapter extends ArrayAdapter<Usuario> {
         String nomepaciente = user.getNome().toString();
 
         TextView nome = (TextView) view.findViewById(R.id.txtNome);
-        nome.setText(nomepaciente);
+        nome.setText("Nome: " + nomepaciente);
 
         String emailpaciente = user.getEmail().toString();
         TextView email = (TextView) view.findViewById(R.id.txtemail);
-        email.setText("e-mail: " + emailpaciente);
+        email.setText("E-mail: " + emailpaciente);
 
 
         //   TextView data = (TextView) view.findViewById(R.id.txtvalor);

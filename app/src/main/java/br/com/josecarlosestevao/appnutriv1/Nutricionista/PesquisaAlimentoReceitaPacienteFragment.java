@@ -18,6 +18,7 @@ import br.com.josecarlosestevao.appnutriv1.Consumo.Consumo;
 import br.com.josecarlosestevao.appnutriv1.Consumo.ConsumoDAO;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.Receita.AdaptadorReceita;
+import br.com.josecarlosestevao.appnutriv1.Receita.Receita;
 import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 
 /**
@@ -28,7 +29,7 @@ public class PesquisaAlimentoReceitaPacienteFragment extends Fragment {
     public TextView txtdata;
     ListView lv;
     SearchView sv;
-    ArrayList<Consumo> alimento = new ArrayList<>();
+    ArrayList<Receita> alimento = new ArrayList<>();
     //   ConsumoDAO adapter1;
     AdaptadorReceita adapter;
     Consumo consumo;
@@ -58,12 +59,18 @@ public class PesquisaAlimentoReceitaPacienteFragment extends Fragment {
         //   if(cursor==null) insertDummy();
 
         Bundle bundle = getArguments();
-        String nomepaciente = bundle.getString("nome");
+        final String crnpaciente = bundle.getString("crn");
         final String data = bundle.getString("link");
+        final String nome = bundle.getString("nome");
+        final String idpaciente = bundle.getString("idpaciente");
+
         if (u == null) {
             u = new Usuario();
         }
-        u.setNome(nomepaciente);
+        u.setNome(nome);
+        u.setCrn(crnpaciente);
+        u.setId(idpaciente);
+
         if (consumo == null) {
             consumo = new Consumo();
         }
@@ -117,21 +124,22 @@ public class PesquisaAlimentoReceitaPacienteFragment extends Fragment {
         String tipo = bundle.getString("tipo");
         ConsumoDAO db = new ConsumoDAO(getContext());
         db.openDB();
-        Consumo p = null;
+        Receita p = null;
         Cursor c = db.recuperar(newText);
         while (c.moveToNext()) {
-            int id = c.getInt(0);
+            long id = c.getInt(0);
             String name = c.getString(1);
-            String valor = c.getString(2);
-            String pro = c.getString(3);
+            //String valor = c.getString(2);
+            //String pro = c.getString(3);
 
-            p = new Consumo();
+            p = new Receita();
             //p.setId(id);
             p.setAlimento(name);
-            p.setCarboidrato(valor);
-            p.setProteina(pro);
+            p.setId(id);
+            // p.setCarboidrato(valor);
+            //p.setProteina(pro);
             p.setUsuario(u);
-            p.setDatareceita(data);
+            p.setData(data);
             p.setTipo(tipo);
 
 

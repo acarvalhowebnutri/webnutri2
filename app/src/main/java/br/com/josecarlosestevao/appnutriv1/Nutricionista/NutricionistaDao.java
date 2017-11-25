@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -48,8 +49,8 @@ public class NutricionistaDao {
         values.put("nome", nutricionista.getNome());
         values.put("senha", nutricionista.getSenha());
         values.put("email", nutricionista.getEmail());
-        values.put("crn", nutricionista.getCrn());
-        values.put("foto", nutricionista.getFoto());
+        values.put("crn", nutricionista.getId());
+        // values.put("idfb", nutricionista.getId());
 
 
         dbHelper.openDatabase();
@@ -57,12 +58,12 @@ public class NutricionistaDao {
 
         //String n = alimentoConsumido.getAlimento();
         long id = db.insert(Constantes.TB_NUTRICIONISTA, null, values);
-        // nutricionista.setId(id);
+        nutricionista.setIdlong(id);
         dbHelper.close();
         db.close();
 
-        //Toast.makeText(context, "Reminder Is Successfully Saved", Toast.LENGTH_LONG).show();
-        this.cadastrarNutricionistaNoFirebase(nutricionista);
+        Toast.makeText(context, "Lista nutricionistas carregada", Toast.LENGTH_LONG).show();
+        //this.cadastrarNutricionistaNoFirebase(nutricionista);
     }
 
     private void cadastrarNutricionistaNoFirebaseOld(Nutricionista nutricionista) {
@@ -283,5 +284,14 @@ public class NutricionistaDao {
     public NutricionistaDao open() throws SQLException {
         db = dbHelper.getWritableDatabase();
         return this;
+    }
+
+
+    public void deletarDadosNutricionistas() {
+        //SQLiteDatabase db = this.getWritableDatabase();
+        // db.delete(TABLE_NAME,null,null);
+        //db.execSQL("delete * from"+ TABLE_NAME);
+        db.execSQL("delete from nutricionista");
+        db.close();
     }
 }

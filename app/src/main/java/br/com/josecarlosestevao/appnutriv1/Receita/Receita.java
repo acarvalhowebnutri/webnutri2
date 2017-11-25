@@ -18,15 +18,30 @@ public class Receita {
     private String data;
     private String idFb;
     private String tipo;
-
+    private String receita;
+    private String datareceita;
     public Receita() {
 
     }
 
-    public Receita(Long id, String alimento) {
-        this.alimento = alimento;
-        this.id = id;
+    public Receita(Long id, String alimento, Usuario usuario, Nutricionista nutricionista, String data, String idFb, String datareceita) {
 
+        this.id = id;
+        this.alimento = alimento;
+        this.usuario = usuario;
+        this.nutricionista = nutricionista;
+        this.data = data;
+        this.idFb = idFb;
+        this.datareceita = datareceita;
+
+    }
+
+    public String getReceita() {
+        return receita;
+    }
+
+    public void setReceita(String receita) {
+        this.receita = receita;
     }
 
     public String getTipo() {
@@ -65,10 +80,6 @@ public class Receita {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
 /*
     public Receita(String id, String alimento, String data, Nutricionista nutricionista, Usuario usuario) {
         // ...
@@ -93,6 +104,10 @@ public class Receita {
     }
 */
 
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     public Nutricionista getNutricionista() {
         return nutricionista;
     }
@@ -108,6 +123,19 @@ public class Receita {
     public void setData(String data) {
         this.data = data;
     }
+
+    public String getData(String data) {
+        return this.data;
+    }
+
+    public String getDatareceita() {
+        return datareceita;
+    }
+
+    public void setDatareceita(String datareceita) {
+        this.datareceita = datareceita;
+    }
+
 
 
 

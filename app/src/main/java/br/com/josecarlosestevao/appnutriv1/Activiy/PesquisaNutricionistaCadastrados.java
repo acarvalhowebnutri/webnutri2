@@ -9,12 +9,21 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import br.com.josecarlosestevao.appnutriv1.Constantes.AdaptadorNutricionista;
 import br.com.josecarlosestevao.appnutriv1.Consumo.ConsumoDAO;
 import br.com.josecarlosestevao.appnutriv1.Nutricionista.Nutricionista;
+import br.com.josecarlosestevao.appnutriv1.Nutricionista.NutricionistaDao;
 import br.com.josecarlosestevao.appnutriv1.R;
+import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 import br.com.josecarlosestevao.appnutriv1.Usuario.UsuarioDAO;
 
 /**
@@ -22,6 +31,7 @@ import br.com.josecarlosestevao.appnutriv1.Usuario.UsuarioDAO;
  */
 public class PesquisaNutricionistaCadastrados extends Activity {
 
+    final List<Usuario> listanutricionista = new ArrayList<Usuario>();
     public TextView txtdata;
     ListView lv;
     SearchView sv;
@@ -33,6 +43,8 @@ public class PesquisaNutricionistaCadastrados extends Activity {
     ConsumoDAO alimentoRepo;
     Cursor cursor;
     Button btnVoltarPerfil;
+    FirebaseDatabase database;
+    DatabaseReference mDatabase;
     //   private ConsumoDAO dao;
     //  List<Consumo> alimentoConsumidos = dao.listaTodos();
     private int ano, mes, dia;
@@ -48,14 +60,14 @@ public class PesquisaNutricionistaCadastrados extends Activity {
         btnVoltarPerfil = (Button) findViewById(R.id.criarContaBtn);
 
 
-        adapter = new AdaptadorNutricionista(getApplication(), alimento);
+        adapter = new AdaptadorNutricionista(getApplicationContext(), alimento);
         consumo = new Nutricionista();
         //   lv.setOnItemClickListener(new ItemList());
         //  lv.setAdapter(adapter);
 
 
         //   if(cursor==null) insertDummy();
-
+        carregarNutricionistasParaSQLite();
 
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -70,7 +82,7 @@ public class PesquisaNutricionistaCadastrados extends Activity {
                 if (TextUtils.isEmpty(newText)) {
                     lv.clearTextFilter();
                 } else {
-                    buscaNutricionista(newText);
+                    //buscaNutricionistaSQLite(newText);
 
                     // Toast.makeText(getApplicationContext(), "Dados alterados", Toast.LENGTH_LONG).show();
 
@@ -104,7 +116,7 @@ public class PesquisaNutricionistaCadastrados extends Activity {
     }
 
 
-    public void buscaNutricionista(String newText) {
+    public void buscaNutricionistaSQLite(String newText) {
 
         alimento.clear();
 
@@ -113,20 +125,20 @@ public class PesquisaNutricionistaCadastrados extends Activity {
         Nutricionista p = null;
         Cursor cn = db.recuperarNutri(newText);
         while (cn.moveToNext()) {
-            int id = cn.getInt(0);
+            long id = cn.getInt(0);
             String name = cn.getString(1);
             String senha = cn.getString(2);
             String email = cn.getString(3);
             String crn = cn.getString(4);
-            //String pro=c.getString(3);
+            String idfb = cn.getString(5);
 
             p = new Nutricionista();
-            //p.setId(id);
+            p.setIdlong(id);
             p.setNome(name);
             p.setSenha(senha);
             p.setEmail(email);
             p.setCrn(crn);
-            //p.setProteina(pro);
+            p.setId(idfb);
 
             alimento.add(p);
         }
@@ -144,6 +156,59 @@ public class PesquisaNutricionistaCadastrados extends Activity {
 
         return lv;
     }
+
+    private void carregarNutricionistasParaSQLite() {
+        mDatabase = null;
+
+        if (mDatabase == null) {
+            database = FirebaseDatabase.getInstance();
+            mDatabase = database.getReference().child("nutricionista");
+
+
+        }
+
+        final NutricionistaDao dao = new NutricionistaDao(getApplicationContext());
+
+
+        // app_title change listener
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                listanutricionista.clear();
+
+                //   Receita appTitle = dataSnapshot.getValue(Receita.class);
+                for (DataSnapshot artistSnapshot : dataSnapshot.getChildren()) {
+                    //  String receita = dataSnapshot.getValue(String.class).toString();
+                    Nutricionista nutricionista = artistSnapshot.getValue(Nutricionista.class);
+
+                    if (nutricionista != null)
+
+                        dao.adicionarNutricionista(nutricionista);
+                    //   String teste = receita.alimento;
+                    //.child("receita")
+                    //.child("a")
+                    //.child("receita")
+
+
+                    //listanutricionista.add(usuario);
+
+
+                    // update toolbar title
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
 
 
 }

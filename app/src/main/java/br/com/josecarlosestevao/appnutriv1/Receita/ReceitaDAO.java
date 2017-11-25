@@ -87,7 +87,7 @@ public class ReceitaDAO {
         values.put("alimento", receita.getAlimento());
         values.put("nutricionista", receita.getNutricionista().getNome());
         values.put("usuario", receita.getUsuario().getNome());
-        // values.put("data", receita.getData());
+        values.put("data", receita.getData());
 
 
         dbHelper.openDatabase();
@@ -262,8 +262,12 @@ public class ReceitaDAO {
         String paciente = receita.getUsuario().getNome();
         String data = receita.getData();
         String tipo = receita.getTipo();
-        mDatabase.child("receita").child(paciente).child(data).child(tipo).child(id).setValue(receita);
-                //      .child(String.valueOf(i))
+        String chave = receita.getUsuario().getId();
+        mDatabase.child("receita").child(chave).child(data).child(tipo).child(id).setValue(receita);
+        //mDatabase = database.getReference().child("receita").child(chave).child(currentDateTimeString);
+
+
+        //      .child(String.valueOf(i))
         //        .child(receita.getUsuario().getNome())
         //  .child("receita")
         //      .child((receita.getUsuario().getNome()) + cont)

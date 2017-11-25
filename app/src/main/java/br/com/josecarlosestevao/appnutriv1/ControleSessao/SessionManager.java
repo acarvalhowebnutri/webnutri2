@@ -50,7 +50,7 @@ public class SessionManager {
         editor.putString(KEY_NAME, name);
 
         // Storing email in pref
-        //editor.putString(KEY_EMAIL, email);
+        //zeditor.putString(KEY_EMAIL, email);
 
         // commit changes
         editor.commit();

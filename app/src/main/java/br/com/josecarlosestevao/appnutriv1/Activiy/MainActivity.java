@@ -156,15 +156,14 @@ public class MainActivity extends AppCompatActivity
 
 */
 
-            if (savedInstanceState == null) {
-                //ListaAlimentosConsumidosFragment listafrag = new ListaAlimentosConsumidosFragment();
-                //ListaAlimentosDietaNutricionistaDataFragment listafrag = new ListaAlimentosDietaNutricionistaDataFragment();
-                MenuPacienteFragment listafrag = new MenuPacienteFragment();
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.add(R.id.layout_direito, listafrag, "frag1");
-                ft.commit();
-            }
-
+        if (savedInstanceState == null) {
+            //ListaAlimentosConsumidosFragment listafrag = new ListaAlimentosConsumidosFragment();
+            //ListaAlimentosDietaNutricionistaDataFragment listafrag = new ListaAlimentosDietaNutricionistaDataFragment();
+            MenuPacienteFragment listafrag = new MenuPacienteFragment();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.add(R.id.layout_direito, listafrag, "frag1");
+            ft.commit();
+        }
 
 
     }

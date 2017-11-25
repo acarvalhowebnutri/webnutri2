@@ -51,9 +51,9 @@ public class ListaPacientesFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.layout_lista_pacientes, null);
 
         TextView tv = (TextView) view.findViewById(R.id.textView1);
-        tv.setText("Fragment 1");
 
-        listapacientes = (ListView) view.findViewById(R.id.list);
+
+        listapacientes = (ListView) view.findViewById(R.id.listViewPaciente);
 
         registerForContextMenu(listapacientes);
 
@@ -91,12 +91,12 @@ public class ListaPacientesFragment extends DialogFragment {
 
         // get user data from session
         HashMap<String, String> user = session.getUserDetails();
-
+        String chave = user.get(SessionManager.KEY_NAME);
         // name
 
         // final String link1 = DateFormat.getDateInstance().format(new Date());
         //dataatual.setText(currentDateTimeString);
-        String name = user.get(SessionManager.KEY_NAME);
+        //String name = user.get(SessionManager.KEY_NAME);
         long date = System.currentTimeMillis();
         SimpleDateFormat sdf = new SimpleDateFormat("d/M/yyyy");
         final String currentDateTimeString = sdf.format(date);
@@ -110,7 +110,7 @@ public class ListaPacientesFragment extends DialogFragment {
 
         }
 
-        Query query = mDatabase.child("paciente").orderByChild("email").equalTo("t8@teste.com").limitToFirst(1);
+        Query query = mDatabase.child("paciente").orderByChild("crn").equalTo(chave).limitToFirst(1);
 
         // app_title change listener
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -155,7 +155,7 @@ public class ListaPacientesFragment extends DialogFragment {
 
     }
 
-
+/*
     private void montaLisView() {
         session = new SessionManager(getContext());
 
@@ -180,11 +180,13 @@ public class ListaPacientesFragment extends DialogFragment {
         listapacientes.setOnItemClickListener(new ListaPacientesListener(this));
 
     }
+    */
 
     private void remove(Usuario usuario) {
         NutricionistaDAOold dao = new NutricionistaDAOold(getContext());
         dao.remove(usuario);
-        montaLisView();
+        montaLisViewFirebase();
+        //      montaLisView();
     }
 
     @Override
@@ -201,13 +203,17 @@ public class ListaPacientesFragment extends DialogFragment {
         }
         if (item.getItemId() == MENU_RECEITAR) {
             Usuario usuariodois = (Usuario) getListapacientes().getItemAtPosition(info.position);
-            String nome = usuariodois.getNome();
+            String crnpaciente = usuariodois.getCrn();
+            String nomePaciente = usuariodois.getNome();
+            String idpaciente = usuariodois.getId();
 
 
             // EscolherDataReceitaFragment fragment = new EscolherDataReceitaFragment();
             DialogFragment fragment = new EscolherDataReceitaFragment();
             Bundle bundle = new Bundle();
-            bundle.putString("username", nome);
+            bundle.putString("username", crnpaciente);
+            bundle.putString("nomepaciente", nomePaciente);
+            bundle.putString("idpaciente", idpaciente);
             fragment.setArguments(bundle);
             fragment.show(getActivity().getSupportFragmentManager(), "datePicker");
 

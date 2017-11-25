@@ -28,7 +28,7 @@ public class AdaptadorNutricionista extends BaseAdapter {
 
     private static final int MENU_APAGAR = Menu.FIRST;
     Context c;
-    ArrayList<Nutricionista> planets;
+    ArrayList<Nutricionista> planetsnutricionista;
     LayoutInflater inflater;
     Usuario consumo = new Usuario();
     Usuario usuario;
@@ -44,17 +44,17 @@ public class AdaptadorNutricionista extends BaseAdapter {
 
     public AdaptadorNutricionista(Context c, ArrayList<Nutricionista> planets) {
         this.c = c;
-        this.planets = planets;
+        this.planetsnutricionista = planets;
     }
 
     @Override
     public int getCount() {
-        return planets.size();
+        return planetsnutricionista.size();
     }
 
     @Override
     public Nutricionista getItem(int position) {
-        return planets.get(position);
+        return planetsnutricionista.get(position);
     }
 
 
@@ -91,9 +91,9 @@ public class AdaptadorNutricionista extends BaseAdapter {
         TextView crnTxt = (TextView) convertView.findViewById(R.id.txtcrn);
 
 
-        final String nomenut = planets.get(position).getNome();
-        final String email = planets.get(position).getEmail();
-        final String crnnut = planets.get(position).getCrn();
+        final String nomenut = planetsnutricionista.get(position).getNome();
+        final String email = planetsnutricionista.get(position).getEmail();
+        final String crnnut = planetsnutricionista.get(position).getId();
 
 
         nameTxt.setText(nomenut);
