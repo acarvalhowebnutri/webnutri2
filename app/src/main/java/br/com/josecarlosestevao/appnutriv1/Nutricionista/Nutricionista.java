@@ -21,19 +21,29 @@ public class Nutricionista implements Serializable {
     private String senha;
     private String email;
     private String crn;
+    private  String tipo;
     private byte[] foto;
-    private String tipo;
+    private long idlong;
 
-    public Nutricionista(String id, String nome, String senha, String crn, String email, String tipo) {
+    public Nutricionista(String id, long idlong, String nome, String senha, String crn, String email, String tipo) {
         this.id = id;
         this.nome = nome;
         this.email = senha;
         this.email = crn;
         this.email = email;
-        this.tipo = tipo;
+      this.tipo = tipo;
+      this.idlong = idlong;
     }
 
     public Nutricionista() {
+    }
+
+    public long getIdlong() {
+        return idlong;
+    }
+
+    public void setIdlong(long idlong) {
+        this.idlong = idlong;
     }
 
     public String getTipo() {

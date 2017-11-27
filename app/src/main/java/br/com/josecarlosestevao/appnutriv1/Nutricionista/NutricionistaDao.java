@@ -49,7 +49,7 @@ public class NutricionistaDao {
         values.put("senha", nutricionista.getSenha());
         values.put("email", nutricionista.getEmail());
         values.put("crn", nutricionista.getCrn());
-        values.put("foto", nutricionista.getFoto());
+       // values.put("foto", nutricionista.getFoto());
 
 
         dbHelper.openDatabase();
@@ -57,7 +57,7 @@ public class NutricionistaDao {
 
         //String n = alimentoConsumido.getAlimento();
         long id = db.insert(Constantes.TB_NUTRICIONISTA, null, values);
-        // nutricionista.setId(id);
+        nutricionista.setIdlong(id);
         dbHelper.close();
         db.close();
 

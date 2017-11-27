@@ -53,7 +53,7 @@ public class MenuPacienteFragment extends Fragment {
     DatabaseReference mDatabase;
     ReceitaDAO daoreceitaum = new ReceitaDAO(getContext());
     ExpandableListView elvCompra;
-
+UsuarioDAO usuarioDAO;
 
     @Nullable
     @Override
@@ -63,9 +63,14 @@ public class MenuPacienteFragment extends Fragment {
 
         elvCompra = (ExpandableListView) view.findViewById(R.id.elvCompra);
 
+        if (usuarioDAO == null) {
+            usuarioDAO = new UsuarioDAO(getContext());
+        }
+
 
         montaLisViewFirebase();
-        carregarNutricionistasParaSQLite();
+       // usuarioDAO.deleFromNutricionista();
+        //carregarNutricionistasParaSQLite();
 
         return (view);
     }
