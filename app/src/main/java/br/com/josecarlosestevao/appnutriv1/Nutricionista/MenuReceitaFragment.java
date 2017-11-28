@@ -26,7 +26,7 @@ import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 public class MenuReceitaFragment extends Fragment {
 
     public TextView textViewNomePaciente, texViewCafedaManha, texViewAlmoco, texViewJantar, texViewLanche, textViewDataReceita;
-    public ImageButton imageButtonCafe, imageButtonAlmoço, imageButtonJantar, imageButtonLanche;
+    public ImageButton imageButtonCafe, imageButtonAlmoco, imageButtonJantar, imageButtonLanche;
     ListView lv;
     SearchView sv;
     ArrayList<Consumo> alimento = new ArrayList<>();
@@ -54,17 +54,34 @@ public class MenuReceitaFragment extends Fragment {
         texViewLanche = (TextView) view.findViewById(R.id.texViewLanche);
 
         imageButtonCafe = (ImageButton) view.findViewById(R.id.imageButtonCafe);
-        imageButtonAlmoço = (ImageButton) view.findViewById(R.id.imageButtonAlmoço);
+        imageButtonAlmoco = (ImageButton) view.findViewById(R.id.imageButtonAlmoço);
         imageButtonJantar = (ImageButton) view.findViewById(R.id.imageButtonJanta);
         imageButtonLanche = (ImageButton) view.findViewById(R.id.imageButtonLanche);
 
 
         Bundle bundlerecebe = getArguments();
-        final String crnpaciente = bundlerecebe.getString("crn");
-        final String data = bundlerecebe.getString("link");
-        final String nome = bundlerecebe.getString("nome");
-        final String idpaciente = bundlerecebe.getString("idpaciente");
-        String idpaciente2 = bundlerecebe.getString("idpaciente");
+        String crnpaciente = bundlerecebe.getString("crn");
+        String data = bundlerecebe.getString("link");
+       String nome = bundlerecebe.getString("nome");
+        String idpaciente = bundlerecebe.getString("idpaciente");
+        //String idpaciente2 = bundlerecebe.getString("idpaciente");
+
+        if (savedInstanceState != null) {
+            data = (String) savedInstanceState.get("link");
+            nome = (String) savedInstanceState.get("nome");
+            idpaciente = (String) savedInstanceState.get("idpaciente");
+            crnpaciente = (String) savedInstanceState.get("crn");
+
+        }
+
+
+        final String datarecebe = data;
+        final String crnrecebe = crnpaciente;
+
+        final String nomerecebe = nome;
+
+        final String idpacienterecebe = idpaciente;
+
 
         textViewNomePaciente.setText("Paciente: " + nome);
         textViewDataReceita.setText("Data escolhida: " + data);
@@ -78,11 +95,11 @@ public class MenuReceitaFragment extends Fragment {
                 String tipo = "café da manha";
                 PesquisaAlimentoReceitaPacienteFragment mainFragment = new PesquisaAlimentoReceitaPacienteFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("link", data);
-                bundle.putString("crn", crnpaciente);
+                bundle.putString("link", datarecebe);
+                bundle.putString("crn", crnrecebe);
                 bundle.putString("tipo", tipo);
-                bundle.putString("nome", nome);
-                bundle.putString("idpaciente", idpaciente);
+                bundle.putString("nome", nomerecebe);
+                bundle.putString("idpaciente", idpacienterecebe);
 
 
                 mainFragment.setArguments(bundle);
@@ -95,40 +112,44 @@ public class MenuReceitaFragment extends Fragment {
 
             }
         });
-        imageButtonAlmoço.setOnClickListener(new View.OnClickListener() {
 
+        imageButtonAlmoco.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
 
                 String tipo = "almoço";
-                PesquisaAlimentoReceitaPacienteFragment mainFragment = new PesquisaAlimentoReceitaPacienteFragment();
+                PesquisaAlimentoReceitaPacienteFragment mainFragmentalmoço = new PesquisaAlimentoReceitaPacienteFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("link", data);
-                bundle.putString("crn", crnpaciente);
+                bundle.putString("link", datarecebe);
+                bundle.putString("crn", crnrecebe);
                 bundle.putString("tipo", tipo);
-                bundle.putString("nome", nome);
+                bundle.putString("nome", nomerecebe);
+                bundle.putString("idpaciente", idpacienterecebe);
 
-                mainFragment.setArguments(bundle);
+
+                mainFragmentalmoço.setArguments(bundle);
+
                 getFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.layout_direito_nutricionista, mainFragment, "layout_frag4")
-                        .addToBackStack("layout_frag4").commit();
-
+                        .replace(R.id.layout_direito_nutricionista, mainFragmentalmoço, "layout_frag2")
+                        .addToBackStack("layout_frag2").commit();
 
             }
         });
-        imageButtonJantar.setOnClickListener(new View.OnClickListener() {
 
+        imageButtonJantar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+
 
                 String tipo = "jantar";
                 PesquisaAlimentoReceitaPacienteFragment mainFragment = new PesquisaAlimentoReceitaPacienteFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("link", data);
-                bundle.putString("crn", crnpaciente);
+                bundle.putString("link", datarecebe);
+                bundle.putString("crn", crnrecebe);
                 bundle.putString("tipo", tipo);
-                bundle.putString("nome", nome);
+                bundle.putString("nome", nomerecebe);
+                bundle.putString("idpaciente", idpacienterecebe);
 
                 mainFragment.setArguments(bundle);
                 getFragmentManager()
@@ -139,18 +160,20 @@ public class MenuReceitaFragment extends Fragment {
 
             }
         });
-        imageButtonLanche.setOnClickListener(new View.OnClickListener() {
 
+        imageButtonLanche.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+
 
                 String tipo = "lanche";
                 PesquisaAlimentoReceitaPacienteFragment mainFragment = new PesquisaAlimentoReceitaPacienteFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("link", data);
-                bundle.putString("crn", crnpaciente);
+                bundle.putString("link", datarecebe);
+                bundle.putString("crn", crnrecebe);
                 bundle.putString("tipo", tipo);
-                bundle.putString("nome", nome);
+                bundle.putString("nome", nomerecebe);
+                bundle.putString("idpaciente", idpacienterecebe);
 
                 mainFragment.setArguments(bundle);
                 getFragmentManager()
@@ -161,11 +184,25 @@ public class MenuReceitaFragment extends Fragment {
 
             }
         });
-
-
         return (view);
     }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
 
+        Bundle bundlerecebe = getArguments();
+        final String crnpaciente = bundlerecebe.getString("crn");
+        final String data = bundlerecebe.getString("link");
+        final String nome = bundlerecebe.getString("nome");
+        final String idpaciente = bundlerecebe.getString("idpaciente");
+      //  String idpaciente2 = bundlerecebe.getString("idpaciente");
+
+
+        outState.putSerializable("crn", crnpaciente);
+        outState.putSerializable("link", data);
+        outState.putSerializable("nome", nome);
+        outState.putSerializable("idpaciente", idpaciente);
+    }
 
 }
 
