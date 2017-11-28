@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity
     SessionManager session;
     FragmentManager fm = getSupportFragmentManager();
     FirebaseDatabase database;
-    DatabaseReference mDatabase;
+    DatabaseReference mDatabaseNutri;
     private ImageView campoFotoObjeto;
     private String text;
 
@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity
                 ft.commit();
             }
         });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -279,10 +280,10 @@ public class MainActivity extends AppCompatActivity
         HashMap<String, String> userp = session.getUserDetails();
         final String chavep = userp.get(SessionManager.KEY_NAME);
 
-        if (mDatabase == null) {
+        if (mDatabaseNutri == null) {
             database = FirebaseDatabase.getInstance();
             //mDatabase = database.getReference().child("receita").child("a").child("receita");
-            mDatabase = database.getReference().child("paciente");
+            mDatabaseNutri = database.getReference().child("paciente");
             //   mDatabase = database.getReference().child("receita").child("-Kz1I4FOl4yYZP8eUpi3").child("alimento");
 
 
@@ -290,7 +291,7 @@ public class MainActivity extends AppCompatActivity
 
 
         // app_title change listener
-        mDatabase.addValueEventListener(new ValueEventListener() {
+        mDatabaseNutri.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 

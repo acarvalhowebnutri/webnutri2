@@ -210,10 +210,11 @@ public class UsuarioDAO {
 
 
         String chave = usuario.getId();
-        mDatabase = database.getReference().child("paciente").child(chave);
+        mDatabase = database.getReference().child("paciente");
+                //.child(chave);
         Map<String, Object> hopperUpdates = new HashMap<String, Object>();
         hopperUpdates.put("crn", usuario.getCrn());
-        mDatabase.updateChildren(hopperUpdates);
+        mDatabase.child(chave).updateChildren(hopperUpdates);
         // Generate a reference to a new location and add some data using push()
 //
 

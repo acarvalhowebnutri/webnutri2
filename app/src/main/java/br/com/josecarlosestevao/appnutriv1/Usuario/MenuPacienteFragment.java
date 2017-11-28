@@ -64,15 +64,21 @@ public class MenuPacienteFragment extends Fragment {
         elvCompra = (ExpandableListView) view.findViewById(R.id.elvCompra);
 
 
-        montaLisViewFirebase();
         //  carregarNutricionistasParaSQLite();
 
         return (view);
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
+        montaLisViewFirebase();
+
 
         //montaLisViewNew();
 

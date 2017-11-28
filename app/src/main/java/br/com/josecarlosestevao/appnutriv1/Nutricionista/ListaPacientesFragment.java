@@ -54,7 +54,7 @@ public class ListaPacientesFragment extends DialogFragment {
 
 
         listapacientes = (ListView) view.findViewById(R.id.listViewPaciente);
-
+        montaLisViewFirebase();
         registerForContextMenu(listapacientes);
 
 
@@ -67,7 +67,7 @@ public class ListaPacientesFragment extends DialogFragment {
         super.onResume();
 
         //montaLisView();
-    montaLisViewFirebase();
+   // montaLisViewFirebase();
 
 
     }
