@@ -26,6 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+
     }
 
     public void openDatabase() {
@@ -36,11 +37,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         mDatabase = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READWRITE);
     }
 
-    public void closeDatabase() {
-        if(mDatabase!=null) {
-            mDatabase.close();
-        }
-    }
+
+
 
 
 }

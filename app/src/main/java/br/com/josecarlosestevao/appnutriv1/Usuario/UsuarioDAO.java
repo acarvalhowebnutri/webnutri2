@@ -391,4 +391,14 @@ public class UsuarioDAO {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.close();
     }
+
+
+
+    public void deleFromNutricionista() {
+        dbHelper.openDatabase();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String sql = "DELETE FROM nutricionista;";
+        db.rawQuery(sql, null);
+
+    }
 }

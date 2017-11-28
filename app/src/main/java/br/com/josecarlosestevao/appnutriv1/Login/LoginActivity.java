@@ -80,6 +80,7 @@ public class LoginActivity extends Activity {
 
         File database = getApplicationContext().getDatabasePath(DatabaseHelper.DBNAME);
         if (false == database.exists()) {
+
             mDBHelper.getReadableDatabase();
             //Copy db
             if (copyDatabase(this)) {
