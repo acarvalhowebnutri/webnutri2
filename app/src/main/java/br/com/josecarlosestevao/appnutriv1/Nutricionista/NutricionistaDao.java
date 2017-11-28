@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -62,7 +61,7 @@ public class NutricionistaDao {
         dbHelper.close();
         db.close();
 
-        Toast.makeText(context, "Lista nutricionistas carregada", Toast.LENGTH_LONG).show();
+        // Toast.makeText(context, "Lista nutricionistas carregada", Toast.LENGTH_LONG).show();
         //this.cadastrarNutricionistaNoFirebase(nutricionista);
     }
 

@@ -19,8 +19,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
+import br.com.josecarlosestevao.appnutriv1.Activiy.PesquisaNutricionistaFragmentFirebase;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
-import br.com.josecarlosestevao.appnutriv1.Nutricionista.PesquisaNutricionistaFragment;
 import br.com.josecarlosestevao.appnutriv1.R;
 
 /**
@@ -121,7 +121,8 @@ public class PerfilPacienteFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                PesquisaNutricionistaFragment pesquisaNutricionistaCadastrado = new PesquisaNutricionistaFragment();
+//                PesquisaNutricionistaFragment pesquisaNutricionistaCadastrado = new PesquisaNutricionistaFragment();
+                PesquisaNutricionistaFragmentFirebase pesquisaNutricionistaCadastrado = new PesquisaNutricionistaFragmentFirebase();
 
                 getFragmentManager()
                         .beginTransaction()

@@ -65,7 +65,7 @@ public class MenuPacienteFragment extends Fragment {
 
 
         montaLisViewFirebase();
-        carregarNutricionistasParaSQLite();
+        //  carregarNutricionistasParaSQLite();
 
         return (view);
     }

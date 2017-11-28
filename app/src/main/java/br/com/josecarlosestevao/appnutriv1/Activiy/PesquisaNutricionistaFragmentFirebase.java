@@ -1,7 +1,7 @@
-package br.com.josecarlosestevao.appnutriv1.Nutricionista;
+package br.com.josecarlosestevao.appnutriv1.Activiy;
 
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,43 +22,60 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessaoDietaPaciente;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
+import br.com.josecarlosestevao.appnutriv1.Nutricionista.ListaPacientesAdapter;
+import br.com.josecarlosestevao.appnutriv1.Nutricionista.NutricionistaDAOold;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
+import br.com.josecarlosestevao.appnutriv1.Usuario.UsuarioDAO;
 
 /**
- * Created by Dell on 25/12/2016.
+ * Created by Dell on 06/01/2017.
  */
-public class ListaPacientesFragment extends DialogFragment {
+public class PesquisaNutricionistaFragmentFirebase extends Fragment {
 
-
-    private static final int MENU_APAGAR = Menu.FIRST;
+    private static final int MENU_ESCOLHER = Menu.FIRST;
     private static final int MENU_RECEITAR = Menu.NONE;
     private static final int MENU_Calendario_Teste = Menu.NONE;
     final List<Usuario> lista = new ArrayList<Usuario>();
+    UsuarioDAO dao;
     SessionManager session;
     SessaoDietaPaciente sessaoDietaPaciente;
     FirebaseDatabase database;
     DatabaseReference mDatabase;
+    Button pesuisar;
+    EditText pesquisarEditText;
+    Usuario paciente;
+    String idnutricionista;
     private ListView listapacientes;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_lista_pacientes, null);
+        View view = inflater.inflate(R.layout.layout_lista_nutricionista, null);
 
         TextView tv = (TextView) view.findViewById(R.id.textView1);
 
 
-        listapacientes = (ListView) view.findViewById(R.id.listViewPaciente);
-
+        listapacientes = (ListView) view.findViewById(R.id.listViewNutriocionista);
+        pesquisarEditText = (EditText) view.findViewById(R.id.pesquisaEdit);
+        pesuisar = (Button) view.findViewById(R.id.btnpesquisar);
         registerForContextMenu(listapacientes);
 
+
+        pesuisar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String recebeemail = pesquisarEditText.getText().toString();
+                montaLisViewFirebase(recebeemail);
+
+            }
+        });
 
         return (view);
 
@@ -67,7 +86,7 @@ public class ListaPacientesFragment extends DialogFragment {
         super.onResume();
 
         //montaLisView();
-    montaLisViewFirebase();
+        // montaLisViewFirebase();
 
 
     }
@@ -77,8 +96,8 @@ public class ListaPacientesFragment extends DialogFragment {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
 
-        menu.add(0, MENU_APAGAR, 0, "APAGAR");
-        menu.add(1, MENU_RECEITAR, 1, "RECEITAR");
+        menu.add(0, MENU_ESCOLHER, 0, "Adicionar Nutricionista");
+        //menu.add(1, MENU_RECEITAR, 1, "RECEITAR");
 
     }
 
@@ -86,7 +105,7 @@ public class ListaPacientesFragment extends DialogFragment {
         return listapacientes;
     }
 
-    private void montaLisViewFirebase() {
+    private void montaLisViewFirebase(String recebeemail) {
         session = new SessionManager(getContext());
 
         session.checkLogin();
@@ -95,13 +114,6 @@ public class ListaPacientesFragment extends DialogFragment {
         HashMap<String, String> user = session.getUserDetails();
         String chave = user.get(SessionManager.KEY_NAME);
         // name
-
-        // final String link1 = DateFormat.getDateInstance().format(new Date());
-        //dataatual.setText(currentDateTimeString);
-        //String name = user.get(SessionManager.KEY_NAME);
-        long date = System.currentTimeMillis();
-        SimpleDateFormat sdf = new SimpleDateFormat("d/M/yyyy");
-        final String currentDateTimeString = sdf.format(date);
 
 
         if (mDatabase == null) {
@@ -112,7 +124,7 @@ public class ListaPacientesFragment extends DialogFragment {
 
         }
 
-        Query query = mDatabase.child("paciente").orderByChild("crn").equalTo(chave).limitToFirst(1);
+        Query query = mDatabase.child("nutricionista").orderByChild("email").equalTo(recebeemail).limitToFirst(1);
 
         // app_title change listener
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -125,7 +137,7 @@ public class ListaPacientesFragment extends DialogFragment {
                 //   Receita appTitle = dataSnapshot.getValue(Receita.class);
                 for (DataSnapshot artistSnapshot : dataSnapshot.getChildren()) {
                     //  String receita = dataSnapshot.getValue(String.class).toString();
-                    Usuario usuario = artistSnapshot.getValue(Usuario.class);
+                    final Usuario usuario = artistSnapshot.getValue(Usuario.class);
 
                     //   String teste = receita.alimento;
                     //.child("receita")
@@ -135,7 +147,7 @@ public class ListaPacientesFragment extends DialogFragment {
 
                     lista.add(usuario);
 
-
+                    idnutricionista = usuario.getId();
                     // update toolbar title
                 }
 
@@ -153,41 +165,15 @@ public class ListaPacientesFragment extends DialogFragment {
 
         ArrayList<Usuario> alimento = new ArrayList<>();
 
-        listapacientes.setOnItemClickListener(new ListaPacientesListener(this));
+        //listapacientes.setOnItemClickListener(new ListaPacientesListener(this));
 
     }
 
-/*
-    private void montaLisView() {
-        session = new SessionManager(getContext());
-
-        session.checkLogin();
-        HashMap<String, String> user = session.getUserDetails();
-
-        NutricionistaDao dao = new NutricionistaDao(getContext());
-        String nome = user.get(SessionManager.KEY_NAME);
-
-        String crn = dao.pesquisarCRN(nome);
-
-
-        final List<Usuario> pacientes = dao.listaPacientesCRN(crn);
-
-
-        ListaPacientesAdapter adapter = new ListaPacientesAdapter(getActivity(), android.R.layout.simple_list_item_1, pacientes);
-
-        listapacientes.setAdapter(adapter);
-
-        ArrayList<Usuario> alimento = new ArrayList<>();
-
-        listapacientes.setOnItemClickListener(new ListaPacientesListener(this));
-
-    }
-    */
 
     private void remove(Usuario usuario) {
         NutricionistaDAOold dao = new NutricionistaDAOold(getContext());
         dao.remove(usuario);
-        montaLisViewFirebase();
+        //   montaLisViewFirebase();
         //      montaLisView();
     }
 
@@ -196,45 +182,35 @@ public class ListaPacientesFragment extends DialogFragment {
         AdapterView.AdapterContextMenuInfo info;
         info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
+        session = new SessionManager(getContext());
 
-        if (item.getItemId() == MENU_APAGAR) {
-            Usuario usuario = (Usuario) getListapacientes().getItemAtPosition(info.position);
-            remove(usuario);
-            Toast.makeText(getContext(), "registro removido com sucesso ", Toast.LENGTH_LONG).show();
-            return true;
+        session.checkLogin();
+
+        // get user data from session
+        HashMap<String, String> user = session.getUserDetails();
+
+        // name
+
+        // final String link1 = DateFormat.getDateInstance().format(new Date());
+        //dataatual.setText(currentDateTimeString);
+        String name = user.get(SessionManager.KEY_NAME);
+
+        if (paciente == null) {
+            paciente = new Usuario();
         }
-        if (item.getItemId() == MENU_RECEITAR) {
-            Usuario usuariodois = (Usuario) getListapacientes().getItemAtPosition(info.position);
-            String crnpaciente = usuariodois.getCrn();
-            String nomePaciente = usuariodois.getNome();
-            String idpaciente = usuariodois.getId();
+
+        if (dao == null) {
+            dao = new UsuarioDAO(getContext());
+        }
+        paciente.setNome(name);
 
 
-            // EscolherDataReceitaFragment fragment = new EscolherDataReceitaFragment();
-            DialogFragment fragment = new EscolherDataReceitaFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString("username", crnpaciente);
-            bundle.putString("nomepaciente", nomePaciente);
-            bundle.putString("idpaciente", idpaciente);
-            fragment.setArguments(bundle);
-            fragment.show(getActivity().getSupportFragmentManager(), "datePicker");
-
-            //////////////////////////////////////////////////////////////////////////////
-           /* Usuario usuariodois = (Usuario) getListapacientes().getItemAtPosition(info.position);
-            String nome = usuariodois.getNome();
-
-
-
-            PesquisaAlimentoReceitaPacienteFragment fragment = new PesquisaAlimentoReceitaPacienteFragment();
-            // fragment.setArguments(arguments);
-
-            Bundle bundle = new Bundle();
-            bundle.putString("username", nome);
-            // bundle.putString("senha", user_pass);
-            fragment.setArguments(bundle);
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.layout_direito_nutricionista, fragment).commit();*/
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+        if (item.getItemId() == MENU_ESCOLHER) {
+            Usuario paciente = (Usuario) getListapacientes().getItemAtPosition(info.position);
+            paciente.setId(name);
+            paciente.setCrn(idnutricionista);
+            dao.alterarNutricionistaNoFirebase(paciente);
+            Toast.makeText(getContext(), "registro removido com sucesso ", Toast.LENGTH_LONG).show();
             return true;
         }
 
@@ -244,4 +220,5 @@ public class ListaPacientesFragment extends DialogFragment {
 
 
 }
+
 

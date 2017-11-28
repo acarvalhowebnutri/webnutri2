@@ -112,6 +112,8 @@ public class PesquisaAlimentoReceitaPacienteFragment extends Fragment {
 
 
         return (view);
+
+
     }
 
 
@@ -147,6 +149,8 @@ public class PesquisaAlimentoReceitaPacienteFragment extends Fragment {
         }
 
         db.closeDB();
+        c.close();
+
       /*  ArrayAdapter<Consumo> adapter = new ListaAlimentosConsumidosAdapter(this,
                 android.R.layout.simple_list_item_1, alimento);*/
         lv.setAdapter(adapter);

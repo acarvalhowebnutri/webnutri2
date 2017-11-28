@@ -127,7 +127,7 @@ public class CadastrarMedidasActivity extends AppCompatActivity {
                                                      userU.setSexo("feminino");
 
                                                  }
-                                                 userU.setCrn("sem dados"+bundle.getString("nome"));
+                                                 userU.setCrn("sem dados " + bundle.getString("nome"));
                                                  userU.setTipo("paciente");
                                                  salvarPaciente();
 

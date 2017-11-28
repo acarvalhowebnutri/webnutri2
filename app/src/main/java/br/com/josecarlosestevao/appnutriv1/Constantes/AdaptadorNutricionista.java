@@ -98,7 +98,7 @@ public class AdaptadorNutricionista extends BaseAdapter {
 
         nameTxt.setText(nomenut);
         emailTxt.setText(email);
-        crnTxt.setText(crnnut);
+        //crnTxt.setText(crnnut);
         //dataTxt.setText(planets.get(position).getCarboidrato());
         //dataTxt.setText(planets.get(position).getData());
 
