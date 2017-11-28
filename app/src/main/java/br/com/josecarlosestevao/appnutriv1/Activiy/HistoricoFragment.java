@@ -10,8 +10,8 @@ import android.widget.DatePicker;
 
 import java.util.Calendar;
 
-import br.com.josecarlosestevao.appnutriv1.Listas.ListaAlimentosConsumidosFragmentPorData;
 import br.com.josecarlosestevao.appnutriv1.R;
+import br.com.josecarlosestevao.appnutriv1.Usuario.ListaHistoricoConsumidosFragmentFirebase;
 
 
 public class HistoricoFragment extends DialogFragment
@@ -43,7 +43,9 @@ public class HistoricoFragment extends DialogFragment
         FragmentTransaction ft = getFragmentManager().beginTransaction();
 
 
-        ListaAlimentosConsumidosFragmentPorData mainFragment = new ListaAlimentosConsumidosFragmentPorData();
+        //  ListaAlimentosConsumidosFragmentPorData mainFragment = new ListaAlimentosConsumidosFragmentPorData();
+        ListaHistoricoConsumidosFragmentFirebase mainFragment = new ListaHistoricoConsumidosFragmentFirebase();
+
 
 // Passando um link
         Bundle bundle = new Bundle();

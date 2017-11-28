@@ -6,10 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.List;
 
+import br.com.josecarlosestevao.appnutriv1.Consumo.Consumo;
+import br.com.josecarlosestevao.appnutriv1.Consumo.ConsumoDAO;
+import br.com.josecarlosestevao.appnutriv1.Nutricionista.Nutricionista;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.Receita.Receita;
 
@@ -19,6 +23,7 @@ import br.com.josecarlosestevao.appnutriv1.Receita.Receita;
 
 public class AdaptadorListaReceitaRecebidas extends BaseExpandableListAdapter {
 
+    Consumo consumo = new Consumo();
     private List<String> lstGrupos;
     private HashMap<String, List<Receita>> lstItensGrupos;
     private Context context;
@@ -99,7 +104,44 @@ public class AdaptadorListaReceitaRecebidas extends BaseExpandableListAdapter {
         tvItem.setText(produto.getAlimento());
         tvValor.setText(String.valueOf(produto.getId()));
 
+
+        final String a = produto.getAlimento();
+        final String data = produto.getData();
+        final String tipo = produto.getTipo();
+
+        //final Usuario paciente = planets.get(position).getUsuario();
+        final Nutricionista n = new Nutricionista();
+        final Usuario paciente = new Usuario();
+        paciente.setNome(produto.getUsuario().getNome());
+        paciente.setId(produto.getUsuario().getId());
+        //n.setNome(nutricionista);
+        //n.setNome(nutri.getCrn());
+        //   n.setNome(n);
+
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                consumo.setAlimento(a);
+                //  receita.setData(currentDateTimeString);
+                consumo.setUsuario(paciente);
+                // consumo.se(n);
+                //receita.setNutricionista(n);
+                consumo.setData(data);
+                consumo.setTipo(tipo);
+
+
+                ConsumoDAO db = new ConsumoDAO(context);
+                db.consumidoNoFirebase(consumo);
+                Toast.makeText(context, "Adicionado a Consumidos", Toast.LENGTH_LONG).show();
+
+            }
+        });
         return convertView;
+
+
     }
 
     @Override

@@ -22,6 +22,7 @@ public class Consumo implements Serializable {
     private Usuario usuario = new Usuario();
     private String tipo;
 
+
     public Consumo() {
     }
 

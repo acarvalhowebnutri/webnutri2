@@ -7,6 +7,9 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.ListView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,8 +37,11 @@ public class ConsumoDAO {
     Double ini = 0.0;
     String total;
     String totalpro;
-
+    FirebaseDatabase database;
+    int cont = 0;
+    int variavel = 0;
     String data = String.valueOf(System.currentTimeMillis());
+    private DatabaseReference mDatabase;
 
     public ConsumoDAO(Context context) {
         dbHelper = new DatabaseHelper(context);
@@ -92,13 +98,26 @@ public class ConsumoDAO {
         values.put("valor", alimento.getCarboidrato());
         values.put("proteina", alimento.getProteina());
         values.put("data", alimento.getData(data));
-
         dbHelper.openDatabase();
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-
         long id = db.insert(Constantes.TB_CONSUMIDO, null, values);
         alimento.setId(id);
         db.close();
+    }
+
+    public void consumidoNoFirebase(Consumo consumo) {
+        database = FirebaseDatabase.getInstance();
+        mDatabase = database.getReference();
+
+        String id = mDatabase.push().getKey();
+        //  consumo.setIdFb(id);
+//r.setAlimento(receita.getAlimento());
+        String paciente = consumo.getUsuario().getNome();
+        String data = consumo.getData();
+        String tipo = consumo.getTipo();
+        String chave = consumo.getUsuario().getId();
+        mDatabase.child("consumidos").child(chave).child(data).child(tipo).child(id).setValue(consumo);
+
 
     }
 

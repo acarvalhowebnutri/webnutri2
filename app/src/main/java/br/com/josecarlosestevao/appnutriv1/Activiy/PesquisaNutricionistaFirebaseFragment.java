@@ -49,11 +49,11 @@ public class PesquisaNutricionistaFirebaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_pesquisa_nutricionista_firebase, null);
+        View view = inflater.inflate(R.layout.layout_lista_nutricionista, null);
 
-        lv = (ListView) view.findViewById(R.id.listfrag);
-        sv = (EditText) view.findViewById(R.id.pesquisarNutri);
-        btnpesquisar = (Button) view.findViewById(R.id.btnPesquisa);
+        lv = (ListView) view.findViewById(R.id.listViewNutriocionista);
+        sv = (EditText) view.findViewById(R.id.pesquisaEdit);
+        btnpesquisar = (Button) view.findViewById(R.id.btnpesquisar);
 
 
 
