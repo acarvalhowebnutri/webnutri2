@@ -39,6 +39,7 @@ public class ListaPacientesFragment extends DialogFragment {
     private static final int MENU_APAGAR = Menu.FIRST;
     private static final int MENU_RECEITAR = Menu.NONE;
     private static final int MENU_Calendario_Teste = Menu.NONE;
+    private static final int MENU_HISTORICO = 3;
     final List<Usuario> lista = new ArrayList<Usuario>();
     SessionManager session;
     SessaoDietaPaciente sessaoDietaPaciente;
@@ -85,6 +86,7 @@ public class ListaPacientesFragment extends DialogFragment {
 
         menu.add(0, MENU_APAGAR, 0, "APAGAR");
         menu.add(1, MENU_RECEITAR, 1, "RECEITAR");
+        menu.add(1, MENU_HISTORICO, 1, "VER HISTORICO");
 
     }
 
@@ -218,6 +220,41 @@ public class ListaPacientesFragment extends DialogFragment {
 
             // EscolherDataReceitaFragment fragment = new EscolherDataReceitaFragment();
             DialogFragment fragment = new EscolherDataReceitaFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("username", crnpaciente);
+            bundle.putString("nomepaciente", nomePaciente);
+            bundle.putString("idpaciente", idpaciente);
+            fragment.setArguments(bundle);
+            fragment.show(getActivity().getSupportFragmentManager(), "datePicker");
+
+            //////////////////////////////////////////////////////////////////////////////
+           /* Usuario usuariodois = (Usuario) getListapacientes().getItemAtPosition(info.position);
+            String nome = usuariodois.getNome();
+
+
+
+            PesquisaAlimentoReceitaPacienteFragment fragment = new PesquisaAlimentoReceitaPacienteFragment();
+            // fragment.setArguments(arguments);
+
+            Bundle bundle = new Bundle();
+            bundle.putString("username", nome);
+            // bundle.putString("senha", user_pass);
+            fragment.setArguments(bundle);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.layout_direito_nutricionista, fragment).commit();*/
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            return true;
+        }
+
+        if (item.getItemId() == MENU_HISTORICO) {
+            Usuario usuariodois = (Usuario) getListapacientes().getItemAtPosition(info.position);
+            String crnpaciente = usuariodois.getCrn();
+            String nomePaciente = usuariodois.getNome();
+            String idpaciente = usuariodois.getId();
+
+
+            // EscolherDataReceitaFragment fragment = new EscolherDataReceitaFragment();
+            DialogFragment fragment = new HistoricoConsumidosPacienteFragment();
             Bundle bundle = new Bundle();
             bundle.putString("username", crnpaciente);
             bundle.putString("nomepaciente", nomePaciente);

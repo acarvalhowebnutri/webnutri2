@@ -1,4 +1,4 @@
-package br.com.josecarlosestevao.appnutriv1.Usuario;
+package br.com.josecarlosestevao.appnutriv1.Nutricionista;
 
 import android.content.Context;
 import android.content.Intent;
@@ -25,15 +25,15 @@ import java.util.HashMap;
 import java.util.List;
 
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
-import br.com.josecarlosestevao.appnutriv1.Nutricionista.Nutricionista;
-import br.com.josecarlosestevao.appnutriv1.Nutricionista.NutricionistaDao;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.Receita.Receita;
 import br.com.josecarlosestevao.appnutriv1.Receita.ReceitaDAO;
 import br.com.josecarlosestevao.appnutriv1.SQLite.DatabaseHelper;
+import br.com.josecarlosestevao.appnutriv1.Usuario.AdaptadorListaReceitaRecebidas;
+import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 
 
-public class ListaHistoricoConsumidosFragmentFirebase extends Fragment {
+public class ListaNutricionistaHistoricoConsumidosPacienteFragmentFirebase extends Fragment {
     final List<Receita> cafeDaManhalist = new ArrayList<Receita>();
     final List<Receita> almoçolist = new ArrayList<Receita>();
     final List<Receita> jantalist = new ArrayList<Receita>();
@@ -63,7 +63,6 @@ public class ListaHistoricoConsumidosFragmentFirebase extends Fragment {
         elvCompra = (ExpandableListView) view.findViewById(R.id.elvCompra);
 
 
-
         //  carregarNutricionistasParaSQLite();
 
         return (view);
@@ -91,23 +90,13 @@ public class ListaHistoricoConsumidosFragmentFirebase extends Fragment {
     private void montaLisViewFirebase() {
 
         String link = null;
+        String chave = null;
         Bundle bundle = getArguments();
         if (bundle != null) {
             link = bundle.getString("link");
+            chave = bundle.getString("idpaciente");
 
         }
-
-
-        session = new SessionManager(getContext());
-
-
-        session.checkLogin();
-
-
-        // get user data from session
-
-
-        HashMap<String, String> user = session.getUserDetails();
 
 
         // name
@@ -119,7 +108,7 @@ public class ListaHistoricoConsumidosFragmentFirebase extends Fragment {
         //dataatual.setText(currentDateTimeString);
 
 
-        String chave = user.get(SessionManager.KEY_NAME);
+        // String chave = user.get(SessionManager.KEY_NAME);
 
 
         long date = System.currentTimeMillis();
