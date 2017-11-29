@@ -15,6 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import br.com.josecarlosestevao.appnutriv1.Constantes.Constantes;
+import br.com.josecarlosestevao.appnutriv1.Metas.Metas;
 import br.com.josecarlosestevao.appnutriv1.SQLite.DatabaseHelper;
 
 /**
@@ -85,7 +86,6 @@ public class UsuarioDAO {
         String chave = usuario.getId();
         mDatabase
                 .child("paciente")
-                .child(usuario.getCrn())
                 .child(chave)
                 //  .child(id)
                 .setValue(usuario);
@@ -402,4 +402,61 @@ public class UsuarioDAO {
         db.rawQuery(sql, null);
 
     }
+
+    public Cursor recuperaDadosDRI(Integer idade, String sexo) {
+        String[] columns = {Constantes.ROW_ID_LONG, Constantes.NOME};
+        Cursor c = null;
+        dbHelper.openDatabase();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        if (idade != null && idade > 0) {
+            //String sql = "SELECT * FROM " + Constantes.TB_NUTRICIONISTA + " WHERE " + Constantes.NOME + " LIKE '%" + searchTerm + "%'";
+            String sql = "SELECT _ID , VitaminaAmin, VitaminaAmax FROM DRI WHERE min_idade <=" + idade + "  AND max_idade>= " + idade + "AND Pessoal_status LIKE '%" + sexo + "%'";
+
+            c = db.rawQuery(sql, null);
+            return c;
+
+        }
+
+        c = db.query(Constantes.TB_DRI, columns, null, null, null, null, null, null);
+        return c;
+    }
+
+    public void cadastraMetasDriFirebase(Metas metas) {
+        database = FirebaseDatabase.getInstance();
+        mDatabase = database.getReference();
+
+        //metas.setVitamin("51");
+        //metas.setVitamax("50");
+        //metas.getUsuario().setId("teste");
+
+        String chave = metas.getIdPacienteFB();
+        mDatabase
+                .child("metas")
+                .child(chave)
+                // .child("teste")
+                //.child(chave)
+                //  .child(id)
+                .setValue(metas);
+
+    }
+
+    public void alterarMetasFirebase(Metas metas) {
+        database = FirebaseDatabase.getInstance();
+
+
+        String chave = metas.getIdPacienteFB();
+        mDatabase = database.getReference().child("metas");
+        //.child(chave);
+        Map<String, Object> hopperUpdates = new HashMap<String, Object>();
+        hopperUpdates.put("vitamax", metas.getVitamax());
+        hopperUpdates.put("vitamin", metas.getVitamin());
+        mDatabase.child(chave).updateChildren(hopperUpdates);
+        // Generate a reference to a new location and add some data using push()
+//
+
+
+        //atualizaNutricionista(usuario);
+    }
+
+
 }

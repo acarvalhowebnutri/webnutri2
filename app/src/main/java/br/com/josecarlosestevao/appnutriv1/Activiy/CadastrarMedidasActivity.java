@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 import br.com.josecarlosestevao.appnutriv1.Constantes.SelectDateFragment;
 import br.com.josecarlosestevao.appnutriv1.ControleSessao.SessionManager;
 import br.com.josecarlosestevao.appnutriv1.Login.LoginActivity;
+import br.com.josecarlosestevao.appnutriv1.Metas.Metas;
 import br.com.josecarlosestevao.appnutriv1.R;
 import br.com.josecarlosestevao.appnutriv1.Usuario.Usuario;
 import br.com.josecarlosestevao.appnutriv1.Usuario.UsuarioDAO;
@@ -122,9 +123,9 @@ public class CadastrarMedidasActivity extends AppCompatActivity {
                                                  userU.setDataNasc(cadastro_data_nasc.getText().toString());
                                                  userU.setPeso(cadastro_peso.getText().toString());
                                                  if (selecionouSexoMasculino = radioButtonMasc.isChecked()) {
-                                                     userU.setSexo("masculino");
+                                                     userU.setSexo("homem");
                                                  } else if (selecionouSexoFem = radioButtonFem.isChecked()) {
-                                                     userU.setSexo("feminino");
+                                                     userU.setSexo("mulher");
 
                                                  }
                                                  userU.setCrn("sem dados " + bundle.getString("nome"));
@@ -160,6 +161,7 @@ public class CadastrarMedidasActivity extends AppCompatActivity {
                             userU.setId(idfb);
 
                             UsuarioDAO d = new UsuarioDAO(getApplicationContext());
+                            salvarMetas(userU);
                             d.cadastrarUsuarioNoFirebase(userU);
                             Toast.makeText(getApplicationContext(), "Conta criada com sucesso", Toast.LENGTH_LONG).show();
                             Intent voltar = new Intent(CadastrarMedidasActivity.this, LoginActivity.class);
@@ -176,6 +178,18 @@ public class CadastrarMedidasActivity extends AppCompatActivity {
                         // ...
                     }
                 });
+    }
+
+    public void salvarMetas(Usuario paciente) {
+
+        Metas metas = new Metas();
+
+        //   metas.setUsuario(paciente);
+        metas.setIdPacienteFB(paciente.getId());
+
+        UsuarioDAO dao = new UsuarioDAO(getApplicationContext());
+        dao.cadastraMetasDriFirebase(metas);
+
     }
 }
 

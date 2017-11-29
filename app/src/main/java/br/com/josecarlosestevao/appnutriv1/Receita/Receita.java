@@ -20,11 +20,13 @@ public class Receita {
     private String tipo;
     private String receita;
     private String datareceita;
+    private String energia;
+
     public Receita() {
 
     }
 
-    public Receita(Long id, String alimento, Usuario usuario, Nutricionista nutricionista, String data, String idFb, String datareceita) {
+    public Receita(Long id, String alimento, Usuario usuario, Nutricionista nutricionista, String data, String idFb, String datareceita, String energia) {
 
         this.id = id;
         this.alimento = alimento;
@@ -33,7 +35,16 @@ public class Receita {
         this.data = data;
         this.idFb = idFb;
         this.datareceita = datareceita;
+        this.energia = energia;
 
+    }
+
+    public String getEnergia() {
+        return energia;
+    }
+
+    public void setEnergia(String energia) {
+        this.energia = energia;
     }
 
     public String getReceita() {

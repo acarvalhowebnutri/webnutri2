@@ -452,7 +452,7 @@ public class ConsumoDAO {
 
 
     public Cursor recuperar(String searchTerm) {
-        String[] columns = {Constantes.ROW_ID, Constantes.NAME};
+        String[] columns = {Constantes.ROW_ID, Constantes.NAME, Constantes.CALORIA};
         Cursor c = null;
         dbHelper.openDatabase();
         SQLiteDatabase db = dbHelper.getReadableDatabase();

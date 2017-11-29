@@ -85,9 +85,11 @@ public class AdaptadorReceita extends BaseAdapter {
         String nomenutri = nutri.getCrn();
         */
         TextView nameTxt = (TextView) convertView.findViewById(R.id.txtNome);
+        TextView exergiaTxt = (TextView) convertView.findViewById(R.id.txtenergia);
 
 
         nameTxt.setText(planets.get(position).getAlimento());
+        exergiaTxt.setText("calorias : " + planets.get(position).getEnergia());
 
         final String a = planets.get(position).getAlimento();
         final String data = planets.get(position).getData();

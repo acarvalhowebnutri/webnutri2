@@ -131,12 +131,15 @@ public class PesquisaAlimentoReceitaPacienteFragment extends Fragment {
         while (c.moveToNext()) {
             long id = c.getInt(0);
             String name = c.getString(1);
+            String energia = c.getString(2);
             //String valor = c.getString(2);
             //String pro = c.getString(3);
 
             p = new Receita();
             //p.setId(id);
             p.setAlimento(name);
+            p.setEnergia(energia);
+
             p.setId(id);
             // p.setCarboidrato(valor);
             //p.setProteina(pro);

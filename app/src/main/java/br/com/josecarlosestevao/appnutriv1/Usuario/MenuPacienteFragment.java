@@ -80,6 +80,7 @@ public class MenuPacienteFragment extends Fragment {
         montaLisViewFirebase();
 
 
+
         //montaLisViewNew();
 
         //  montaListaFirebaseCopia();
@@ -200,7 +201,7 @@ public class MenuPacienteFragment extends Fragment {
                 }
                 for (DataSnapshot artistSnapshot : dataSnapshot.child("lanche").getChildren()) {
                     //  String receita = dataSnapshot.getValue(String.class).toString();
-                    Receita almoçoreceita = artistSnapshot.getValue(Receita.class);
+                    Receita lanchereceita = artistSnapshot.getValue(Receita.class);
 
                     //   String teste = receita.alimento;
                     //.child("receita")
@@ -208,7 +209,7 @@ public class MenuPacienteFragment extends Fragment {
                     //.child("receita")
 
 
-                    lanchelist.add(almoçoreceita);
+                    lanchelist.add(lanchereceita);
 
 
                     // update toolbar title
@@ -311,6 +312,7 @@ public class MenuPacienteFragment extends Fragment {
         });
 
     }
+
 
 }
 

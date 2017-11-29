@@ -8,6 +8,7 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 import java.util.Calendar;
+
 import br.com.josecarlosestevao.appnutriv1.R;
 /**
  * Created by Dell on 17/01/2017.
@@ -39,7 +40,8 @@ public class SelectDateFragment extends DialogFragment implements DatePickerDial
     }
     public void populateSetDate(int year, int month, int day) {
         TextView tv = (TextView) getActivity().findViewById(R.id.cadastro_data_nasc);
-        tv.setText(month+"/"+day+"/"+year);
+        //  tv.setText(month+"/"+day+"/"+year);
+        tv.setText(day + "/" + month + "/" + year);
     }
 
 
